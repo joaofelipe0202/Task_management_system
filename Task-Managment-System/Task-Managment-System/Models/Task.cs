@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Task_Managment_System.Models
+{
+    public class ProjectTask
+    {
+        public int Id { get; set; }
+        public string ManagerId { get; set; }
+        public string Title { get; set; }
+        public string Contents { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DueDate { get; set; }
+        public bool Complete { get; set; }
+        //public Priority Priority { get; set; }
+
+        public virtual ApplicationUser Manager { get; set; }
+        public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }
+
+        public ProjectTask()
+        {
+            AssignedUsers = new HashSet<ApplicationUser>();
+        }
+    }
+}
