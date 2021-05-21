@@ -12,9 +12,9 @@ namespace Task_Managment_System.Models
         public string Title { get; set; }
         public string Contents { get; set; }
         public DateTime DateCreated { get; set; }
-        public DateTime DueDate { get; set; }
+        public DateTime Deadline { get; set; }
         public bool Complete { get; set; }
-        //public Priority Priority { get; set; }
+        public Priority Priority { get; set; }
 
         public virtual ApplicationUser Manager { get; set; }
         public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }

@@ -12,7 +12,7 @@ namespace Task_Managment_System.Models
         public string Name { get; set; }
         public double Budget { get; set; }
         public DateTime DateCreated { get; set; }
-        public DateTime DueDate { get; set; }
+        public DateTime Deadline { get; set; }
 
         public ApplicationUser Creator { get; set; }
         public ICollection<ApplicationUser> Members { get; set; }
