@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Task_Managment_System.Models
 {
-    public class UserManger
+    public class UserManager
     {
 
     }
