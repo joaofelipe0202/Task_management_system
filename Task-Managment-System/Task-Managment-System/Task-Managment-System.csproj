@@ -195,7 +195,7 @@
     <Compile Include="Models\ProjectHelper.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskHelper.cs" />
-    <Compile Include="Models\UserManger.cs" />
+    <Compile Include="Models\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
