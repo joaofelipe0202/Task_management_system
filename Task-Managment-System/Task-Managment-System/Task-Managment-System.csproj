@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Data\DataCreating.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -185,6 +186,10 @@
     <Compile Include="Migrations\202105211853597_UpdatingDeadline.cs" />
     <Compile Include="Migrations\202105211853597_UpdatingDeadline.designer.cs">
       <DependentUpon>202105211853597_UpdatingDeadline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105220041237_SeedFirstData.cs" />
+    <Compile Include="Migrations\202105220041237_SeedFirstData.designer.cs">
+      <DependentUpon>202105220041237_SeedFirstData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -281,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105211853597_UpdatingDeadline.resx">
       <DependentUpon>202105211853597_UpdatingDeadline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105220041237_SeedFirstData.resx">
+      <DependentUpon>202105220041237_SeedFirstData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
