@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -18,8 +19,13 @@ namespace Task_Managment_System.Models
         public ICollection<ApplicationUser> Members { get; set; }
         public ICollection<ProjectTask> Tasks { get; set; }
 
-        public Project()
+        public Project(string name, double budget, DateTime deadline, string creatorId)
         {
+            Name = name;
+            Budget = budget;
+            Deadline = deadline;
+            CreatorId = creatorId;
+
             Members = new HashSet<ApplicationUser>();
             Tasks = new HashSet<ProjectTask>();
         }
