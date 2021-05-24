@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Task_Managment_System.Models
 {
@@ -13,6 +14,7 @@ namespace Task_Managment_System.Models
         private static RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
         private static UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
+        [Authorize]
         public static List<string> GetAllRoles(string userName)
         {
             if (userName == null)
@@ -26,6 +28,7 @@ namespace Task_Managment_System.Models
             return userManager.GetRoles(user.Id).ToList();
         }
 
+        [Authorize(Roles = "ProjectManager")]
         public static bool AddUserToRole(string userName, string roleName)
         {
             if (userName == null || roleName == null)
@@ -41,6 +44,7 @@ namespace Task_Managment_System.Models
             return true;
         }
 
+        [Authorize]
         public static bool CheckUserHasRole(string userName, string roleName)
         {
             if (userName == null || roleName == null)
