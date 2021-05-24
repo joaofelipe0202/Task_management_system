@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202105230340484_SetDailySalaryNullable.designer.cs">
       <DependentUpon>202105230340484_SetDailySalaryNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105241949371_AddPercentageToTask.cs" />
+    <Compile Include="Migrations\202105241949371_AddPercentageToTask.designer.cs">
+      <DependentUpon>202105241949371_AddPercentageToTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -295,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105230340484_SetDailySalaryNullable.resx">
       <DependentUpon>202105230340484_SetDailySalaryNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105241949371_AddPercentageToTask.resx">
+      <DependentUpon>202105241949371_AddPercentageToTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
