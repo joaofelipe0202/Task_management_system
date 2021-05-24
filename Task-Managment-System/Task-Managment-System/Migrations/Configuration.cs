@@ -63,7 +63,7 @@
             //}
 
             //seed user ref: https://stackoverflow.com/questions/19280527/mvc-5-seed-users-and-roles
-            SeedUser(context, "ltl@mw.com", "123456Ltl.", 130, "Developer");
+            SeedUser(context, "ltl@mw.com", "123456Ltl.", 130, "ProjectManager");
 
             var user = SeedUser(context, "Jonny@mw.com", "123456Mw.", 130, "ProjectManager");      
 

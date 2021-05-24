@@ -20,27 +20,29 @@ namespace Task_Managment_System.Controllers
         public ActionResult ShowAllProjects()
         {
             var projects = db.Projects.OrderByDescending(p => p.PercentageCompleted).ToList();
-            return View(projects);
+            ViewBag.Title = "ShowAllProjects";
+            return View("ShowProjects",projects);
         }
         [HttpGet]
         public ActionResult ShowAllTasks()
         {
             var tasks = db.Tasks.OrderByDescending(t => t.PercentageCompleted).ToList();
-            return View(tasks);
+            ViewBag.Title = "ShowAllTasks";
+            return View("ShowTasks",tasks);
         }
         [HttpGet]
         public ActionResult HideCompletedTasks()
         {
             var incompleteTasks = db.Tasks.Where(t => t.Complete == false).ToList();
-
-            return View(incompleteTasks);
+            ViewBag.Title = "HideCompletedTasks";
+            return View("ShowTasks",incompleteTasks);
         }
         [HttpGet]
         public ActionResult ShowProjectsThatExceedTheBudget()
         {
             var projectExceed = db.Projects.Where(p => p.Budget < p.ActualCost).ToList();
-
-            return View(projectExceed);
+            ViewBag.Title = "ShowProjectsThatExceedTheBudget";
+            return View("ShowProjects", projectExceed);
         }
         [HttpGet]
         public ActionResult ShowTotalCostCompletedProjects(int? id)
@@ -59,7 +61,8 @@ namespace Task_Managment_System.Controllers
             {
                 ViewBag.Message = "Project is not completed yet.";
             }
-            return View();
+            ViewBag.Title = "ShowTotalCostCompletedProjects";
+            return View("ShowProjects");
         }
     }
 }

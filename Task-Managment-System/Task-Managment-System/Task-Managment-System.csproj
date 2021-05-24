@@ -199,6 +199,10 @@
     <Compile Include="Migrations\202105241823248_alter project task model.designer.cs">
       <DependentUpon>202105241823248_alter project task model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105242114195_ChangeProps.cs" />
+    <Compile Include="Migrations\202105242114195_ChangeProps.designer.cs">
+      <DependentUpon>202105242114195_ChangeProps.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -268,10 +272,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\ProjectManager\ShowProjects.cshtml" />
+    <Content Include="Views\ProjectManager\ShowTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\PM\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -304,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105241823248_alter project task model.resx">
       <DependentUpon>202105241823248_alter project task model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105242114195_ChangeProps.resx">
+      <DependentUpon>202105242114195_ChangeProps.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

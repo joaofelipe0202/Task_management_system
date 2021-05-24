@@ -18,8 +18,10 @@ namespace Task_Managment_System.Models
         public DateTime Deadline { get; set; }
         public int Percentage { get; set; }
         public double ActualCost { get; set; }
-        [Required]
+
         public bool Complete { get; set; }
+        [Required]
+        public int PercentageCompleted { get; set; }
         public ApplicationUser Creator { get; set; }
         public ICollection<ApplicationUser> Members { get; set; }
         public ICollection<ProjectTask> Tasks { get; set; }

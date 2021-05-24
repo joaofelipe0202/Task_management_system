@@ -1,0 +1,20 @@
+﻿@model List<Task_Managment_System.Models.Project>
+
+<h2>@ViewBag.Title</h2>
+
+
+<main>
+    <section>
+        <ul>
+            @{
+                foreach (var item in Model)
+                {
+                    <li>@item.Name</li>
+                }
+            }
+        </ul>
+
+    </section>
+</main>
+
+
