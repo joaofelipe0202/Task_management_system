@@ -75,14 +75,9 @@
 
             Project project = new Project("task management", 1300, DateTime.Now, user.Id);
 
-            ProjectTask task = new ProjectTask()
-            {
-                ManagerId = user.Id,
-                Title = "create git repo",
-                Contents = "lalal",
-                DateCreated = DateTime.Now,
-                Complete = false
-            };
+            DateTime deadlineDate = new DateTime(2021, 10, 15);
+            Priority low = new Priority();
+            ProjectTask task = new ProjectTask("Create git repo", "Lorem ipsum", deadlineDate, false, low);
         }
 
         private ApplicationUser SeedUser(ApplicationDbContext context, string email, string password, float salary, string role)
