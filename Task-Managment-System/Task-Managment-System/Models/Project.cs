@@ -14,6 +14,9 @@ namespace Task_Managment_System.Models
         public double Budget { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime Deadline { get; set; }
+        public double ActualCost { get; set; }
+        public double PercentageCompleted { get; set; }
+        public bool Complete { get; set; }
 
         public ApplicationUser Creator { get; set; }
         public ICollection<ApplicationUser> Members { get; set; }

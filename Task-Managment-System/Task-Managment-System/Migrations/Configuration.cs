@@ -75,7 +75,7 @@
 
             Project project = new Project("task management", 1300, DateTime.Now, user.Id);
 
-            ProjectTask task = new ProjectTask()
+            ProjectTask task1 = new ProjectTask()
             {
                 ManagerId = user.Id,
                 Title = "create git repo",
@@ -83,6 +83,7 @@
                 DateCreated = DateTime.Now,
                 Complete = false
             };
+
         }
 
         private ApplicationUser SeedUser(ApplicationDbContext context, string email, string password, float salary, string role)
