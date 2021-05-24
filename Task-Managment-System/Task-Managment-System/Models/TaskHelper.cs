@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,25 +11,25 @@ namespace Task_Managment_System.Models
     {
         static ApplicationDbContext db = new ApplicationDbContext();
 
-        [Authorize]
+        [Authorize(Roles = "ProjectManager")]
         public static void Add(string title, string contents, DateTime deadline, bool complete, Priority priority)
         {
-            var newTask = new Task(title, contents, deadline, complete, priority);
-            db.Projects.Add(newProject);
+            var newTask = new ProjectTask(title, contents, deadline, complete, priority);
+            db.Tasks.Add(newTask);
         }
 
-        [Authorize]
-        public static void Delete(int projectId)
+        [Authorize(Roles = "ProjectManager")]
+        public static void Delete(int taskId)
         {
-            var project = db.Projects.Find(projectId);
-            db.Projects.Remove(project);
+            var task = db.Tasks.Find(taskId);
+            db.Tasks.Remove(task);
         }
 
-        [Authorize]
-        public static void Update(int projectId)
+        [Authorize(Roles = "ProjectManager")]
+        public static void Update(int taskId)
         {
-            var project = db.Projects.Find(projectId);
-            db.Entry(project).State = EntityState.Modified;
+            var task = db.Tasks.Find(taskId);
+            db.Entry(task).State = EntityState.Modified;
             db.SaveChanges();
         }
     }
