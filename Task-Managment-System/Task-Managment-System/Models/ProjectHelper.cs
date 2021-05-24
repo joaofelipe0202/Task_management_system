@@ -13,21 +13,21 @@ namespace Task_Managment_System.Models
     {
         static ApplicationDbContext db = new ApplicationDbContext();
 
-        [Authorize]
+        [Authorize(Roles="ProjectManager")]
         public static void Add(string name, double budget, DateTime deadline, string creatorId)
         {
             var newProject = new Project(name, budget, deadline, creatorId);
             db.Projects.Add(newProject);
         }
 
-        [Authorize]
+        [Authorize(Roles = "ProjectManager")]
         public static void Delete(int projectId)
         {
             var project = db.Projects.Find(projectId);          
             db.Projects.Remove(project);
         }
 
-        [Authorize]
+        [Authorize(Roles = "ProjectManager")]
         public static void Update(int projectId)
         {
             var project = db.Projects.Find(projectId);

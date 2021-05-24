@@ -14,7 +14,7 @@ namespace Task_Managment_System.Models
         public virtual ICollection<ProjectTask> Tasks { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
         public DateTime DateCreated { get; set; }
-        public double DailySalaray { get; set; }
+        public double? DailySalaray { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
