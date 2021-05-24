@@ -73,7 +73,11 @@
 
             SeedUser(context, "Amanda@mw.com", "123456Mw.", 130, "Developer");
 
-            Project project = new Project("task management", 1300, DateTime.Now, user.Id);
+            Project project = new Project("task management", 1300, DateTime.Now.AddDays(15), user.Id);
+            project.DateCreated = DateTime.Now;
+            project.Description = "a task management web app";
+
+            context.Projects.AddOrUpdate(p => p.Id, project);
 
             ProjectTask task = new ProjectTask()
             {
@@ -81,8 +85,40 @@
                 Title = "create git repo",
                 Contents = "lalal",
                 DateCreated = DateTime.Now,
-                Complete = false
+                Deadline = DateTime.Now.AddDays(4),
+                Complete = false,
+                ProjectId = project.Id
             };
+
+            context.Tasks.AddOrUpdate(t => t.Id, task);
+
+            ProjectTask task1 = new ProjectTask()
+            {
+                ManagerId = user.Id,
+                Title = "Readme",
+                Contents = "lalal",
+                DateCreated = DateTime.Now,
+                Deadline = DateTime.Now.AddDays(4),
+                Complete = false,
+                ProjectId = project.Id
+            };
+
+            context.Tasks.AddOrUpdate(t => t.Id, task1);
+
+            ProjectTask task2 = new ProjectTask()
+            {
+                ManagerId = user.Id,
+                Title = "Readme",
+                Contents = "lalal",
+                DateCreated = DateTime.Now,
+                Deadline = DateTime.Now.AddDays(4),
+                Complete = false,
+                ProjectId = project.Id,
+                Priority= Priority.Low
+            };
+
+            context.Tasks.AddOrUpdate(t => t.Id, task2);
+            context.SaveChanges();
         }
 
         private ApplicationUser SeedUser(ApplicationDbContext context, string email, string password, float salary, string role)
