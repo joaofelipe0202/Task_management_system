@@ -8,18 +8,20 @@ using Task_Managment_System.Models;
 namespace Task_Managment_System.Controllers
 {
     [Authorize(Roles = "ProjectManager")]
-    public class ProjectManagerController : Controller
+    public class ProjectManagersController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: PM
         public ActionResult Index()
         {
-            return View();
+            var projectList = db.Projects.ToList();
+
+            return View(projectList);
         }
         [HttpGet]
         public ActionResult ShowAllProjects()
         {
-            var projects = db.Projects.OrderByDescending(p => p.PercentageCompleted).ToList();
+            var projects = db.Projects.OrderByDescending(p => p.Percentage).ToList();
             ViewBag.Title = "ShowAllProjects";
             return View("ShowProjects",projects);
         }

@@ -80,7 +80,7 @@
             context.Projects.AddOrUpdate(p => p.Name, project);
 
 
-            ProjectTask task = new ProjectTask()
+            ProjectTask task1 = new ProjectTask()
             {
                 ManagerId = user.Id,
                 Title = "create git repo",
@@ -92,7 +92,7 @@
             };
             project.Tasks.Add(task);
 
-            context.Tasks.AddOrUpdate(t => t.Id, task);
+            context.Tasks.AddOrUpdate(t => t.Id, task1);
 
             //Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user.Id);
             //project1.DateCreated = DateTime.Now;

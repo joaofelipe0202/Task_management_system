@@ -20,7 +20,7 @@ namespace Task_Managment_System.Models
 
         public bool Complete { get; set; }
         [Required]
-        public int PercentageCompleted { get; set; }
+        
         public ApplicationUser Creator { get; set; }
         public ICollection<ApplicationUser> Members { get; set; }
         public ICollection<ProjectTask> Tasks { get; set; }
