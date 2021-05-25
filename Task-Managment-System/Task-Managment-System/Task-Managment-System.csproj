@@ -171,7 +171,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProjectManagerController.cs" />
+    <Compile Include="Controllers\ProjectManagersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,6 +202,10 @@
     <Compile Include="Migrations\202105242114195_ChangeProps.cs" />
     <Compile Include="Migrations\202105242114195_ChangeProps.designer.cs">
       <DependentUpon>202105242114195_ChangeProps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105250208492_CreatingHideCompletedTasksView.cs" />
+    <Compile Include="Migrations\202105250208492_CreatingHideCompletedTasksView.designer.cs">
+      <DependentUpon>202105250208492_CreatingHideCompletedTasksView.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -272,8 +276,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\ProjectManager\ShowProjects.cshtml" />
-    <Content Include="Views\ProjectManager\ShowTasks.cshtml" />
+    <Content Include="Views\ProjectManagers\ShowProjects.cshtml" />
+    <Content Include="Views\ProjectManagers\ShowTasks.cshtml" />
+    <Content Include="Views\ProjectManagers\HideCompletedTasks.cshtml" />
+    <Content Include="Views\ProjectManagers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -312,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105242114195_ChangeProps.resx">
       <DependentUpon>202105242114195_ChangeProps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105250208492_CreatingHideCompletedTasksView.resx">
+      <DependentUpon>202105250208492_CreatingHideCompletedTasksView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

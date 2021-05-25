@@ -79,23 +79,10 @@
 
             context.Projects.AddOrUpdate(p => p.Id, project);
 
-            ProjectTask task = new ProjectTask()
-            {
-                ManagerId = user.Id,
-                Title = "create git repo",
-                Contents = "lalal",
-                DateCreated = DateTime.Now,
-                Deadline = DateTime.Now.AddDays(4),
-                Complete = false,
-                ProjectId = project.Id
-            };
-
-            context.Tasks.AddOrUpdate(t => t.Id, task);
-
             ProjectTask task1 = new ProjectTask()
             {
                 ManagerId = user.Id,
-                Title = "Readme",
+                Title = "create git repo",
                 Contents = "lalal",
                 DateCreated = DateTime.Now,
                 Deadline = DateTime.Now.AddDays(4),
@@ -113,11 +100,24 @@
                 DateCreated = DateTime.Now,
                 Deadline = DateTime.Now.AddDays(4),
                 Complete = false,
+                ProjectId = project.Id
+            };
+
+            context.Tasks.AddOrUpdate(t => t.Id, task2);
+
+            ProjectTask task3 = new ProjectTask()
+            {
+                ManagerId = user.Id,
+                Title = "Readme",
+                Contents = "lalal",
+                DateCreated = DateTime.Now,
+                Deadline = DateTime.Now.AddDays(4),
+                Complete = true,
                 ProjectId = project.Id,
                 Priority= Priority.Low
             };
 
-            context.Tasks.AddOrUpdate(t => t.Id, task2);
+            context.Tasks.AddOrUpdate(t => t.Id, task3);
             context.SaveChanges();
         }
 
