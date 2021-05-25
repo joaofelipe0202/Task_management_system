@@ -119,6 +119,9 @@
 
             context.Tasks.AddOrUpdate(t => t.Id, task2);
             context.SaveChanges();
+            DateTime deadlineDate = new DateTime(2021, 10, 15);
+            Priority low = new Priority();
+            ProjectTask task = new ProjectTask("Create git repo", "Lorem ipsum", deadlineDate, false, low);
         }
 
         private ApplicationUser SeedUser(ApplicationDbContext context, string email, string password, float salary, string role)

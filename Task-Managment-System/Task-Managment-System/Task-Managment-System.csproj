@@ -197,6 +197,9 @@
     <Compile Include="Migrations\202105241823248_alter project task model.cs" />
     <Compile Include="Migrations\202105241823248_alter project task model.designer.cs">
       <DependentUpon>202105241823248_alter project task model.cs</DependentUpon>
+    <Compile Include="Migrations\202105241949371_AddPercentageToTask.cs" />
+    <Compile Include="Migrations\202105241949371_AddPercentageToTask.designer.cs">
+      <DependentUpon>202105241949371_AddPercentageToTask.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -302,6 +305,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105241823248_alter project task model.resx">
       <DependentUpon>202105241823248_alter project task model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105241949371_AddPercentageToTask.resx">
+      <DependentUpon>202105241949371_AddPercentageToTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

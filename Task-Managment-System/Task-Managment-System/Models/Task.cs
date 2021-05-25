@@ -11,6 +11,7 @@ namespace Task_Managment_System.Models
         public string ManagerId { get; set; }
         public string Title { get; set; }
         public string Contents { get; set; }
+        public int CompletedPercentage { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime Deadline { get; set; }
         public bool Complete { get; set; }
@@ -20,8 +21,14 @@ namespace Task_Managment_System.Models
         public virtual ApplicationUser Manager { get; set; }
         public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }
 
-        public ProjectTask()
+        public ProjectTask(string title, string contents, DateTime deadline, bool complete, Priority priority)
         {
+            Title = title;
+            Contents = contents;
+            Deadline = deadline;
+            Complete = complete;
+            Priority = priority;
+
             AssignedUsers = new HashSet<ApplicationUser>();
         }
     }
