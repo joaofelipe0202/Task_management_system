@@ -16,7 +16,8 @@ namespace Task_Managment_System.Models
         public DateTime Deadline { get; set; }
         public bool Complete { get; set; }
         public Priority Priority { get; set; }
-
+        public Project Project { get; set; }
+        public int ProjectId { get; set; }
         public virtual ApplicationUser Manager { get; set; }
         public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }
 
