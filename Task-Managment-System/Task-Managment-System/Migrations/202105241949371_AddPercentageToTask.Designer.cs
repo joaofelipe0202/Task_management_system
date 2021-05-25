@@ -7,13 +7,13 @@ namespace Task_Managment_System.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class alterprojecttaskmodel : IMigrationMetadata
+    public sealed partial class AddPercentageToTask : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(alterprojecttaskmodel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPercentageToTask));
         
         string IMigrationMetadata.Id
         {
-            get { return "202105241823248_alter project task model"; }
+            get { return "202105241949371_AddPercentageToTask"; }
         }
         
         string IMigrationMetadata.Source
