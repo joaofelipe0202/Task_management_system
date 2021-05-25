@@ -90,7 +90,7 @@
                 Complete = false,
                 ProjectId = project.Id
             };
-            project.Tasks.Add(task);
+            project.Tasks.Add(task1);
 
             context.Tasks.AddOrUpdate(t => t.Id, task1);
 
