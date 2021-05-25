@@ -21,6 +21,10 @@ namespace Task_Managment_System.Models
         public double PercentageCompleted { get; set; }
         public virtual ApplicationUser Manager { get; set; }
         public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }
+        public ProjectTask()
+        {
+            AssignedUsers = new HashSet<ApplicationUser>();
+        }
 
         public ProjectTask(string title, string contents, DateTime deadline, bool complete, Priority priority)
         {

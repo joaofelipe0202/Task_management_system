@@ -16,6 +16,7 @@ namespace Task_Managment_System.Models
         public DateTime Deadline { get; set; }
         public int Percentage { get; set; }
         public double ActualCost { get; set; }
+        public string Description { get; set; }
 
         public bool Complete { get; set; }
         [Required]
