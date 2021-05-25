@@ -76,8 +76,9 @@
             Project project = new Project("task management", 1300, DateTime.Now.AddDays(15), user.Id);
             project.DateCreated = DateTime.Now;
             project.Description = "a task management web app";
+            project.Complete = true;
+            context.Projects.AddOrUpdate(p => p.Name, project);
 
-            context.Projects.AddOrUpdate(p => p.Id, project);
 
             ProjectTask task = new ProjectTask()
             {
@@ -89,36 +90,74 @@
                 Complete = false,
                 ProjectId = project.Id
             };
+            project.Tasks.Add(task);
 
             context.Tasks.AddOrUpdate(t => t.Id, task);
 
-            ProjectTask task1 = new ProjectTask()
-            {
-                ManagerId = user.Id,
-                Title = "Readme",
-                Contents = "lalal",
-                DateCreated = DateTime.Now,
-                Deadline = DateTime.Now.AddDays(4),
-                Complete = false,
-                ProjectId = project.Id
-            };
+            //Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user.Id);
+            //project1.DateCreated = DateTime.Now;
+            //project1.Description = "something";
 
-            context.Tasks.AddOrUpdate(t => t.Id, task1);
 
-            ProjectTask task2 = new ProjectTask()
-            {
-                ManagerId = user.Id,
-                Title = "Readme",
-                Contents = "lalal",
-                DateCreated = DateTime.Now,
-                Deadline = DateTime.Now.AddDays(4),
-                Complete = false,
-                ProjectId = project.Id,
-                Priority= Priority.Low
-            };
+            //context.Projects.AddOrUpdate(p => p.Name, project1);
 
-            context.Tasks.AddOrUpdate(t => t.Id, task2);
-            context.SaveChanges();
+
+            //ProjectTask task1 = new ProjectTask()
+            //{
+            //    ManagerId = user.Id,
+            //    Title = "Readme",
+            //    Contents = "lalal",
+            //    DateCreated = DateTime.Now,
+            //    Deadline = DateTime.Now.AddDays(4),
+            //    Complete = false,
+            //    ProjectId = project.Id
+            //};
+
+            //context.Tasks.AddOrUpdate(t => t.Id, task1);
+
+            //ProjectTask task2 = new ProjectTask()
+            //{
+            //    ManagerId = user.Id,
+            //    Title = "Readme",
+            //    Contents = "lalal",
+            //    DateCreated = DateTime.Now,
+            //    Deadline = DateTime.Now.AddDays(4),
+            //    Complete = false,
+            //    ProjectId = project.Id,
+            //    Priority = Priority.Low
+            //};
+
+            //context.Tasks.AddOrUpdate(t => t.Id, task2);
+
+            Project project2 = new Project("Open a restaurant", 1300, DateTime.Now.AddDays(10), user.Id);
+            project2.DateCreated = DateTime.Now;
+            project2.Description = "How to open a restaurant";
+
+            context.Projects.AddOrUpdate(p => p.Name, project2);
+
+            Project project3 = new Project("Today's job", 100, DateTime.Now.AddDays(3), user.Id);
+            project3.DateCreated = DateTime.Now;
+            project3.Description = "What did you do today";
+
+            context.Projects.AddOrUpdate(p => p.Name, project3);
+
+
+
+
+
+            //ProjectTask task3 = new ProjectTask()
+            //{
+            //    ManagerId = user.Id,
+            //    Title = "Finish online courses",
+            //    Contents = "asddadadasdsadsadadsad",
+            //    DateCreated = DateTime.Now,
+            //    Deadline = DateTime.Now.AddHours(5),
+            //    Complete = false,
+            //    ProjectId = project3.Id
+            //};
+
+            //context.Tasks.AddOrUpdate(t => t.Id, task3);
+
         }
 
         private ApplicationUser SeedUser(ApplicationDbContext context, string email, string password, float salary, string role)

@@ -31,6 +31,21 @@ namespace Task_Managment_System.Controllers
             return View("ShowTasks",tasks);
         }
         [HttpGet]
+        public ActionResult ShowTasksFor(int projectId)
+        {
+            var project = db.Projects.Include("Tasks").FirstOrDefault(p => projectId == p.Id);
+            ICollection<ProjectTask> tasks = new List<ProjectTask>();
+
+            if (project != null)
+                tasks = project.Tasks;
+            if(tasks == null)
+                tasks = new List<ProjectTask>();
+
+            ViewBag.Title = "ShowTasksFor "+project.Name;
+            return View("ShowTasks", tasks);
+        }
+
+        [HttpGet]
         public ActionResult HideCompletedTasks()
         {
             var incompleteTasks = db.Tasks.Where(t => t.Complete == false).ToList();
