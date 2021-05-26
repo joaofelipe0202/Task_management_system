@@ -1,6 +1,5 @@
 ﻿@model ICollection<Task_Managment_System.Models.ProjectTask>
 
-
 <h2>@ViewBag.Title</h2>
 
 <main>
@@ -11,7 +10,22 @@
                 {
                     foreach (var item in Model)
                     {
-                        <li class="list-group-item">
+                        string levelClass = null;
+
+                        switch (item.Priority)
+                        {
+                            case Task_Managment_System.Models.Priority.Urgent:
+                                levelClass = " list-group-item-danger";
+                                break;
+                            case Task_Managment_System.Models.Priority.High:
+                                levelClass = " list-group-item-waring";
+                                break;
+                            case Task_Managment_System.Models.Priority.Average:
+                                levelClass = " list-group-item-info";
+                                break;
+                        }
+
+                        <li class="list-group-item @levelClass">
                             @Html.CheckBox("check",item.Complete,new { @class= "form-check-input me-1" })
                             <div>@item.Title</div>
                             <div>Manager: @item.Manager.UserName</div>
