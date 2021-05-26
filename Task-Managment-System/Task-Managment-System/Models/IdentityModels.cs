@@ -23,6 +23,16 @@ namespace Task_Managment_System.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public ApplicationUser(string userName, string email, double dailySalaray)
+        {
+            UserName = userName;
+            Email = email;
+            DailySalaray = dailySalaray;
+            DateCreated = DateTime.Now;
+            Tasks = new HashSet<ProjectTask>();
+            Projects = new HashSet<Project>();
+        }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
