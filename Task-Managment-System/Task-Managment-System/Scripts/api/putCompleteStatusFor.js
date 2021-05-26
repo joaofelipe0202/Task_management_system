@@ -1,3 +1,3 @@
-﻿export default function putCompleteStatusFor(isProject, isChecked, checkBoxDom) {
-    checkBoxDom.ajax
+﻿export default function putCompleteStatusFor(isProject, checkBoxDom) {
+    checkBoxDom.clicl()
 }

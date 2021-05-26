@@ -4,11 +4,11 @@
 
 <main>
     <section>
-        <ul class="list-group">
+        <ul class="list-group projects"  >
             @{
                 foreach (var item in Model)
                 {
-                    <li class="list-group-item">
+                    <li class="list-group-item" project-key="@item.Id" onclick='handleToggleCompleteForProject(event,@item.Id)'>
                         @Html.CheckBox("check", item.Complete, new { @class = "form-check-input me-1" })
                         @Html.ActionLink(item.Name, "ShowTasksFor", new { projectId = item.Id }, new { @class = "btn btn-default" })
                         <div>Creator: @item.Creator</div>
@@ -22,4 +22,30 @@
     </section>
 </main>
 
+<script>
+
+    function handleToggleCompleteForProject(event, projectId) {
+        if (event.target.tagName === "INPUT") {            
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: "@Url.Action("UpdateCompleteStatusForProject", "ProjectManagers")/"+projectId,
+                    data: {
+                        isChecked: event.target.checked
+                    },
+                    success: function (result) {
+                        //test
+                        console.log(result.status);
+                    },
+                    error: function (err) {
+                        //test
+                        alert(err.responseText);
+                    }
+                    
+                }
+            )
+        }
+    }
+
+</script>
 

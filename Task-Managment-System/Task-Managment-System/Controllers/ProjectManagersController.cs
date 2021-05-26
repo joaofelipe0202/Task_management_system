@@ -9,7 +9,7 @@ using Task_Managment_System.Models;
 
 namespace Task_Managment_System.Controllers
 {
-    [Authorize(Roles = "ProjectManager")]
+    //[Authorize(Roles = "ProjectManager")]
     public class ProjectManagersController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
@@ -25,14 +25,14 @@ namespace Task_Managment_System.Controllers
         {
             var projects = db.Projects.OrderByDescending(p => p.Percentage).ToList();
             ViewBag.Title = "ShowAllProjects";
-            return View("ShowProjects",projects);
+            return View("ShowProjects", projects);
         }
         [HttpGet]
         public ActionResult ShowAllTasks()
         {
             var tasks = db.Tasks.OrderByDescending(t => t.PercentageCompleted).ToList();
             ViewBag.Title = "ShowAllTasks";
-            return View("ShowTasks",tasks);
+            return View("ShowTasks", tasks);
         }
         [HttpGet]
         public ActionResult ShowTasksFor(int projectId)
@@ -42,30 +42,30 @@ namespace Task_Managment_System.Controllers
 
             if (project != null)
                 tasks = project.Tasks;
-            if(tasks == null)
+            if (tasks == null)
                 tasks = new List<ProjectTask>();
 
-            ViewBag.Title = "ShowTasksFor "+project.Name;
+            ViewBag.Title = "ShowTasksFor " + project.Name;
             return View("ShowTasks", tasks);
         }
 
         [HttpGet]
         public ActionResult HideCompletedTasks(int? projectId)
         {
-            if(projectId == null)
+            if (projectId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             var project = db.Projects.Find(projectId);
-            if(project == null)
+            if (project == null)
             {
                 return HttpNotFound();
             }
 
             var incompleteTasks = project.Tasks.Where(pt => pt.Complete == false).ToList();
             ViewBag.Title = "HideCompletedTasks";
-            return View("ShowTasks",incompleteTasks);
+            return View("ShowTasks", incompleteTasks);
         }
         [HttpGet]
         public ActionResult ShowProjectsThatExceedTheBudget()
@@ -77,18 +77,18 @@ namespace Task_Managment_System.Controllers
         [HttpGet]
         public ActionResult ShowTotalCostCompletedProjects(int? projectId)
         {
-            if(projectId == null)
+            if (projectId == null)
             {
                 new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             var project = db.Projects.Find(projectId);
-            if(project == null)
+            if (project == null)
             {
                 return HttpNotFound();
             }
 
-            if(project.Complete == true)
+            if (project.Complete == true)
             {
                 ViewBag.TotalCost = project.ActualCost;
             }
@@ -117,16 +117,66 @@ namespace Task_Managment_System.Controllers
         [HttpGet]
         public ActionResult ProjectDetails(int? projectId)
         {
-            if(projectId == null)
+            if (projectId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var project = db.Projects.Find(projectId);
-            if(project == null)
+            if (project == null)
             {
                 return HttpNotFound();
             }
             return View(project);
+        }
+
+        //Not idea why Put method wont work so i made it post
+        //POST @Url.Action("UpdateCompleteStatus")
+        [HttpPost]
+        [Route("api/project/{id}")]
+        public JsonResult UpdateCompleteStatusForProject(int? id, bool isChecked)
+        {
+            if (id == null)
+            {
+                return Json(new { status=404});
+            }
+
+            var project = db.Projects.Find(id);
+
+            if (project == null)
+            {
+                return Json(new { status = 404 });
+            }
+            project.Complete = isChecked;
+
+            db.SaveChanges();
+            return Json(new { status = 200, project });
+        }
+
+        //POST @Url.Action("UpdateCompleteStatusForTask")
+        [HttpPost]
+        [Route("api/task/{id}")]
+        public JsonResult UpdateCompleteStatusForTask(int? id, bool isChecked)
+        {
+            if (id == null)
+            {
+                return Json(new { status = 404 });
+            }
+
+            var task = db.Tasks.Find(id);
+
+            if (task == null)
+            {
+                return Json(new { status = 404 });
+            }
+
+            task.Complete = isChecked;
+
+            if(task.Complete)
+            {
+                task.PercentageCompleted = 100;
+            }
+            db.SaveChanges();
+            return Json(new { status = 200, task });
         }
     }
 }

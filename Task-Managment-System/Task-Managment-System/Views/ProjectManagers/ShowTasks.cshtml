@@ -25,8 +25,8 @@
                                 break;
                         }
 
-                        <li class="list-group-item @levelClass">
-                            @Html.CheckBox("check",item.Complete,new { @class= "form-check-input me-1" })
+                        <li class="list-group-item @levelClass" onclick="handleToggleCompleteForTask(event,@item.Id)">
+                            @Html.CheckBox("check", item.Complete, new { @class = "form-check-input me-1" })
                             <div>@item.Title</div>
                             <div>Manager: @item.Manager.UserName</div>
                             <div>Percentage: @item.PercentageCompleted%</div>
@@ -39,5 +39,33 @@
 
     </section>
 </main>
+
+<script>
+
+    function handleToggleCompleteForTask(event, taskId) {
+        if (event.target.tagName === "INPUT") {
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: "@Url.Action("UpdateCompleteStatusForTask", "ProjectManagers")/" + taskId,
+                    data: {
+                        isChecked: event.target.checked
+                    },
+                    success: function (result) {
+                        //test
+                        console.log(result.status);
+                    },
+                    error: function (err) {
+                        //test
+                        alert(err.responseText);
+                    }
+
+                }
+            )
+        }
+    }
+
+</script>
+
 
 

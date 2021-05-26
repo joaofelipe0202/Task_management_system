@@ -94,12 +94,12 @@
 
             context.Tasks.AddOrUpdate(t => t.Id, task);
 
-            //Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user.Id);
-            //project1.DateCreated = DateTime.Now;
-            //project1.Description = "something";
+            Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user.Id);
+            project1.DateCreated = DateTime.Now;
+            project1.Description = "something";
 
 
-            //context.Projects.AddOrUpdate(p => p.Name, project1);
+            context.Projects.AddOrUpdate(p => p.Name, project1);
 
 
             ProjectTask task1 = new ProjectTask()
