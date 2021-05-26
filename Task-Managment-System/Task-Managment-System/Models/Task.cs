@@ -11,14 +11,13 @@ namespace Task_Managment_System.Models
         public string ManagerId { get; set; }
         public string Title { get; set; }
         public string Contents { get; set; }
-        public int CompletedPercentage { get; set; }
+        public int PercentageCompleted { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime Deadline { get; set; }
         public bool Complete { get; set; }
         public Priority Priority { get; set; }
         public Project Project { get; set; }
         public int ProjectId { get; set; }
-        public double PercentageCompleted { get; set; }
         public virtual ApplicationUser Manager { get; set; }
         public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }
         public ProjectTask()
