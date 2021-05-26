@@ -1,0 +1,25 @@
+﻿@model List<Task_Managment_System.Models.Project>
+
+<h2>@ViewBag.Title</h2>
+
+<main>
+    <section>
+        <ul class="list-group">
+            @{
+                foreach (var item in Model)
+                {
+                    <li class="list-group-item">
+                        @Html.CheckBox("check", item.Complete, new { @class = "form-check-input me-1" })
+                        @Html.ActionLink(item.Name, "ShowTasksFor", new { projectId = item.Id }, new { @class = "btn btn-default" })
+                        <div>Creator: @item.Creator</div>
+                        <div>Date Created: @item.DateCreated</div>
+                        <div>DeadLine: @item.Deadline</div>
+                    </li>
+                }
+            }
+        </ul>
+
+    </section>
+</main>
+
+

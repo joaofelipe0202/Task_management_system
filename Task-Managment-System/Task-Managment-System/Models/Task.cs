@@ -16,10 +16,17 @@ namespace Task_Managment_System.Models
         public DateTime Deadline { get; set; }
         public bool Complete { get; set; }
         public Priority Priority { get; set; }
-
+        public Project Project { get; set; }
+        public int ProjectId { get; set; }
+        public double PercentageCompleted { get; set; }
         public virtual ApplicationUser Manager { get; set; }
         public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+      
+        public ProjectTask()
+        {
+            AssignedUsers = new HashSet<ApplicationUser>();
+        }
 
         public ProjectTask(string title, string contents, DateTime deadline, bool complete, Priority priority)
         {
