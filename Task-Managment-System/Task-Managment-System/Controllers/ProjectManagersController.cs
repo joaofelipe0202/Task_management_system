@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Task_Managment_System.Models;
@@ -26,16 +28,38 @@ namespace Task_Managment_System.Controllers
             return View("ShowProjects",projects);
         }
         [HttpGet]
-        public ActionResult ShowAllTasks()
+        public ActionResult ShowAllTasks(int? projectId)
         {
-            var tasks = db.Tasks.OrderByDescending(t => t.PercentageCompleted).ToList();
+            if(projectId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var project = db.Projects.Find(projectId);
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
+
+            var tasks = project.Tasks.OrderByDescending(t => t.PercentageCompleted).ToList();
             ViewBag.Title = "ShowAllTasks";
             return View("ShowTasks",tasks);
         }
         [HttpGet]
-        public ActionResult HideCompletedTasks()
+        public ActionResult HideCompletedTasks(int? projectId)
         {
-            var incompleteTasks = db.Tasks.Where(t => t.Complete == false).ToList();
+            if(projectId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var project = db.Projects.Find(projectId);
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
+
+            var incompleteTasks = project.Tasks.Where(pt => pt.Complete == false).ToList();
             ViewBag.Title = "HideCompletedTasks";
             return View("ShowTasks",incompleteTasks);
         }
@@ -47,13 +71,18 @@ namespace Task_Managment_System.Controllers
             return View("ShowProjects", projectExceed);
         }
         [HttpGet]
-        public ActionResult ShowTotalCostCompletedProjects(int? id)
+        public ActionResult ShowTotalCostCompletedProjects(int? projectId)
         {
-            if(id == null)
+            if(projectId == null)
+            {
+                new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var project = db.Projects.Find(projectId);
+            if(project == null)
             {
                 return HttpNotFound();
             }
-            var project = db.Projects.Find(id);
 
             if(project.Complete == true)
             {
@@ -65,6 +94,35 @@ namespace Task_Managment_System.Controllers
             }
             ViewBag.Title = "ShowTotalCostCompletedProjects";
             return View("ShowProjects");
+        }
+        [HttpGet]
+        public ActionResult AddNewProject()
+        {
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "id", "UserName");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddNewProject(string name, double budget, DateTime deadline)
+        {
+            string creatorId = User.Identity.GetUserId().Substring(0, 10);
+
+            ProjectHelper.Add(name, budget, deadline, creatorId);
+
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult ProjectDetails(int? projectId)
+        {
+            if(projectId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var project = db.Projects.Find(projectId);
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
+            return View(project);
         }
     }
 }

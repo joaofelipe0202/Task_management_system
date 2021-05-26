@@ -278,8 +278,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\ProjectManagers\ShowProjects.cshtml" />
     <Content Include="Views\ProjectManagers\ShowTasks.cshtml" />
-    <Content Include="Views\ProjectManagers\HideCompletedTasks.cshtml" />
     <Content Include="Views\ProjectManagers\Index.cshtml" />
+    <Content Include="Views\ProjectManagers\HideCompletedTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
