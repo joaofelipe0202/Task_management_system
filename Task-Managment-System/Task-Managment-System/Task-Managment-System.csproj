@@ -203,6 +203,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationHelper.cs" />
     <Compile Include="Models\NotificationType.cs" />
     <Compile Include="Models\Priority.cs" />
     <Compile Include="Models\Project.cs" />
