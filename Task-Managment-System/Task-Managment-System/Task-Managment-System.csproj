@@ -198,8 +198,17 @@
     <Compile Include="Migrations\202105241949371_AddPercentageToTask.designer.cs">
       <DependentUpon>202105241949371_AddPercentageToTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105261833010_AddCommentClassAndRelations.cs" />
+    <Compile Include="Migrations\202105261833010_AddCommentClassAndRelations.designer.cs">
+      <DependentUpon>202105261833010_AddCommentClassAndRelations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105261841299_AddPriortyPropertyToComments.cs" />
+    <Compile Include="Migrations\202105261841299_AddPriortyPropertyToComments.designer.cs">
+      <DependentUpon>202105261841299_AddPriortyPropertyToComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Priority.cs" />
@@ -302,6 +311,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105241949371_AddPercentageToTask.resx">
       <DependentUpon>202105241949371_AddPercentageToTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105261833010_AddCommentClassAndRelations.resx">
+      <DependentUpon>202105261833010_AddCommentClassAndRelations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105261841299_AddPriortyPropertyToComments.resx">
+      <DependentUpon>202105261841299_AddPriortyPropertyToComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
