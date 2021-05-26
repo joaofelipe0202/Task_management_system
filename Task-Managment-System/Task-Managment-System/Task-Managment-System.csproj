@@ -175,37 +175,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202105211839019_Initial.cs" />
-    <Compile Include="Migrations\202105211839019_Initial.designer.cs">
-      <DependentUpon>202105211839019_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105211847101_AddPriorityToTask.cs" />
-    <Compile Include="Migrations\202105211847101_AddPriorityToTask.designer.cs">
-      <DependentUpon>202105211847101_AddPriorityToTask.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105211853597_UpdatingDeadline.cs" />
-    <Compile Include="Migrations\202105211853597_UpdatingDeadline.designer.cs">
-      <DependentUpon>202105211853597_UpdatingDeadline.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105220041237_SeedFirstData.cs" />
-    <Compile Include="Migrations\202105220041237_SeedFirstData.designer.cs">
-      <DependentUpon>202105220041237_SeedFirstData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105230340484_SetDailySalaryNullable.cs" />
-    <Compile Include="Migrations\202105230340484_SetDailySalaryNullable.designer.cs">
-      <DependentUpon>202105230340484_SetDailySalaryNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105241949371_AddPercentageToTask.cs" />
-    <Compile Include="Migrations\202105241949371_AddPercentageToTask.designer.cs">
-      <DependentUpon>202105241949371_AddPercentageToTask.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105242114195_ChangeProps.cs" />
-    <Compile Include="Migrations\202105242114195_ChangeProps.designer.cs">
-      <DependentUpon>202105242114195_ChangeProps.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105250208492_CreatingHideCompletedTasksView.cs" />
-    <Compile Include="Migrations\202105250208492_CreatingHideCompletedTasksView.designer.cs">
-      <DependentUpon>202105250208492_CreatingHideCompletedTasksView.cs</DependentUpon>
+    <Compile Include="Migrations\202105261955150_Initial.cs" />
+    <Compile Include="Migrations\202105261955150_Initial.designer.cs">
+      <DependentUpon>202105261955150_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -298,29 +270,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202105211839019_Initial.resx">
-      <DependentUpon>202105211839019_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105211847101_AddPriorityToTask.resx">
-      <DependentUpon>202105211847101_AddPriorityToTask.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105211853597_UpdatingDeadline.resx">
-      <DependentUpon>202105211853597_UpdatingDeadline.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105220041237_SeedFirstData.resx">
-      <DependentUpon>202105220041237_SeedFirstData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105230340484_SetDailySalaryNullable.resx">
-      <DependentUpon>202105230340484_SetDailySalaryNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105241949371_AddPercentageToTask.resx">
-      <DependentUpon>202105241949371_AddPercentageToTask.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105242114195_ChangeProps.resx">
-      <DependentUpon>202105242114195_ChangeProps.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105250208492_CreatingHideCompletedTasksView.resx">
-      <DependentUpon>202105250208492_CreatingHideCompletedTasksView.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105261955150_Initial.resx">
+      <DependentUpon>202105261955150_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -13,7 +13,7 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Task_Managment_System.Models.ApplicationDbContext context)
