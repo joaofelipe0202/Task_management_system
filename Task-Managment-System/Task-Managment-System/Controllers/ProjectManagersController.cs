@@ -28,20 +28,9 @@ namespace Task_Managment_System.Controllers
             return View("ShowProjects",projects);
         }
         [HttpGet]
-        public ActionResult ShowAllTasks(int? projectId)
+        public ActionResult ShowAllTasks()
         {
-            if(projectId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var project = db.Projects.Find(projectId);
-            if(project == null)
-            {
-                return HttpNotFound();
-            }
-
-            var tasks = project.Tasks.OrderByDescending(t => t.PercentageCompleted).ToList();
+            var tasks = db.Tasks.OrderByDescending(t => t.PercentageCompleted).ToList();
             ViewBag.Title = "ShowAllTasks";
             return View("ShowTasks",tasks);
         }
@@ -61,7 +50,7 @@ namespace Task_Managment_System.Controllers
         }
 
         [HttpGet]
-        public ActionResult HideCompletedTasks()
+        public ActionResult HideCompletedTasks(int? projectId)
         {
             if(projectId == null)
             {
