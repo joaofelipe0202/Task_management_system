@@ -13,6 +13,7 @@ namespace Task_Managment_System.Models
     {
         public virtual ICollection<ProjectTask> Tasks { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         public DateTime DateCreated { get; set; }
         public double? DailySalaray { get; set; }
 
@@ -29,6 +30,7 @@ namespace Task_Managment_System.Models
     {
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTask> Tasks { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
 
 
         public ApplicationDbContext()
