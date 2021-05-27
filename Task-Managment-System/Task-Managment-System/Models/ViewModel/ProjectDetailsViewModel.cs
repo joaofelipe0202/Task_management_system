@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,6 @@ namespace Task_Managment_System.Models.ViewModel
         public double ProjectBudget { get; set; }
         public DateTime ProjectCreatedDate { get; set; }
         public virtual ICollection<ApplicationUser> ProjectMembers { get; set; }
-
         public ProjectDetailsViewModel() { }
         public ProjectDetailsViewModel(Project project, List<ApplicationUser> members)
         {

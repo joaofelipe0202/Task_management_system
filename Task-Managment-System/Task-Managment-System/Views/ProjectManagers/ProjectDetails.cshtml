@@ -6,11 +6,15 @@
 
 <h2>ProjectDetails</h2>
 
+<div>@Model.ProjectName</div>
+<div>@Model.ProjectDescription</div>
+<div>@Model.ProjectBudget</div>
+<div>@Model.ProjectCreatedDate</div>
 <ul>
     @foreach(var item in Model.ProjectMembers)
             {
                 <li>
-                    @item.Email
+                    @item.Email 
                 </li>
             }
 </ul>

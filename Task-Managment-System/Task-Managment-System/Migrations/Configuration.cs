@@ -65,15 +65,15 @@
             //seed user ref: https://stackoverflow.com/questions/19280527/mvc-5-seed-users-and-roles
             SeedUser(context, "ltl@mw.com", "123456Ltl.", 130, "ProjectManager");
 
-            var user = SeedUser(context, "Jonny@mw.com", "123456Mw.", 130, "ProjectManager");      
+            var user2 = SeedUser(context, "Jonny@mw.com", "123456Mw.", 130, "ProjectManager");      
 
-            SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
+            var dev1 = SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
 
-            SeedUser(context, "Courtney@mw.com", "123456Mw.", 130, "Developer");
+            var dev2 = SeedUser(context, "Courtney@mw.com", "123456Mw.", 130, "Developer");
 
-            SeedUser(context, "Amanda@mw.com", "123456Mw.", 130, "Developer");
+            var dev3 = SeedUser(context, "Amanda@mw.com", "123456Mw.", 130, "Developer");
 
-            Project project = new Project("task management", 1300, DateTime.Now.AddDays(15), user.Id);
+            Project project = new Project("task management", 1300, DateTime.Now.AddDays(15), user2.Id);
             project.DateCreated = DateTime.Now;
             project.Description = "a task management web app";
             project.Complete = true;
@@ -82,7 +82,7 @@
 
             ProjectTask task = new ProjectTask()
             {
-                ManagerId = user.Id,
+                ManagerId = user2.Id,
                 Title = "create git repo",
                 Contents = "lalal",
                 DateCreated = DateTime.Now,
@@ -94,7 +94,7 @@
 
             context.Tasks.AddOrUpdate(t => t.Id, task);
 
-            Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user.Id);
+            Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user2.Id);
             project1.DateCreated = DateTime.Now;
             project1.Description = "something";
 
@@ -104,7 +104,7 @@
 
             ProjectTask task1 = new ProjectTask()
             {
-                ManagerId = user.Id,
+                ManagerId = user2.Id,
                 Title = "Readme",
                 Contents = "lalal",
                 DateCreated = DateTime.Now,
@@ -117,7 +117,7 @@
 
             ProjectTask task2 = new ProjectTask()
             {
-                ManagerId = user.Id,
+                ManagerId = user2.Id,
                 Title = "Readme",
                 Contents = "lalal",
                 DateCreated = DateTime.Now,
@@ -129,13 +129,13 @@
 
             context.Tasks.AddOrUpdate(t => t.Id, task2);
 
-            Project project2 = new Project("Open a restaurant", 1300, DateTime.Now.AddDays(10), user.Id);
+            Project project2 = new Project("Open a restaurant", 1300, DateTime.Now.AddDays(10), user2.Id);
             project2.DateCreated = DateTime.Now;
             project2.Description = "How to open a restaurant";
 
             context.Projects.AddOrUpdate(p => p.Name, project2);
 
-            Project project3 = new Project("Today's job", 100, DateTime.Now.AddDays(3), user.Id);
+            Project project3 = new Project("Today's job", 100, DateTime.Now.AddDays(3), user2.Id);
             project3.DateCreated = DateTime.Now;
             project3.Description = "What did you do today";
 
@@ -143,7 +143,7 @@
 
             ProjectTask task3 = new ProjectTask()
             {
-                ManagerId = user.Id,
+                ManagerId = user2.Id,
                 Title = "Finish online courses",
                 Contents = "asddadadasdsadsadadsad",
                 DateCreated = DateTime.Now,

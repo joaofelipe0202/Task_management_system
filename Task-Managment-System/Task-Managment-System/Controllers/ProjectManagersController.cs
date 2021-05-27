@@ -127,7 +127,7 @@ namespace Task_Managment_System.Controllers
             {
                 return HttpNotFound();
             }
-            var members = db.Users.Where(u => u.Projects.Any(p => p.Id == project.Id)).ToList();
+            var members = db.Users.Where(u => u.Projects.All(p => p.Id == project.Id)).ToList();
             var projectDetails = new ProjectDetailsViewModel(project, members);
             return View(projectDetails);
         }
