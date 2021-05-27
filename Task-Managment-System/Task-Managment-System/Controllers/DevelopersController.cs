@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,19 @@ namespace Task_Managment_System.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();        
 
         public ActionResult Index()
-        {
+        {            
             return View();
         }
 
+        [Authorize(Roles = "ProjectManager")]
+        public ActionResult ShowDevelopers()
+        {         
+            var developers = db.Users.Where(u => 
+                u.Roles.Any(r => r.RoleId == "8c3bf9bf-2")).ToList();           
+            return View(developers);
+        }
+
+        [Authorize(Roles = "Developer, ProjectManager")]        
         public ActionResult GetAllDeveloperTasks()
         {
             var userId = User.Identity.GetUserId();

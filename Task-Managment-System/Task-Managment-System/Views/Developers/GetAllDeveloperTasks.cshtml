@@ -1,18 +1,31 @@
-﻿@model IEnumerable<Task_Managment_System.Models.DeveloperViewModels>
+﻿@model List<Task_Managment_System.Models.ProjectTask>
 
 <h2>Get All Developer Tasks</h2>
 
-    <ul>
-        @foreach (var taskList in Model)
-        {
-            var dateCreated = taskList.Tasks.Select(t => t.DateCreated);
 
-        <li>
-            @taskList.Tasks.Select(t => t.Priority)<br />
-            @taskList.Tasks.Select(t => t.Title)<br />
-            @Convert.ToDateTime(dateCreated).ToString("MM/d/yyyy") <br />            
-            @taskList.Tasks.Select(t => t.Deadline)<br />
-            @taskList.Tasks.Select(t => t.PercentageCompleted)
-        </li>
-        }
-    </ul>
+@if (Model.Count > 1)
+{
+    foreach (var task in Model)
+    {
+        var dateCreated = task.DateCreated;
+        var deadline = task.Deadline;
+
+        <ul>
+            <li>
+                @task.Priority<br />
+                @task.Title<br />
+                @task.Contents<br />
+                @task.PercentageCompleted <br />            
+                @Convert.ToDateTime(dateCreated).ToString("ddd/MMM/d/yyy") <br />
+                @Convert.ToDateTime(deadline).ToString("ddd/MMM/d/yyy")<br />               
+            </li>
+            </ul>
+    }
+}
+else
+{
+    <h3>You have not been assigned any tasks.</h3>
+}
+
+
+
