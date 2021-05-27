@@ -7,13 +7,13 @@ namespace Task_Managment_System.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class SetDailySalaryNullable : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SetDailySalaryNullable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202105230340484_SetDailySalaryNullable"; }
+            get { return "202105261955150_Initial"; }
         }
         
         string IMigrationMetadata.Source

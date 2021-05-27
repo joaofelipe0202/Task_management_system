@@ -171,35 +171,21 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProjectManagersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202105211839019_Initial.cs" />
-    <Compile Include="Migrations\202105211839019_Initial.designer.cs">
-      <DependentUpon>202105211839019_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202105261955150_Initial.cs" />
+    <Compile Include="Migrations\202105261955150_Initial.designer.cs">
+      <DependentUpon>202105261955150_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202105211847101_AddPriorityToTask.cs" />
-    <Compile Include="Migrations\202105211847101_AddPriorityToTask.designer.cs">
-      <DependentUpon>202105211847101_AddPriorityToTask.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105211853597_UpdatingDeadline.cs" />
-    <Compile Include="Migrations\202105211853597_UpdatingDeadline.designer.cs">
-      <DependentUpon>202105211853597_UpdatingDeadline.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105220041237_SeedFirstData.cs" />
-    <Compile Include="Migrations\202105220041237_SeedFirstData.designer.cs">
-      <DependentUpon>202105220041237_SeedFirstData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105230340484_SetDailySalaryNullable.cs" />
-    <Compile Include="Migrations\202105230340484_SetDailySalaryNullable.designer.cs">
-      <DependentUpon>202105230340484_SetDailySalaryNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105241949371_AddPercentageToTask.cs" />
-    <Compile Include="Migrations\202105241949371_AddPercentageToTask.designer.cs">
-      <DependentUpon>202105241949371_AddPercentageToTask.cs</DependentUpon>
+    <Compile Include="Migrations\202105262013405_AddingCommentClassAndRelations.cs" />
+    <Compile Include="Migrations\202105262013405_AddingCommentClassAndRelations.designer.cs">
+      <DependentUpon>202105262013405_AddingCommentClassAndRelations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -270,6 +256,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\ProjectManagers\ShowProjects.cshtml" />
+    <Content Include="Views\ProjectManagers\ShowTasks.cshtml" />
+    <Content Include="Views\ProjectManagers\HideCompletedTasks.cshtml" />
+    <Content Include="Views\ProjectManagers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -288,23 +278,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202105211839019_Initial.resx">
-      <DependentUpon>202105211839019_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105261955150_Initial.resx">
+      <DependentUpon>202105261955150_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105211847101_AddPriorityToTask.resx">
-      <DependentUpon>202105211847101_AddPriorityToTask.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105211853597_UpdatingDeadline.resx">
-      <DependentUpon>202105211853597_UpdatingDeadline.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105220041237_SeedFirstData.resx">
-      <DependentUpon>202105220041237_SeedFirstData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105230340484_SetDailySalaryNullable.resx">
-      <DependentUpon>202105230340484_SetDailySalaryNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105241949371_AddPercentageToTask.resx">
-      <DependentUpon>202105241949371_AddPercentageToTask.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105262013405_AddingCommentClassAndRelations.resx">
+      <DependentUpon>202105262013405_AddingCommentClassAndRelations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

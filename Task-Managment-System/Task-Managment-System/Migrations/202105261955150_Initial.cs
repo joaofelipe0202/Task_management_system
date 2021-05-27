@@ -12,16 +12,20 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        CreatorId = c.String(maxLength: 128),
+                        CreatorId = c.String(nullable: false, maxLength: 128),
                         Name = c.String(),
                         Budget = c.Double(nullable: false),
                         DateCreated = c.DateTime(nullable: false),
-                        DueDate = c.DateTime(nullable: false),
+                        Deadline = c.DateTime(nullable: false),
+                        Percentage = c.Int(nullable: false),
+                        ActualCost = c.Double(nullable: false),
+                        Description = c.String(),
+                        Complete = c.Boolean(nullable: false),
                         ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.CreatorId)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatorId, cascadeDelete: true)
                 .Index(t => t.CreatorId)
                 .Index(t => t.ApplicationUser_Id);
             
@@ -31,7 +35,7 @@
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         DateCreated = c.DateTime(nullable: false),
-                        DailySalaray = c.Double(nullable: false),
+                        DailySalaray = c.Double(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -99,19 +103,21 @@
                         ManagerId = c.String(maxLength: 128),
                         Title = c.String(),
                         Contents = c.String(),
+                        PercentageCompleted = c.Int(nullable: false),
                         DateCreated = c.DateTime(nullable: false),
-                        DueDate = c.DateTime(nullable: false),
+                        Deadline = c.DateTime(nullable: false),
                         Complete = c.Boolean(nullable: false),
+                        Priority = c.Int(nullable: false),
+                        ProjectId = c.Int(nullable: false),
                         ApplicationUser_Id = c.String(maxLength: 128),
-                        Project_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ManagerId)
+                .ForeignKey("dbo.Projects", t => t.ProjectId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .ForeignKey("dbo.Projects", t => t.Project_Id)
                 .Index(t => t.ManagerId)
-                .Index(t => t.ApplicationUser_Id)
-                .Index(t => t.Project_Id);
+                .Index(t => t.ProjectId)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -128,10 +134,10 @@
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.ProjectTasks", "Project_Id", "dbo.Projects");
             DropForeignKey("dbo.AspNetUsers", "Project_Id", "dbo.Projects");
             DropForeignKey("dbo.Projects", "CreatorId", "dbo.AspNetUsers");
             DropForeignKey("dbo.ProjectTasks", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.ProjectTasks", "ProjectId", "dbo.Projects");
             DropForeignKey("dbo.ProjectTasks", "ManagerId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUsers", "ProjectTask_Id", "dbo.ProjectTasks");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
@@ -139,8 +145,8 @@
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.ProjectTasks", new[] { "Project_Id" });
             DropIndex("dbo.ProjectTasks", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.ProjectTasks", new[] { "ProjectId" });
             DropIndex("dbo.ProjectTasks", new[] { "ManagerId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
