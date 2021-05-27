@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Task_Managment_System.Models.DeveloperViewModels>
+
+<h2>Get All Developer Tasks</h2>
+
+    <ul>
+        @foreach (var taskList in Model)
+        {
+            var dateCreated = taskList.Tasks.Select(t => t.DateCreated);
+
+        <li>
+            @taskList.Tasks.Select(t => t.Priority)<br />
+            @taskList.Tasks.Select(t => t.Title)<br />
+            @Convert.ToDateTime(dateCreated).ToString("MM/d/yyyy") <br />            
+            @taskList.Tasks.Select(t => t.Deadline)<br />
+            @taskList.Tasks.Select(t => t.PercentageCompleted)
+        </li>
+        }
+    </ul>
