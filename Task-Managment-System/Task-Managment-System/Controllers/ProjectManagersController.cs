@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Task_Managment_System.Models;
+using Task_Managment_System.Models.ViewModel;
 
 namespace Task_Managment_System.Controllers
 {
@@ -58,8 +59,8 @@ namespace Task_Managment_System.Controllers
             {
                 return HttpNotFound();
             }
-
-            var incompleteTasks = project.Tasks.Where(pt => pt.Complete == false).ToList();
+            var projectTasks = db.Tasks.Where(pt => pt.ProjectId == project.Id).ToList();
+            var incompleteTasks = projectTasks.Where(pt => pt.Complete == false).ToList();
             ViewBag.Title = "HideCompletedTasks";
             return View("ShowTasks",incompleteTasks);
         }
@@ -122,7 +123,9 @@ namespace Task_Managment_System.Controllers
             {
                 return HttpNotFound();
             }
-            return View(project);
+            var members = db.Users.Where(u => u.Projects.Any(p => p.Id == project.Id)).ToList();
+            var projectDetails = new ProjectDetailsViewModel(project, members);
+            return View(projectDetails);
         }
     }
 }
