@@ -9,9 +9,9 @@
     {
         <script>
         function markTaskAsComplete() {
-        var theUrl = '@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id}, null)';
-        window.location = theUrl;
-    }
+            var theUrl = '@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id}, null)';
+            window.location = theUrl;
+        }
         </script>
         var dateCreated = task.DateCreated;
         var deadline = task.Deadline;
