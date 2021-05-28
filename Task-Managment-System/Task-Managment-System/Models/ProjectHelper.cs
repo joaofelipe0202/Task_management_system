@@ -18,19 +18,27 @@ namespace Task_Managment_System.Models
         {
             var newProject = new Project(name, budget, deadline, creatorId);
             db.Projects.Add(newProject);
+            db.SaveChanges();
         }
 
         [Authorize(Roles = "ProjectManager")]
         public static void Delete(int projectId)
         {
-            var project = db.Projects.Find(projectId);          
+            var project = db.Projects.Find(projectId);
+            if (project == null)
+                return;
+
             db.Projects.Remove(project);
+            db.SaveChanges();
         }
 
         [Authorize(Roles = "ProjectManager")]
         public static void Update(int projectId)
         {
             var project = db.Projects.Find(projectId);
+            if (project == null)
+                return;
+
             db.Entry(project).State = EntityState.Modified;
             db.SaveChanges();
         }

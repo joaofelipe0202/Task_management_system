@@ -188,12 +188,23 @@
     <Compile Include="Migrations\202105280305569_AllowOnlyOneDeveloperPerTask.designer.cs">
       <DependentUpon>202105280305569_AllowOnlyOneDeveloperPerTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105281948258_AddNotifications.cs" />
+    <Compile Include="Migrations\202105281948258_AddNotifications.designer.cs">
+      <DependentUpon>202105281948258_AddNotifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105282014398_UpdateNames.cs" />
+    <Compile Include="Migrations\202105282014398_UpdateNames.designer.cs">
+      <DependentUpon>202105282014398_UpdateNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\DeveloperViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationHelper.cs" />
+    <Compile Include="Models\NotificationTypes.cs" />
     <Compile Include="Models\Priority.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectHelper.cs" />
@@ -295,6 +306,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105280305569_AllowOnlyOneDeveloperPerTask.resx">
       <DependentUpon>202105280305569_AllowOnlyOneDeveloperPerTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105281948258_AddNotifications.resx">
+      <DependentUpon>202105281948258_AddNotifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105282014398_UpdateNames.resx">
+      <DependentUpon>202105282014398_UpdateNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

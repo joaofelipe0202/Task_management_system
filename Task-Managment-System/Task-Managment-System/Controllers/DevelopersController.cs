@@ -32,6 +32,9 @@ namespace Task_Managment_System.Controllers
         {
             var userId = User.Identity.GetUserId();
             var user = db.Users.Find(userId);
+            if (user == null)
+                return HttpNotFound();
+
             var userName = user.UserName;
             var tasksList = db.Tasks.Where(t => t.AssignedUser.UserName == userName).ToList();
             return View(tasksList);
@@ -40,6 +43,8 @@ namespace Task_Managment_System.Controllers
         public ActionResult ChangeStatusOfTask(int taskId)
         {
             ProjectTask task = db.Tasks.Find(taskId);
+            if (task == null)
+                return HttpNotFound();
             if (task.Complete == true)
             {
                 task.Complete = false;
