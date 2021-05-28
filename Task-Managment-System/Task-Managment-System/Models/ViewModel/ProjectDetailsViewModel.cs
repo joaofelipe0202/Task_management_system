@@ -14,8 +14,9 @@ namespace Task_Managment_System.Models.ViewModel
         public double ProjectBudget { get; set; }
         public DateTime ProjectCreatedDate { get; set; }
         public virtual ICollection<ApplicationUser> ProjectMembers { get; set; }
+        public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
         public ProjectDetailsViewModel() { }
-        public ProjectDetailsViewModel(Project project, List<ApplicationUser> members)
+        public ProjectDetailsViewModel(Project project, List<ApplicationUser> members, List<ProjectTask> projectTasks)
         {
             this.CreatorId = project.CreatorId;
             this.ProjectName = project.Name;
@@ -23,6 +24,7 @@ namespace Task_Managment_System.Models.ViewModel
             this.ProjectBudget = project.Budget;
             this.ProjectCreatedDate = project.DateCreated;
             this.ProjectMembers = members;
+            this.ProjectTasks = projectTasks;
         }
         
     }

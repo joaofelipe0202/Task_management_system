@@ -56,6 +56,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -257,6 +258,7 @@
     <Content Include="Views\ProjectManagers\ProjectDetails.cshtml" />
     <Content Include="Views\ProjectManagers\ShowProjectsThatExceedTheBudget.cshtml" />
     <Content Include="Views\ProjectManagers\ShowTotalCostCompletedProjects.cshtml" />
+    <Content Include="Views\ProjectManagers\CreateNewUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

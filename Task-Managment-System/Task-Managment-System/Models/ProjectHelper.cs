@@ -12,6 +12,8 @@ namespace Task_Managment_System.Models
     public class ProjectHelper
     {
         static ApplicationDbContext db = new ApplicationDbContext();
+        static UserStore<ApplicationUser> store = new UserStore<ApplicationUser>(db);
+        static UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(store);
 
         [Authorize(Roles="ProjectManager")]
         public static void Add(string name, double budget, DateTime deadline, string creatorId)
@@ -33,6 +35,42 @@ namespace Task_Managment_System.Models
             var project = db.Projects.Find(projectId);
             db.Entry(project).State = EntityState.Modified;
             db.SaveChanges();
+        }
+        [Authorize(Roles = "ProjectManager")]
+        public static void CreateNewUser(string email, string password, double? salary, string role)
+        {
+            if(!db.Users.Any(u => u.UserName == email))
+            {
+                var user = new ApplicationUser
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = email,
+                    Email = email,
+                    DateCreated = DateTime.Now,
+                    DailySalaray = salary,
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = true,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                };
+                manager.Create(user, password);
+            }
+        }
+        public static bool CheckIfUserInRole(string userId, string role)
+        {
+            var result = manager.IsInRole(userId, role);
+            return result;
+        }
+        public static bool AddUserToRole(string userId, string role)
+        {
+            if (CheckIfUserInRole(userId, role))
+                return false;
+            else
+            {
+                manager.AddToRole(userId, role);
+                return true;
+            }  
         }
     }
 }

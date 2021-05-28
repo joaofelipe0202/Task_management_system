@@ -128,10 +128,24 @@ namespace Task_Managment_System.Controllers
                 return HttpNotFound();
             }
             var members = db.Users.Where(u => u.Projects.All(p => p.Id == project.Id)).ToList();
-            var projectDetails = new ProjectDetailsViewModel(project, members);
+            var tasks = db.Tasks.Where(t => t.ProjectId == project.Id).ToList();
+            var projectDetails = new ProjectDetailsViewModel(project, members, tasks);
+
             return View(projectDetails);
         }
-        
+        [HttpGet]
+        public ActionResult CreateNewUser()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateNewUser(string email, string password, double? dailySalary, string role)
+        {
+            password = "NewUser123.";
+            ProjectHelper.CreateNewUser(email, password, dailySalary, role);
+
+            return RedirectToAction("Index");
+        }
         //Not idea why Put method wont work so i made it post
         //POST @Url.Action("UpdateCompleteStatus")
         [HttpPost]

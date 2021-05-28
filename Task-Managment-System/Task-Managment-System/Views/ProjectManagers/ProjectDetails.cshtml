@@ -18,3 +18,12 @@
                 </li>
             }
 </ul>
+<div>
+    Tasks:
+    <ul>
+        @foreach(var item in Model.ProjectTasks)
+            {
+                <li>@item.Title</li>
+            }
+    </ul>
+</div>
