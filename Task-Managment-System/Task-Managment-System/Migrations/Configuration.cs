@@ -13,7 +13,7 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(Task_Managment_System.Models.ApplicationDbContext context)
@@ -78,7 +78,7 @@
             project.Description = "a task management web app";
             project.Complete = true;
             context.Projects.AddOrUpdate(p => p.Name, project);
-
+            context.SaveChanges();
 
             ProjectTask task1 = new ProjectTask()
             {
@@ -93,6 +93,7 @@
             project.Tasks.Add(task1);
 
             context.Tasks.AddOrUpdate(t => t.Id, task1);
+            context.SaveChanges();
 
             //Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user.Id);
             //project1.DateCreated = DateTime.Now;
@@ -134,12 +135,14 @@
             project2.Description = "How to open a restaurant";
 
             context.Projects.AddOrUpdate(p => p.Name, project2);
+            context.SaveChanges();
 
             Project project3 = new Project("Today's job", 100, DateTime.Now.AddDays(3), user.Id);
             project3.DateCreated = DateTime.Now;
             project3.Description = "What did you do today";
 
             context.Projects.AddOrUpdate(p => p.Name, project3);
+            context.SaveChanges();
 
 
 

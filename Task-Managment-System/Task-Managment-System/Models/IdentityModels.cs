@@ -13,6 +13,7 @@ namespace Task_Managment_System.Models
     {
         public virtual ICollection<ProjectTask> Tasks { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public DateTime DateCreated { get; set; }
         public double? DailySalaray { get; set; }
@@ -25,6 +26,14 @@ namespace Task_Managment_System.Models
             return userIdentity;
         }
 
+        public ApplicationUser()
+        {
+            Tasks = new HashSet<ProjectTask>();
+            Projects = new HashSet<Project>();
+            Notifications = new HashSet<Notification>();
+            Comments = new HashSet<Comment>();
+        }
+
         public ApplicationUser(string userName, string email, double dailySalaray)
         {
             UserName = userName;
@@ -33,6 +42,8 @@ namespace Task_Managment_System.Models
             DateCreated = DateTime.Now;
             Tasks = new HashSet<ProjectTask>();
             Projects = new HashSet<Project>();
+            Notifications = new HashSet<Notification>();
+            Comments = new HashSet<Comment>();
         }
     }
 
@@ -41,8 +52,9 @@ namespace Task_Managment_System.Models
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectTask> Tasks { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
 
-        public ApplicationDbContext()
+         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
