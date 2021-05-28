@@ -18,12 +18,14 @@ namespace Task_Managment_System.Models
         public Priority Priority { get; set; }
         public Project Project { get; set; }
         public int ProjectId { get; set; }
+
         public virtual ApplicationUser Manager { get; set; }
         public virtual ApplicationUser AssignedUser { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public ProjectTask()
         {
             AssignedUser = new ApplicationUser();
+
             Comments = new HashSet<Comment>();
         }
 
