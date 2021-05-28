@@ -11,7 +11,8 @@ namespace Task_Managment_System.Controllers
 {
     public class DevelopersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();        
+        private ApplicationDbContext db = new ApplicationDbContext();  
+        
 
         public ActionResult Index()
         {            
@@ -32,8 +33,25 @@ namespace Task_Managment_System.Controllers
             var userId = User.Identity.GetUserId();
             var user = db.Users.Find(userId);
             var userName = user.UserName;
-            var tasksList = db.Tasks.Where(t => t.AssignedUsers.Any(au => au.UserName == userName)).ToList();
+            var tasksList = db.Tasks.Where(t => t.AssignedUser.UserName == userName).ToList();
             return View(tasksList);
+        }
+
+        public ActionResult ChangeStatusOfTask(int taskId)
+        {
+            ProjectTask task = db.Tasks.Find(taskId);
+            if (task.Complete == true)
+            {
+                task.Complete = false;
+            }
+            else
+            {
+                task.Complete = true;
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("GetAllDeveloperTasks");
         }
     }
 }
