@@ -9,6 +9,7 @@ namespace Task_Managment_System.Models
     {
         public int Id { get; set; }
         public string ManagerId { get; set; }
+        public string AssignedUserId { get; set; }
         public string Title { get; set; }
         public string Contents { get; set; }
         public int PercentageCompleted { get; set; }
@@ -18,9 +19,11 @@ namespace Task_Managment_System.Models
         public Priority Priority { get; set; }
         public Project Project { get; set; }
         public int ProjectId { get; set; }
+
         public virtual ApplicationUser Manager { get; set; }
         public virtual ApplicationUser AssignedUser { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+
         public ProjectTask()
         {
             AssignedUser = new ApplicationUser();

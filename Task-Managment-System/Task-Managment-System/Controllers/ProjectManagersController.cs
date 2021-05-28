@@ -69,8 +69,11 @@ namespace Task_Managment_System.Controllers
                 return HttpNotFound();
             }
             var project = db.Projects.Find(id);
+            if (project == null)
+                return HttpNotFound();
 
-            if(project.Complete == true)
+
+            if (project.Complete == true)
             {
                 ViewBag.TotalCost = project.ActualCost;
             }

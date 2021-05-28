@@ -192,6 +192,10 @@
     <Compile Include="Migrations\202105281948258_AddNotifications.designer.cs">
       <DependentUpon>202105281948258_AddNotifications.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105282014398_UpdateNames.cs" />
+    <Compile Include="Migrations\202105282014398_UpdateNames.designer.cs">
+      <DependentUpon>202105282014398_UpdateNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -301,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105281948258_AddNotifications.resx">
       <DependentUpon>202105281948258_AddNotifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105282014398_UpdateNames.resx">
+      <DependentUpon>202105282014398_UpdateNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
