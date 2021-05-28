@@ -77,6 +77,7 @@
             project.DateCreated = DateTime.Now;
             project.Description = "a task management web app";
             project.Complete = true;
+            project.ActualCost = 1000;
             context.Projects.AddOrUpdate(p => p.Name, project);
 
 
@@ -92,11 +93,12 @@
             };
             project.Tasks.Add(task);
 
-            context.Tasks.AddOrUpdate(t => t.Id, task);
+            context.Tasks.AddOrUpdate(t => t.Title, task);
 
             Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user2.Id);
             project1.DateCreated = DateTime.Now;
             project1.Description = "something";
+            project1.ActualCost = 2000;
 
 
             context.Projects.AddOrUpdate(p => p.Name, project1);
@@ -113,12 +115,12 @@
                 ProjectId = project.Id
             };
 
-            context.Tasks.AddOrUpdate(t => t.Id, task1);
+            context.Tasks.AddOrUpdate(t => t.Title, task1);
 
             ProjectTask task2 = new ProjectTask()
             {
                 ManagerId = user2.Id,
-                Title = "Readme",
+                Title = "Readme1",
                 Contents = "lalal",
                 DateCreated = DateTime.Now,
                 Deadline = DateTime.Now.AddDays(4),
@@ -127,17 +129,19 @@
                 Priority = Priority.Low
             };
 
-            context.Tasks.AddOrUpdate(t => t.Id, task2);
+            context.Tasks.AddOrUpdate(t => t.Title, task2);
 
             Project project2 = new Project("Open a restaurant", 1300, DateTime.Now.AddDays(10), user2.Id);
             project2.DateCreated = DateTime.Now;
             project2.Description = "How to open a restaurant";
+            project2.ActualCost = 1100;
 
             context.Projects.AddOrUpdate(p => p.Name, project2);
 
             Project project3 = new Project("Today's job", 100, DateTime.Now.AddDays(3), user2.Id);
             project3.DateCreated = DateTime.Now;
             project3.Description = "What did you do today";
+            project3.ActualCost = 2200;
 
             context.Projects.AddOrUpdate(p => p.Name, project3);
 
@@ -152,7 +156,7 @@
                 ProjectId = project3.Id
             };
 
-            context.Tasks.AddOrUpdate(t => t.Id, task3);
+            context.Tasks.AddOrUpdate(t => t.Title, task3);
 
         }
 

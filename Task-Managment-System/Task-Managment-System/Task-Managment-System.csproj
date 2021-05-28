@@ -255,6 +255,8 @@
     <Content Include="Views\ProjectManagers\Index.cshtml" />
     <Content Include="Views\ProjectManagers\HideCompletedTasks.cshtml" />
     <Content Include="Views\ProjectManagers\ProjectDetails.cshtml" />
+    <Content Include="Views\ProjectManagers\ShowProjectsThatExceedTheBudget.cshtml" />
+    <Content Include="Views\ProjectManagers\ShowTotalCostCompletedProjects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

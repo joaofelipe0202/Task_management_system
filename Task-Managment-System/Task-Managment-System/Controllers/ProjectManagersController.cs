@@ -95,15 +95,15 @@ namespace Task_Managment_System.Controllers
             }
             else
             {
-                ViewBag.Message = "Project is not completed yet.";
+                ViewBag.TotalCost = "Project is not completed yet.";
             }
             ViewBag.Title = "ShowTotalCostCompletedProjects";
-            return View("ShowProjects");
+            return View();
         }
         [HttpGet]
         public ActionResult AddNewProject()
         {
-            ViewBag.UserId = new SelectList(db.Users.ToList(), "id", "UserName");
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Email");
             return View();
         }
         [HttpPost]
@@ -131,7 +131,7 @@ namespace Task_Managment_System.Controllers
             var projectDetails = new ProjectDetailsViewModel(project, members);
             return View(projectDetails);
         }
-
+        
         //Not idea why Put method wont work so i made it post
         //POST @Url.Action("UpdateCompleteStatus")
         [HttpPost]
