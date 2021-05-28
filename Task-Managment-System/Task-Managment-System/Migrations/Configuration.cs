@@ -69,7 +69,7 @@
 
             SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
 
-            SeedUser(context, "Courtney@mw.com", "123456Mw.", 130, "Developer");
+            SeedUser(context, "Maggie@mw.com", "123456Mw.", 130, "Developer");
 
             SeedUser(context, "Amanda@mw.com", "123456Mw.", 130, "Developer");
 

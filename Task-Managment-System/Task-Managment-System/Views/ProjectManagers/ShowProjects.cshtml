@@ -4,6 +4,9 @@
 
 <main>
     <section>
+
+        @Html.ActionLink("Incomplete", "ShowIncompleteProjects", null, new { @class= "btn btn-primary" })
+
         <ul class="list-group projects"  >
             @{
                 foreach (var item in Model)
@@ -25,7 +28,7 @@
 <script>
 
     function handleToggleCompleteForProject(event, projectId) {
-        if (event.target.tagName === "INPUT") {            
+        if (event.target.tagName === "INPUT") {
             $.ajax(
                 {
                     type: 'POST',
@@ -41,11 +44,12 @@
                         //test
                         alert(err.responseText);
                     }
-                    
+
                 }
             )
         }
     }
+
 
 </script>
 

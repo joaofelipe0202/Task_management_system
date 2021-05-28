@@ -11,28 +11,69 @@ namespace Task_Managment_System.Models
 {
     public class ProjectHelper
     {
-        static ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db;
+        public ProjectHelper(ApplicationDbContext database)
+        {
+            db = database;
+        }
 
-        [Authorize(Roles="ProjectManager")]
-        public static void Add(string name, double budget, DateTime deadline, string creatorId)
+        public void Add(string name, double budget, DateTime deadline, string creatorId)
         {
             var newProject = new Project(name, budget, deadline, creatorId);
             db.Projects.Add(newProject);
+
+            db.SaveChanges();
         }
 
-        [Authorize(Roles = "ProjectManager")]
-        public static void Delete(int projectId)
+        public Project By(int id)
+        {
+            var projects = db.Projects.Find(id);
+
+            return projects;
+        }
+
+
+        public void Delete(int projectId)
         {
             var project = db.Projects.Find(projectId);          
             db.Projects.Remove(project);
-        }
 
-        [Authorize(Roles = "ProjectManager")]
-        public static void Update(int projectId)
-        {
-            var project = db.Projects.Find(projectId);
-            db.Entry(project).State = EntityState.Modified;
             db.SaveChanges();
         }
+
+
+        public void Update(int projectId)
+        {
+            //check modify
+            var project = db.Projects.Find(projectId);
+            db.Entry(project).State = EntityState.Modified;
+
+            db.SaveChanges();
+        }
+
+        public List<Project> Filter(FilterMethods method)
+        {
+            List<Project> projects = db.Projects.ToList();
+
+            switch (method)
+            {
+                case FilterMethods.incomplete:
+                    projects = ProjectsAreNotCompleted(projects);
+                    break;
+            }
+
+            return projects;
+        }
+
+        private List<Project> ProjectsAreNotCompleted(List<Project> projects)
+        {
+            var filteredProjects = projects.Where(p =>
+                    p.Complete == false
+              )
+              .ToList();
+
+            return filteredProjects;
+        }
+
     }
 }

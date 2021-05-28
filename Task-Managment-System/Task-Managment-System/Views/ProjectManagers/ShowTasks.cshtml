@@ -4,7 +4,16 @@
 
 <main>
     <section>
-        <ul class="list-group">
+        @Html.ActionLink("All", "ShowTasksFor", new { projectId = ViewData["projectId"] }, new { @class = "btn btn-primary" })
+
+        <button class="btn btn-primary"
+                onclick="handleShowInCompleteTasksForProject(@ViewData["projectId"])">
+            Incomplete
+        </button>
+
+        @Html.ActionLink("PercentageComplete", "ShowTasksOrderByCompletion", new { projectId = ViewData["projectId"] }, new { @class = "btn btn-primary" })
+
+        <ul class="list-group tasks">
             @{
                 if (Model.Count() > 0)
                 {
@@ -42,7 +51,7 @@
 
 <script>
 
-    function handleToggleCompleteForTask(event, taskId) {
+    function handleToggleCompleteForTask(event, taskId,projectId) {
         if (event.target.tagName === "INPUT") {
             $.ajax(
                 {
@@ -53,7 +62,9 @@
                     },
                     success: function (result) {
                         //test
-                        console.log(result.status);
+                        console.log(result);
+                        if(projectId !== undefined)
+                            handleShowInCompleteTasksForProject(projectId);
                     },
                     error: function (err) {
                         //test
@@ -63,6 +74,59 @@
                 }
             )
         }
+    }
+
+    function handleShowInCompleteTasksForProject(projectId) {
+        $.ajax(
+            {
+                type: 'GET',
+                url: "@Url.Action("ShowIncompleteTasks", "ProjectManagers")?projectId=" + projectId,
+                data: {
+                    isChecked: event.target.checked
+                },
+                success: function (result) {
+                    //test
+                    console.log(result);
+                    $(".tasks").empty();
+                    result.tasks.forEach(t => {
+                        $(".tasks").append(taskDom(t, result.projectId))
+                    })
+
+                },
+                error: function (err) {
+                    //test
+                    alert(err.responseText);
+                }
+
+            }
+        )
+    }
+
+    function taskDom(item, projectId) {
+
+        let levelClass = null;
+
+        switch (item.Priority) {
+            case "Urgent":
+                levelClass = " list-group-item-danger";
+                break;
+            case "High":
+                levelClass = " list-group-item-waring";
+                break;
+            case "Average":
+                levelClass = " list-group-item-info";
+                break;
+        }
+
+        return `
+            <li class="list-group-item ${levelClass}" onclick="handleToggleCompleteForTask(event, ${item.id},${projectId})">
+                <input type="checkbox" class="form-check-input me-1" id="btncheck1" autocomplete="off"}>
+                <div>${item.title}</div>
+                <div>Manager: ${item.manager}</div>
+                <div>Percentage: ${item.percentageCompleted}%</div>
+                <div>Priority: ${item.priority}</div>
+            </li>
+        `
     }
 
 </script>
