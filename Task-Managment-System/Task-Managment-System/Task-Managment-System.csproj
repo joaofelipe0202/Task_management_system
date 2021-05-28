@@ -179,8 +179,13 @@
     <Compile Include="Migrations\202105261955150_Initial.designer.cs">
       <DependentUpon>202105261955150_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105262013405_AddingCommentClassAndRelations.cs" />
+    <Compile Include="Migrations\202105262013405_AddingCommentClassAndRelations.designer.cs">
+      <DependentUpon>202105262013405_AddingCommentClassAndRelations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Priority.cs" />
@@ -273,6 +278,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105261955150_Initial.resx">
       <DependentUpon>202105261955150_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105262013405_AddingCommentClassAndRelations.resx">
+      <DependentUpon>202105262013405_AddingCommentClassAndRelations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
