@@ -9,6 +9,8 @@ namespace Task_Managment_System.Models
     {
         public int Id { get; set; }
         public string UserId { get; set; }
+        public int? TaskId { get; set; }
+        public int? ProjectId { get; set; }
         public string Title { get; set; }
         public string Contents { get; set; }
         public bool Read { get; set; }
@@ -16,6 +18,8 @@ namespace Task_Managment_System.Models
         public NotificationType Type { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+        public virtual ProjectTask Task { get; set; }
+        public virtual Project Project { get; set; }
 
         public Notification(string userId, string title, string  contents, NotificationType type)
         {

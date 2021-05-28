@@ -18,12 +18,12 @@ namespace Task_Managment_System.Models
         public Priority Priority { get; set; }
         public Project Project { get; set; }
         public int ProjectId { get; set; }
+
         public virtual ApplicationUser Manager { get; set; }
-        public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }
+        public virtual ApplicationUser AssignedUser { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public ProjectTask()
         {
-            AssignedUsers = new HashSet<ApplicationUser>();
             Comments = new HashSet<Comment>();
         }
 
@@ -35,7 +35,6 @@ namespace Task_Managment_System.Models
             Complete = complete;
             Priority = priority;
 
-            AssignedUsers = new HashSet<ApplicationUser>();
             Comments = new HashSet<Comment>();
         }
     }
