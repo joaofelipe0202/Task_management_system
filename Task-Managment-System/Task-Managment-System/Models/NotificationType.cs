@@ -10,6 +10,7 @@ namespace Task_Managment_System.Models
         Urgent,
         Overdue,
         Overbudget,
-        Complete
+        Complete,
+        Notice
     }
 }
