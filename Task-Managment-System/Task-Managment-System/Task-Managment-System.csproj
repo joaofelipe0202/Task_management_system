@@ -184,6 +184,10 @@
     <Compile Include="Migrations\202105262013405_AddingCommentClassAndRelations.designer.cs">
       <DependentUpon>202105262013405_AddingCommentClassAndRelations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105280305569_AllowOnlyOneDeveloperPerTask.cs" />
+    <Compile Include="Migrations\202105280305569_AllowOnlyOneDeveloperPerTask.designer.cs">
+      <DependentUpon>202105280305569_AllowOnlyOneDeveloperPerTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -284,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105262013405_AddingCommentClassAndRelations.resx">
       <DependentUpon>202105262013405_AddingCommentClassAndRelations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105280305569_AllowOnlyOneDeveloperPerTask.resx">
+      <DependentUpon>202105280305569_AllowOnlyOneDeveloperPerTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -32,7 +32,7 @@ namespace Task_Managment_System.Controllers
             var userId = User.Identity.GetUserId();
             var user = db.Users.Find(userId);
             var userName = user.UserName;
-            var tasksList = db.Tasks.Where(t => t.AssignedUsers.Any(au => au.UserName == userName)).ToList();
+            var tasksList = db.Tasks.Where(t => t.AssignedUser.UserName == userName).ToList();
             return View(tasksList);
         }
     }
