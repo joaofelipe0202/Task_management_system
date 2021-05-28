@@ -7,19 +7,26 @@
 {
     foreach (var task in Model)
     {
+        <script>
+        function markTaskAsComplete() {
+        var theUrl = '@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id}, null)';
+        window.location = theUrl;
+    }
+        </script>
         var dateCreated = task.DateCreated;
         var deadline = task.Deadline;
 
         <ul>
             <li>
+                @Html.CheckBox("check", task.Complete, new { @class = "form-check-input me-1", onclick = "markTaskAsComplete()" }) Task Completed<br />
                 @task.Priority<br />
                 @task.Title<br />
                 @task.Contents<br />
-                @task.PercentageCompleted <br />            
+                @task.PercentageCompleted <br />
                 @Convert.ToDateTime(dateCreated).ToString("ddd/MMM/d/yyy") <br />
-                @Convert.ToDateTime(deadline).ToString("ddd/MMM/d/yyy")<br />               
+                @Convert.ToDateTime(deadline).ToString("ddd/MMM/d/yyy")<br />
             </li>
-            </ul>
+        </ul>
     }
 }
 else
