@@ -24,6 +24,8 @@ namespace Task_Managment_System.Models
         public virtual ICollection<Comment> Comments { get; set; }
         public ProjectTask()
         {
+            AssignedUser = new ApplicationUser();
+
             Comments = new HashSet<Comment>();
         }
 
@@ -35,6 +37,7 @@ namespace Task_Managment_System.Models
             Complete = complete;
             Priority = priority;
 
+            AssignedUser = new ApplicationUser();
             Comments = new HashSet<Comment>();
         }
     }
