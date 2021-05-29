@@ -24,7 +24,6 @@ namespace Task_Managment_System.Models
         {
             var newProject = new Project(name, budget, deadline, creatorId);
             db.Projects.Add(newProject);
-
             db.SaveChanges();
         }
 
@@ -38,9 +37,11 @@ namespace Task_Managment_System.Models
 
         public void Delete(int projectId)
         {
-            var project = db.Projects.Find(projectId);          
-            db.Projects.Remove(project);
+            var project = db.Projects.Find(projectId);
+            if (project == null)
+                return;
 
+            db.Projects.Remove(project);
             db.SaveChanges();
         }
 
@@ -49,6 +50,9 @@ namespace Task_Managment_System.Models
         {
             //check modify
             var project = db.Projects.Find(projectId);
+            if (project == null)
+                return;
+
             db.Entry(project).State = EntityState.Modified;
 
             db.SaveChanges();

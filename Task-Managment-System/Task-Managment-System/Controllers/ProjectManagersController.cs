@@ -282,8 +282,11 @@ namespace Task_Managment_System.Controllers
         public JsonResult UpdateCompleteStatusForProject(int id, bool isChecked)
         {
             var project = db.Projects.Find(id);
-
             if (project == null)
+                return HttpNotFound();
+
+            if (project.Complete == true)
+
             {
                 return Json(new { status = 404 });
             }

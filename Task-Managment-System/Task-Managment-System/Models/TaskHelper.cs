@@ -27,14 +27,19 @@ namespace Task_Managment_System.Models
         public void Delete(int taskId)
         {
             var task = db.Tasks.Find(taskId);
-            db.Tasks.Remove(task);
+            if (task == null)
+                return;
 
+            db.Tasks.Remove(task);
             db.SaveChanges();
         }
 
         public void Update(int taskId)
         {
             var task = db.Tasks.Find(taskId);
+            if (task == null)
+                return;
+
             db.Entry(task).State = EntityState.Modified;
             db.SaveChanges();
         }

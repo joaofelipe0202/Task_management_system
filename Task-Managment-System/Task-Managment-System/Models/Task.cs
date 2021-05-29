@@ -10,6 +10,7 @@ namespace Task_Managment_System.Models
     {
         public int Id { get; set; }
         public string ManagerId { get; set; }
+        public string AssignedUserId { get; set; }
         public string Title { get; set; }
         public string Contents { get; set; }
         public int PercentageCompleted { get; set; }
@@ -23,12 +24,13 @@ namespace Task_Managment_System.Models
         [JsonIgnore]
         public virtual ApplicationUser Manager { get; set; }
         [JsonIgnore]
-        public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }
+        public virtual ApplicationUser AssignedUser { get; set; }
         [JsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
+
         public ProjectTask()
         {
-            AssignedUsers = new HashSet<ApplicationUser>();
+            AssignedUser = new ApplicationUser();
             Comments = new HashSet<Comment>();
         }
 
@@ -40,7 +42,7 @@ namespace Task_Managment_System.Models
             Complete = complete;
             Priority = priority;
 
-            AssignedUsers = new HashSet<ApplicationUser>();
+            AssignedUser = new ApplicationUser();
             Comments = new HashSet<Comment>();
         }
     }

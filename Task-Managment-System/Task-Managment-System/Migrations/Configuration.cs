@@ -13,7 +13,7 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(Task_Managment_System.Models.ApplicationDbContext context)
@@ -42,8 +42,11 @@
             var user2 = SeedUser(context, "Jonny@mw.com", "123456Mw.", 130, "ProjectManager");      
 
             var dev1 = SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
-
+            
             var dev2 = SeedUser(context, "Courtney@mw.com", "123456Mw.", 130, "Developer");
+            
+            var user3 = SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
+
 
             SeedUser(context, "Maggie@mw.com", "123456Mw.", 130, "Developer");
 
@@ -55,8 +58,9 @@
             project.Complete = true;
             project.ActualCost = 1000;
             project.Priority = Priority.Urgent;
-
+            
             context.Projects.AddOrUpdate(p => p.Name, project);
+            context.SaveChanges();
 
             ProjectTask task = new ProjectTask()
             {
@@ -66,11 +70,15 @@
                 DateCreated = DateTime.Now,
                 Deadline = DateTime.Now.AddDays(4),
                 Complete = false,
-                ProjectId = project.Id
+                ProjectId = project.Id,
+                AssignedUserId = user2.Id,
+                PercentageCompleted = 50,
+                Priority = Priority.Average
             };
             project.Tasks.Add(task);
 
             context.Tasks.AddOrUpdate(t => t.Title, task);
+            context.SaveChanges();
 
             Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user2.Id);
             project1.DateCreated = DateTime.Now;
@@ -115,6 +123,7 @@
             project2.Priority = Priority.High;
 
             context.Projects.AddOrUpdate(p => p.Name, project2);
+            context.SaveChanges();
 
             Project project3 = new Project("Today's job", 100, DateTime.Now.AddDays(3), user2.Id);
             project3.DateCreated = DateTime.Now;
@@ -123,6 +132,7 @@
             project.Priority = Priority.Low;
 
             context.Projects.AddOrUpdate(p => p.Name, project3);
+            context.SaveChanges();
 
             ProjectTask task3 = new ProjectTask()
             {
@@ -152,7 +162,7 @@
                     UserName = email,
                     Email = email,
                     DateCreated = DateTime.Now,
-                    DailySalaray = salary,
+                    DailySalary = salary,
                     EmailConfirmed = false,
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = true,

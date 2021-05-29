@@ -20,10 +20,10 @@ namespace Task_Managment_System.Models
         public Priority Priority { get; set; }
         public bool Complete { get; set; }
         [Required]
-        
-        public ApplicationUser Creator { get; set; }
-        public ICollection<ApplicationUser> Members { get; set; }
-        public ICollection<ProjectTask> Tasks { get; set; }
+
+        public virtual ApplicationUser Creator { get; set; }
+        public virtual ICollection<ApplicationUser> Members { get; set; }
+        public virtual ICollection<ProjectTask> Tasks { get; set; }
 
         public Project()
         {
