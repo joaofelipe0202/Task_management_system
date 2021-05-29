@@ -67,7 +67,7 @@
 
             var user = SeedUser(context, "Jonny@mw.com", "123456Mw.", 130, "ProjectManager");      
 
-            SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
+            var user2 = SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
 
             SeedUser(context, "Courtney@mw.com", "123456Mw.", 130, "Developer");
 
@@ -80,7 +80,7 @@
             context.Projects.AddOrUpdate(p => p.Name, project);
             context.SaveChanges();
 
-            ProjectTask task1 = new ProjectTask()
+            ProjectTask task = new ProjectTask()
             {
                 ManagerId = user.Id,
                 Title = "create git repo",
@@ -88,11 +88,14 @@
                 DateCreated = DateTime.Now,
                 Deadline = DateTime.Now.AddDays(4),
                 Complete = false,
-                ProjectId = project.Id
+                ProjectId = project.Id,
+                AssignedUserId = user2.Id,
+                PercentageCompleted = 50,
+                Priority = Priority.Average
             };
-            project.Tasks.Add(task1);
+            project.Tasks.Add(task);
 
-            context.Tasks.AddOrUpdate(t => t.Id, task1);
+            context.Tasks.AddOrUpdate(t => t.Id, task);
             context.SaveChanges();
 
             //Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user.Id);
@@ -176,7 +179,7 @@
                     UserName = email,
                     Email = email,
                     DateCreated = DateTime.Now,
-                    DailySalaray = salary,
+                    DailySalary = salary,
                     EmailConfirmed = false,
                     PhoneNumberConfirmed = false,
                     TwoFactorEnabled = true,

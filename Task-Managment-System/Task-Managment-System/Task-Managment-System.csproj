@@ -196,6 +196,10 @@
     <Compile Include="Migrations\202105282014398_UpdateNames.designer.cs">
       <DependentUpon>202105282014398_UpdateNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105291558580_FixTyposAddProjectPriority.cs" />
+    <Compile Include="Migrations\202105291558580_FixTyposAddProjectPriority.designer.cs">
+      <DependentUpon>202105291558580_FixTyposAddProjectPriority.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -308,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105282014398_UpdateNames.resx">
       <DependentUpon>202105282014398_UpdateNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105291558580_FixTyposAddProjectPriority.resx">
+      <DependentUpon>202105291558580_FixTyposAddProjectPriority.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

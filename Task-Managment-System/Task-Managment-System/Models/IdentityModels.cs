@@ -16,7 +16,7 @@ namespace Task_Managment_System.Models
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public DateTime DateCreated { get; set; }
-        public double? DailySalaray { get; set; }
+        public double? DailySalary { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -34,11 +34,11 @@ namespace Task_Managment_System.Models
             Comments = new HashSet<Comment>();
         }
 
-        public ApplicationUser(string userName, string email, double dailySalaray)
+        public ApplicationUser(string userName, string email, double dailySalary)
         {
             UserName = userName;
             Email = email;
-            DailySalaray = dailySalaray;
+            DailySalary = dailySalary;
             DateCreated = DateTime.Now;
             Tasks = new HashSet<ProjectTask>();
             Projects = new HashSet<Project>();
