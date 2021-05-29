@@ -10,48 +10,78 @@ using Task_Managment_System.Models.ViewModel;
 
 namespace Task_Managment_System.Controllers
 {
-    //[Authorize(Roles = "ProjectManager")]
+    [Authorize(Roles = "ProjectManager")]
     public class ProjectManagersController : Controller
     {
+<<<<<<< HEAD
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: PM
         public ActionResult Index()
         {
             var projectList = db.Projects.OrderBy(p => p.Priority).ToList();
+=======
+        private readonly ApplicationDbContext db;
 
-            return View(projectList);
-        }
-        [HttpGet]
-        public ActionResult ShowAllProjects()
+        private readonly ProjectHelper ph;
+>>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
+
+        private readonly TaskHelper th;
+
+        public ProjectManagersController()
         {
-            var projects = db.Projects.OrderByDescending(p => p.Percentage).ToList();
-            ViewBag.Title = "ShowAllProjects";
-            return View("ShowProjects", projects);
+            db = new ApplicationDbContext();
+            ph = new ProjectHelper(db);
+            th = new TaskHelper(db);
         }
-        [HttpGet]
-        public ActionResult ShowAllTasks()
+
+        public ActionResult Index()
         {
-            var tasks = db.Tasks.OrderByDescending(t => t.PercentageCompleted).ToList();
-            ViewBag.Title = "ShowAllTasks";
-            return View("ShowTasks", tasks);
+            return View(db.Projects);
         }
+
+        //[HttpGet]
+        //public ActionResult HideCompletedTasks(int? projectId)
+        //{
+        //    if (projectId == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+
+        //    var project = db.Projects.Include("Tasks").FirstOrDefault(p => p.Id == projectId);
+
+        //    if (project == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+
+        //    var incompleteTasks = project.Tasks.Where(pt => pt.Complete == false).ToList();
+        //    ViewBag.Title = "HideCompletedTasks";
+
+        //    return View("ShowTasks", incompleteTasks);
+        //}
+
+
+        //?
         [HttpGet]
-        public ActionResult ShowTasksFor(int projectId)
+        public ActionResult AddNewProject()
         {
-            var project = db.Projects.Include("Tasks").FirstOrDefault(p => projectId == p.Id);
-            ICollection<ProjectTask> tasks = new List<ProjectTask>();
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "id", "UserName");
 
-            if (project != null)
-                tasks = project.Tasks;
-            if (tasks == null)
-                tasks = new List<ProjectTask>();
+            return View();
+        }
 
-            ViewBag.Title = "ShowTasksFor " + project.Name;
-            return View("ShowTasks", tasks);
+        [HttpPost]
+        public ActionResult AddNewProject(string name, double budget, DateTime deadline)
+        {
+            string creatorId = User.Identity.GetUserId().Substring(0, 10);
+
+            new ProjectHelper(db).Add(name, budget, deadline, creatorId);
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ActionResult HideCompletedTasks(int? projectId)
+        public ActionResult ProjectDetails(int? projectId)
         {
             if (projectId == null)
             {
@@ -59,23 +89,38 @@ namespace Task_Managment_System.Controllers
             }
 
             var project = db.Projects.Find(projectId);
+
             if (project == null)
             {
                 return HttpNotFound();
             }
+<<<<<<< HEAD
             var projectTasks = db.Tasks.Where(pt => pt.ProjectId == project.Id).ToList();
             var incompleteTasks = projectTasks.Where(pt => pt.Complete == false).ToList();
             ViewBag.Title = "HideCompletedTasks";
             return View("ShowTasks", incompleteTasks);
+=======
+
+
+            return View(project);
+>>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
         }
+
+        //Search projects by name
+        //?
         [HttpGet]
-        public ActionResult ShowProjectsThatExceedTheBudget()
+        public ActionResult ShowProjectByName(string name)
         {
-            var projectExceed = db.Projects.Where(p => p.Budget < p.ActualCost).ToList();
-            ViewBag.Title = "ShowProjectsThatExceedTheBudget";
-            return View("ShowProjects", projectExceed);
+            var projects = db.Projects.Where(p => p.Name.ToLower().Contains(name.ToLower())).ToList();
+
+            return View("ShowProjects", projects);
         }
-        [HttpGet]
+
+
+
+
+
+
         public ActionResult ShowTotalCostCompletedProjects(int? projectId)
         {
             if (projectId == null)
@@ -97,36 +142,99 @@ namespace Task_Managment_System.Controllers
             {
                 ViewBag.TotalCost = "Project is not completed yet.";
             }
+
             ViewBag.Title = "ShowTotalCostCompletedProjects";
+<<<<<<< HEAD
             return View();
+=======
+
+            return View("ShowProjects");
+>>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
         }
-        [HttpGet]
-        public ActionResult AddNewProject()
+
+
+
+
+
+
+
+        //Actions under this line are working
+        public ActionResult ShowTasksThatPassedDeadLine(int? projectId)
         {
+<<<<<<< HEAD
             ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Email");
             return View();
-        }
-        [HttpPost]
-        public ActionResult AddNewProject(string name, double budget, DateTime deadline)
-        {
-            string creatorId = User.Identity.GetUserId().Substring(0, 10);
+=======
+            List<ProjectTask> tasks = new List<ProjectTask>();
 
-            ProjectHelper.Add(name, budget, deadline, creatorId);
+            if (projectId != null)
+            {
+                tasks = th.Filter(FilterMethods.passedDeadLine);
+            }
 
-            return RedirectToAction("Index");
+            return View("ShowTasks", tasks);
+>>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
         }
-        [HttpGet]
-        public ActionResult ProjectDetails(int? projectId)
+
+        public ActionResult ShowAllProjects()
         {
-            if (projectId == null)
+            var projects = db.Projects.ToList();
+
+            ViewBag.Title = "ShowAllProjects";
+
+            return View("ShowProjects", projects);
+        }
+
+        public ActionResult ShowAllTasks()
+        {
+            var tasks = db.Tasks.ToList();
+
+            ViewBag.Title = "ShowAllTasks";
+
+            return View("ShowTasks", tasks);
+        }
+
+        public ActionResult ShowProjectsThatExceedTheBudget()
+        {
+            var projectExceed = db.Projects.Where(p => p.Budget < p.ActualCost).ToList();
+
+            ViewBag.Title = "ShowProjectsThatExceedTheBudget";
+
+            return View("ShowProjects", projectExceed);
+        }
+
+        public ActionResult ShowTasksFor(int? projectId)
+        {
+          
+            List<ProjectTask> tasks = db.Tasks.ToList();
+
+            if (projectId != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string projectName = db.Projects.Find(projectId).Name;
+                tasks = th.By((int)projectId);
+
+                ViewBag.Title = "Show Tasks For " + projectName;
             }
-            var project = db.Projects.Find(projectId);
-            if (project == null)
+
+            
+            ViewData["projectId"] = projectId;
+
+            return View("ShowTasks", tasks);
+        }
+
+        public ActionResult ShowTasksOrderByCompletion(int? projectId)
+        {
+            ICollection<ProjectTask> tasks = th.OrderBy(OrderMethods.percentageComplete);
+
+            if (projectId != null)
             {
-                return HttpNotFound();
+                string projectName = db.Projects.Find(projectId).Name;
+
+                tasks = th.OrderBy(OrderMethods.percentageComplete, (int)projectId);
+
+                ViewBag.Title = "Show Tasks For " + projectName;
             }
+<<<<<<< HEAD
             var members = db.Users.Where(u => u.Projects.All(p => p.Id == project.Id)).ToList();
             var tasks = db.Tasks.Where(t => t.ProjectId == project.Id).ToList();
             var projectDetails = new ProjectDetailsViewModel(project, members, tasks);
@@ -137,6 +245,13 @@ namespace Task_Managment_System.Controllers
         public ActionResult CreateNewUser()
         {
             return View();
+=======
+
+
+            ViewData["projectId"] = projectId;
+            
+            return View("ShowTasks", tasks);
+>>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
         }
         [HttpPost]
         public ActionResult CreateNewUser(string email, string password, double? salary)
@@ -144,6 +259,7 @@ namespace Task_Managment_System.Controllers
             password = "NewUser123.";
             ProjectHelper.CreateNewUser(email, password, salary);
 
+<<<<<<< HEAD
             return RedirectToAction("AddUserToRole");
         }
         [HttpGet]
@@ -172,34 +288,68 @@ namespace Task_Managment_System.Controllers
         [HttpPost]
         [Route("api/project/{id}")]
         public JsonResult UpdateCompleteStatusForProject(int? id, bool isChecked)
-        {
-            if (id == null)
-            {
-                return Json(new { status=404});
-            }
+=======
 
+        //GET @Url.Action("ShowIncompleteTasks")
+        [HttpGet]
+        public JsonResult ShowIncompleteTasks(int? projectId)
+>>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
+        {
+            List<ProjectTask> tasks = th.Filter(FilterMethods.incomplete);
+
+            if(projectId != null)
+            {
+                tasks = th.Filter(FilterMethods.incomplete, (int)projectId);
+            }
+            //Avoid json cycle
+            var result = tasks
+                .Select(t =>
+                    new
+                    {
+                        contents = t.Contents,
+                        manager = t.Manager.UserName,
+                        title = t.Title,
+                        priority = t.Priority.ToString(),
+                        id = t.Id,
+                        percentageCompleted = t.PercentageCompleted
+                    }
+                );
+
+            return Json(new { status = 200, tasks=result, projectId }, JsonRequestBehavior.AllowGet);
+        }
+
+        //GET @Url.Action("ShowIncompleteProjects")
+        [HttpGet]
+        public ActionResult ShowIncompleteProjects()
+        {
+            List<Project> projects = ph.Filter(FilterMethods.incomplete);
+
+            return View("ShowProjects", projects);
+        }
+
+
+        //POST @Url.Action("UpdateCompleteStatus")
+        [HttpPost]
+        public JsonResult UpdateCompleteStatusForProject(int id, bool isChecked)
+        {
             var project = db.Projects.Find(id);
 
             if (project == null)
             {
                 return Json(new { status = 404 });
             }
+
             project.Complete = isChecked;
 
             db.SaveChanges();
+
             return Json(new { status = 200, project });
         }
 
         //POST @Url.Action("UpdateCompleteStatusForTask")
         [HttpPost]
-        [Route("api/task/{id}")]
-        public JsonResult UpdateCompleteStatusForTask(int? id, bool isChecked)
+        public JsonResult UpdateCompleteStatusForTask(int id, bool isChecked)
         {
-            if (id == null)
-            {
-                return Json(new { status = 404 });
-            }
-
             var task = db.Tasks.Find(id);
 
             if (task == null)
@@ -209,11 +359,19 @@ namespace Task_Managment_System.Controllers
 
             task.Complete = isChecked;
 
-            if(task.Complete)
+            db.SaveChanges();
+
+            if (task.Complete)
             {
                 task.PercentageCompleted = 100;
             }
+            else
+            {
+                task.PercentageCompleted = 0;
+            }
+
             db.SaveChanges();
+
             return Json(new { status = 200, task });
         }
     }

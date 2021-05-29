@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,13 +17,19 @@ namespace Task_Managment_System.Models
         public DateTime Deadline { get; set; }
         public bool Complete { get; set; }
         public Priority Priority { get; set; }
+        [JsonIgnore]
         public Project Project { get; set; }
         public int ProjectId { get; set; }
+        [JsonIgnore]
         public virtual ApplicationUser Manager { get; set; }
+        [JsonIgnore]
         public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Comment> Comments { get; set; }
         public ProjectTask()
         {
             AssignedUsers = new HashSet<ApplicationUser>();
+            Comments = new HashSet<Comment>();
         }
 
         public ProjectTask(string title, string contents, DateTime deadline, bool complete, Priority priority)
@@ -34,6 +41,7 @@ namespace Task_Managment_System.Models
             Priority = priority;
 
             AssignedUsers = new HashSet<ApplicationUser>();
+            Comments = new HashSet<Comment>();
         }
     }
 }
