@@ -43,11 +43,9 @@
 
             var dev1 = SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
 
-<<<<<<< HEAD
             var dev2 = SeedUser(context, "Courtney@mw.com", "123456Mw.", 130, "Developer");
-=======
+
             SeedUser(context, "Maggie@mw.com", "123456Mw.", 130, "Developer");
->>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
 
             var dev3 = SeedUser(context, "Amanda@mw.com", "123456Mw.", 130, "Developer");
 

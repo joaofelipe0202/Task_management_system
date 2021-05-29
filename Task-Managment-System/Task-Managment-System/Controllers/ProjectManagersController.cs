@@ -13,17 +13,16 @@ namespace Task_Managment_System.Controllers
     [Authorize(Roles = "ProjectManager")]
     public class ProjectManagersController : Controller
     {
-<<<<<<< HEAD
         ApplicationDbContext db = new ApplicationDbContext();
+
         // GET: PM
         public ActionResult Index()
         {
             var projectList = db.Projects.OrderBy(p => p.Priority).ToList();
-=======
-        private readonly ApplicationDbContext db;
+            return View(projectList);
+        }
 
         private readonly ProjectHelper ph;
->>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
 
         private readonly TaskHelper th;
 
@@ -32,11 +31,6 @@ namespace Task_Managment_System.Controllers
             db = new ApplicationDbContext();
             ph = new ProjectHelper(db);
             th = new TaskHelper(db);
-        }
-
-        public ActionResult Index()
-        {
-            return View(db.Projects);
         }
 
         //[HttpGet]
@@ -75,7 +69,7 @@ namespace Task_Managment_System.Controllers
         {
             string creatorId = User.Identity.GetUserId().Substring(0, 10);
 
-            new ProjectHelper(db).Add(name, budget, deadline, creatorId);
+            new ProjectHelper(name, budget, deadline, creatorId);
 
             return RedirectToAction("Index");
         }
@@ -87,23 +81,16 @@ namespace Task_Managment_System.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             var project = db.Projects.Find(projectId);
-
             if (project == null)
             {
                 return HttpNotFound();
             }
-<<<<<<< HEAD
-            var projectTasks = db.Tasks.Where(pt => pt.ProjectId == project.Id).ToList();
-            var incompleteTasks = projectTasks.Where(pt => pt.Complete == false).ToList();
-            ViewBag.Title = "HideCompletedTasks";
-            return View("ShowTasks", incompleteTasks);
-=======
+            var members = db.Users.Where(u => u.Projects.All(p => p.Id == project.Id)).ToList();
+            var tasks = db.Tasks.Where(t => t.ProjectId == project.Id).ToList();
+            var projectDetails = new ProjectDetailsViewModel(project, members, tasks);
 
-
-            return View(project);
->>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
+            return View(projectDetails);
         }
 
         //Search projects by name
@@ -115,12 +102,6 @@ namespace Task_Managment_System.Controllers
 
             return View("ShowProjects", projects);
         }
-
-
-
-
-
-
         public ActionResult ShowTotalCostCompletedProjects(int? projectId)
         {
             if (projectId == null)
@@ -144,27 +125,12 @@ namespace Task_Managment_System.Controllers
             }
 
             ViewBag.Title = "ShowTotalCostCompletedProjects";
-<<<<<<< HEAD
+
             return View();
-=======
-
-            return View("ShowProjects");
->>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
         }
-
-
-
-
-
-
-
         //Actions under this line are working
         public ActionResult ShowTasksThatPassedDeadLine(int? projectId)
         {
-<<<<<<< HEAD
-            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Email");
-            return View();
-=======
             List<ProjectTask> tasks = new List<ProjectTask>();
 
             if (projectId != null)
@@ -173,7 +139,6 @@ namespace Task_Managment_System.Controllers
             }
 
             return View("ShowTasks", tasks);
->>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
         }
 
         public ActionResult ShowAllProjects()
@@ -193,7 +158,6 @@ namespace Task_Managment_System.Controllers
 
             return View("ShowTasks", tasks);
         }
-
         public ActionResult ShowProjectsThatExceedTheBudget()
         {
             var projectExceed = db.Projects.Where(p => p.Budget < p.ActualCost).ToList();
@@ -202,7 +166,6 @@ namespace Task_Managment_System.Controllers
 
             return View("ShowProjects", projectExceed);
         }
-
         public ActionResult ShowTasksFor(int? projectId)
         {
           
@@ -234,24 +197,13 @@ namespace Task_Managment_System.Controllers
 
                 ViewBag.Title = "Show Tasks For " + projectName;
             }
-<<<<<<< HEAD
-            var members = db.Users.Where(u => u.Projects.All(p => p.Id == project.Id)).ToList();
-            var tasks = db.Tasks.Where(t => t.ProjectId == project.Id).ToList();
-            var projectDetails = new ProjectDetailsViewModel(project, members, tasks);
-
-            return View(projectDetails);
+            return View();
         }
         [HttpGet]
         public ActionResult CreateNewUser()
         {
             return View();
-=======
 
-
-            ViewData["projectId"] = projectId;
-            
-            return View("ShowTasks", tasks);
->>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
         }
         [HttpPost]
         public ActionResult CreateNewUser(string email, string password, double? salary)
@@ -259,7 +211,6 @@ namespace Task_Managment_System.Controllers
             password = "NewUser123.";
             ProjectHelper.CreateNewUser(email, password, salary);
 
-<<<<<<< HEAD
             return RedirectToAction("AddUserToRole");
         }
         [HttpGet]
@@ -286,14 +237,33 @@ namespace Task_Managment_System.Controllers
         //Not idea why Put method wont work so i made it post
         //POST @Url.Action("UpdateCompleteStatus")
         [HttpPost]
-        [Route("api/project/{id}")]
-        public JsonResult UpdateCompleteStatusForProject(int? id, bool isChecked)
-=======
+        [Route("api/task/{id}")]
+        public JsonResult UpdateCompleteStatusForTask(int? id, bool isChecked)
+        {
+            if (id == null)
+            {
+                return Json(new { status = 404 });
+            }
 
+            var task = db.Tasks.Find(id);
+
+            if (task == null)
+            {
+                return Json(new { status = 404 });
+            }
+
+            task.Complete = isChecked;
+
+            if (task.Complete)
+            {
+                task.PercentageCompleted = 100;
+            }
+            db.SaveChanges();
+            return Json(new { status = 200, task });
+        }
         //GET @Url.Action("ShowIncompleteTasks")
         [HttpGet]
         public JsonResult ShowIncompleteTasks(int? projectId)
->>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
         {
             List<ProjectTask> tasks = th.Filter(FilterMethods.incomplete);
 
