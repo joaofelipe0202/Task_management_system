@@ -11,17 +11,14 @@ namespace Task_Managment_System.Models
 {
     public class ProjectHelper
     {
-<<<<<<< HEAD
-        static ApplicationDbContext db = new ApplicationDbContext();
-        static UserStore<ApplicationUser> store = new UserStore<ApplicationUser>(db);
-        static UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(store);
-=======
-        private readonly ApplicationDbContext db;
-        public ProjectHelper(ApplicationDbContext database)
-        {
-            db = database;
-        }
->>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
+        private static readonly ApplicationDbContext db = new ApplicationDbContext();
+        private static readonly UserStore<ApplicationUser> store = new UserStore<ApplicationUser>(db);
+        private static readonly UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(store);
+        
+        //public ProjectHelper(ApplicationDbContext database)
+        //{
+        //    db = database;
+        //}
 
         public void Add(string name, double budget, DateTime deadline, string creatorId)
         {
@@ -56,7 +53,6 @@ namespace Task_Managment_System.Models
 
             db.SaveChanges();
         }
-<<<<<<< HEAD
         [Authorize(Roles = "ProjectManager")]
         public static void CreateNewUser(string email, string password, double? salary)
         {
@@ -95,8 +91,6 @@ namespace Task_Managment_System.Models
                 return true;
             }  
         }
-=======
-
         public List<Project> Filter(FilterMethods method)
         {
             List<Project> projects = db.Projects.ToList();
@@ -120,7 +114,5 @@ namespace Task_Managment_System.Models
 
             return filteredProjects;
         }
-
->>>>>>> e93287baca52669527d1b3e4cd5cb940843c7a42
     }
 }
