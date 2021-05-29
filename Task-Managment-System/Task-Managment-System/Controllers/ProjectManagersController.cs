@@ -28,7 +28,6 @@ namespace Task_Managment_System.Controllers
 
         public ProjectManagersController()
         {
-            db = new ApplicationDbContext();
             ph = new ProjectHelper(db);
             th = new TaskHelper(db);
         }
@@ -53,27 +52,7 @@ namespace Task_Managment_System.Controllers
 
         //    return View("ShowTasks", incompleteTasks);
         //}
-
-
         //?
-        [HttpGet]
-        public ActionResult AddNewProject()
-        {
-            ViewBag.UserId = new SelectList(db.Users.ToList(), "id", "UserName");
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddNewProject(string name, double budget, DateTime deadline)
-        {
-            string creatorId = User.Identity.GetUserId().Substring(0, 10);
-
-            new ProjectHelper(name, budget, deadline, creatorId);
-
-            return RedirectToAction("Index");
-        }
-
         [HttpGet]
         public ActionResult ProjectDetails(int? projectId)
         {
