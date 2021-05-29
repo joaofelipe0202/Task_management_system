@@ -17,7 +17,7 @@ namespace Task_Managment_System.Controllers
         // GET: PM
         public ActionResult Index()
         {
-            var projectList = db.Projects.ToList();
+            var projectList = db.Projects.OrderBy(p => p.Priority).ToList();
 
             return View(projectList);
         }
@@ -139,11 +139,32 @@ namespace Task_Managment_System.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateNewUser(string email, string password, double? dailySalary, string role)
+        public ActionResult CreateNewUser(string email, string password, double? salary)
         {
             password = "NewUser123.";
-            ProjectHelper.CreateNewUser(email, password, dailySalary, role);
+            ProjectHelper.CreateNewUser(email, password, salary);
 
+            return RedirectToAction("AddUserToRole");
+        }
+        [HttpGet]
+        public ActionResult AddUserToRole()
+        {
+            //SelectList Users
+            ViewBag.userId = new SelectList(db.Users.ToList(), "Id", "Email");
+            //SelectList Roles
+            ViewBag.role = new SelectList(db.Roles.ToList(), "Name", "Name");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddUserToRole(string userId, string role)
+        {
+            //SelectList Users
+            ViewBag.userId = new SelectList(db.Users.ToList(), "Id", "Email");
+            //SelectList Roles
+            ViewBag.role = new SelectList(db.Roles.ToList(), "Name", "Name");
+
+            //Add this user to this role using the membershipHelper
+            ProjectHelper.AddUserToRole(userId, role);
             return RedirectToAction("Index");
         }
         //Not idea why Put method wont work so i made it post

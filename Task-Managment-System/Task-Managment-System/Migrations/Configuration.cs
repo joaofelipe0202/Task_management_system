@@ -36,32 +36,6 @@
                 roleManager.Create(role);
             }
 
-            //create the user
-            //if (!context.Users.Any(u => u.UserName == "Project Manager (1)"))
-            //{
-            //    var store = new UserStore<ApplicationUser>(context);
-            //    var userManager = new UserManager<ApplicationUser>(store);
-            //    var passwordHasher = new PasswordHasher();
-            //    var user = new ApplicationUser
-            //    {
-            //        Id = Guid.NewGuid().ToString().Substring(0, 10),
-            //        UserName = "Project Manager (1)",
-            //        Email = "pm1@manager.com",
-            //        EmailConfirmed = true,
-            //        PasswordHash = passwordHasher.HashPassword("pm123456"),
-            //        SecurityStamp = Guid.NewGuid().ToString(),
-            //        PhoneNumber = "(000) 000-0000",
-            //        PhoneNumberConfirmed = true,
-            //        TwoFactorEnabled = false,
-            //        LockoutEndDateUtc = DateTime.Now,
-            //        LockoutEnabled = true,
-            //        AccessFailedCount = 0
-            //    };
-
-            //    userManager.Create(user);
-            //    userManager.AddToRole(user.Id, "ProjectManager");
-            //}
-
             //seed user ref: https://stackoverflow.com/questions/19280527/mvc-5-seed-users-and-roles
             SeedUser(context, "ltl@mw.com", "123456Ltl.", 130, "ProjectManager");
 
@@ -78,8 +52,9 @@
             project.Description = "a task management web app";
             project.Complete = true;
             project.ActualCost = 1000;
-            context.Projects.AddOrUpdate(p => p.Name, project);
+            project.Priority = Priority.Urgent;
 
+            context.Projects.AddOrUpdate(p => p.Name, project);
 
             ProjectTask task = new ProjectTask()
             {
@@ -99,7 +74,7 @@
             project1.DateCreated = DateTime.Now;
             project1.Description = "something";
             project1.ActualCost = 2000;
-
+            project1.Priority = Priority.Low;
 
             context.Projects.AddOrUpdate(p => p.Name, project1);
 
@@ -135,6 +110,7 @@
             project2.DateCreated = DateTime.Now;
             project2.Description = "How to open a restaurant";
             project2.ActualCost = 1100;
+            project2.Priority = Priority.High;
 
             context.Projects.AddOrUpdate(p => p.Name, project2);
 
@@ -142,6 +118,7 @@
             project3.DateCreated = DateTime.Now;
             project3.Description = "What did you do today";
             project3.ActualCost = 2200;
+            project.Priority = Priority.Low;
 
             context.Projects.AddOrUpdate(p => p.Name, project3);
 

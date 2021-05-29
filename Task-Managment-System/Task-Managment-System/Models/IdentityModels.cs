@@ -15,7 +15,6 @@ namespace Task_Managment_System.Models
         public virtual ICollection<Project> Projects { get; set; }
         public DateTime DateCreated { get; set; }
         public double? DailySalaray { get; set; }
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

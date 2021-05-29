@@ -37,7 +37,7 @@ namespace Task_Managment_System.Models
             db.SaveChanges();
         }
         [Authorize(Roles = "ProjectManager")]
-        public static void CreateNewUser(string email, string password, double? salary, string role)
+        public static void CreateNewUser(string email, string password, double? salary)
         {
             if(!db.Users.Any(u => u.UserName == email))
             {
@@ -64,6 +64,8 @@ namespace Task_Managment_System.Models
         }
         public static bool AddUserToRole(string userId, string role)
         {
+            var user = db.Users.Find(userId);
+
             if (CheckIfUserInRole(userId, role))
                 return false;
             else
