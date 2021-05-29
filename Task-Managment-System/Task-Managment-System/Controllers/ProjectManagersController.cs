@@ -25,11 +25,13 @@ namespace Task_Managment_System.Controllers
         private readonly ProjectHelper ph;
 
         private readonly TaskHelper th;
+        private readonly UserManager um;
 
         public ProjectManagersController()
         {
             ph = new ProjectHelper(db);
             th = new TaskHelper(db);
+            um = new UserManager(db);
         }
 
         //[HttpGet]
@@ -188,7 +190,7 @@ namespace Task_Managment_System.Controllers
         public ActionResult CreateNewUser(string email, string password, double? salary)
         {
             password = "NewUser123.";
-            ProjectHelper.CreateNewUser(email, password, salary);
+            um.Create(email, salary, password);
 
             return RedirectToAction("AddUserToRole");
         }
@@ -210,7 +212,7 @@ namespace Task_Managment_System.Controllers
             ViewBag.role = new SelectList(db.Roles.ToList(), "Name", "Name");
 
             //Add this user to this role using the membershipHelper
-            ProjectHelper.AddUserToRole(userId, role);
+            um.AddUserToRole(userId, role);
             return RedirectToAction("Index");
         }
         //Not idea why Put method wont work so i made it post
@@ -283,7 +285,7 @@ namespace Task_Managment_System.Controllers
         {
             var project = db.Projects.Find(id);
             if (project == null)
-                return HttpNotFound();
+                return Json(new { status = 404 });
 
             if (project.Complete == true)
 

@@ -40,9 +40,15 @@ namespace Task_Managment_System.Models
             Comments = new HashSet<Comment>();
         }
 
-        public ApplicationUser(string userName, string email, double dailySalary)
+        public ApplicationUser(string email, double? dailySalary)
         {
-            UserName = userName;
+            Id = Guid.NewGuid().ToString();
+            EmailConfirmed = false;
+            PhoneNumberConfirmed = false;
+            TwoFactorEnabled = true;
+            LockoutEnabled = false;
+            AccessFailedCount = 0;
+            UserName = email;
             Email = email;
             DailySalary = dailySalary;
             DateCreated = DateTime.Now;
