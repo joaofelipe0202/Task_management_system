@@ -5,15 +5,21 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
 
 namespace Task_Managment_System.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        [JsonIgnore]
         public virtual ICollection<ProjectTask> Tasks { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Project> Projects { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Notification> Notifications { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
         public DateTime DateCreated { get; set; }
         public double? DailySalary { get; set; }

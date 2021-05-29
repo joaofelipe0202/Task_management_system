@@ -1,0 +1,29 @@
+﻿@model Task_Managment_System.Models.ViewModel.ProjectDetailsViewModel
+
+@{
+    ViewBag.Title = "ProjectDetails";
+}
+
+<h2>ProjectDetails</h2>
+
+<div>@Model.ProjectName</div>
+<div>@Model.ProjectDescription</div>
+<div>@Model.ProjectBudget</div>
+<div>@Model.ProjectCreatedDate</div>
+<ul>
+    @foreach(var item in Model.ProjectMembers)
+            {
+                <li>
+                    @item.Email 
+                </li>
+            }
+</ul>
+<div>
+    Tasks:
+    <ul>
+        @foreach(var item in Model.ProjectTasks)
+            {
+                <li>@item.Title</li>
+            }
+    </ul>
+</div>

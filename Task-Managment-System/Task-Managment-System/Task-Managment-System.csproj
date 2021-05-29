@@ -56,6 +56,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -203,7 +204,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\HelperFilterAndOrderMethod.cs" />
     <Compile Include="Models\DeveloperViewModel.cs" />
+
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -215,6 +218,7 @@
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskHelper.cs" />
     <Compile Include="Models\UserManager.cs" />
+    <Compile Include="Models\ViewModel\ProjectDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -227,6 +231,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\api\putCompleteStatusFor.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -276,10 +281,16 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\ProjectManagers\ShowProjects.cshtml" />
     <Content Include="Views\ProjectManagers\ShowTasks.cshtml" />
-    <Content Include="Views\ProjectManagers\HideCompletedTasks.cshtml" />
     <Content Include="Views\ProjectManagers\Index.cshtml" />
+    <Content Include="Views\ProjectManagers\HideCompletedTasks.cshtml" />
+    <Content Include="Views\ProjectManagers\ProjectDetails.cshtml" />
+    <Content Include="Views\ProjectManagers\ShowProjectsThatExceedTheBudget.cshtml" />
+    <Content Include="Views\ProjectManagers\ShowTotalCostCompletedProjects.cshtml" />
+    <Content Include="Views\ProjectManagers\CreateNewUser.cshtml" />
+    <Content Include="Views\ProjectManagers\AddUserToRole.cshtml" />
     <Content Include="Views\Developers\GetAllDeveloperTasks.cshtml" />
     <Content Include="Views\Developers\ShowDevelopers.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
