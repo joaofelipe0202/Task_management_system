@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,11 +18,14 @@ namespace Task_Managment_System.Models
         public DateTime Deadline { get; set; }
         public bool Complete { get; set; }
         public Priority Priority { get; set; }
+        [JsonIgnore]
         public Project Project { get; set; }
         public int ProjectId { get; set; }
-
+        [JsonIgnore]
         public virtual ApplicationUser Manager { get; set; }
+        [JsonIgnore]
         public virtual ApplicationUser AssignedUser { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
 
         public ProjectTask()

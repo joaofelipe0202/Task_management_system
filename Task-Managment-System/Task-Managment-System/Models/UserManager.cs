@@ -9,14 +9,19 @@ using System.Web.Mvc;
 
 namespace Task_Managment_System.Models
 {
-    public static class UserManager
+    public class UserManager
     {
-        private static ApplicationDbContext db = new ApplicationDbContext();
-        private static RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
-        private static UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
+        private readonly RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+        private readonly UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+        public UserManager(ApplicationDbContext database)
+        {
+            db = database;
+        }
 
         [Authorize]
-        public static List<string> GetAllRoles(string userName)
+        public  List<string> GetAllRoles(string userName)
         {
             if (userName == null)
                 return null;
@@ -30,7 +35,7 @@ namespace Task_Managment_System.Models
         }
 
         [Authorize(Roles = "ProjectManager")]
-        public static bool AddUserToRole(string userName, string roleName)
+        public  bool AddUserToRole(string userName, string roleName)
         {
             if (userName == null || roleName == null)
                 return false;
@@ -46,7 +51,7 @@ namespace Task_Managment_System.Models
         }
 
         [Authorize]
-        public static bool CheckUserHasRole(string userName, string roleName)
+        public  bool CheckUserHasRole(string userName, string roleName)
         {
             if (userName == null || roleName == null)
                 return false;
@@ -61,15 +66,19 @@ namespace Task_Managment_System.Models
         }
 
         [Authorize(Roles="ProjectManager")]
-        public static void Create(string userName, string email, double dailySalaray, string password )
+        public  void Create(string email, double? dailySalaray, string password )
         {
-            var user = new ApplicationUser(userName, email, dailySalaray);
-            userManager.Create(user, password);
-            db.SaveChanges();
+            if(!db.Users.Any(u => u.Email == email))
+            {
+                var user = new ApplicationUser(email, dailySalaray);
+                userManager.Create(user, password);
+                db.SaveChanges();
+            }
+            
         }
 
         [Authorize(Roles = "ProjectManager")]
-        public static void Delete(string userId)
+        public  void Delete(string userId)
         {
             if (userId == null)
                 return;
@@ -84,7 +93,7 @@ namespace Task_Managment_System.Models
         }
 
         [Authorize(Roles = "ProjectManager")]
-        public static void Update(string userId)
+        public  void Update(string userId)
         {
             if (userId == null)
                 return;
