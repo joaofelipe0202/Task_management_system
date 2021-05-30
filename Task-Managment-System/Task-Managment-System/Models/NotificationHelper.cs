@@ -9,9 +9,14 @@ namespace Task_Managment_System.Models
 {
     public class NotificationHelper
     {
-        private static ApplicationDbContext db = new ApplicationDbContext();
+        private  ApplicationDbContext db = new ApplicationDbContext();
 
-        public static void Create(string userId, string title, string contents, NotificationType type)
+        public NotificationHelper(ApplicationDbContext database)
+        {
+            db = database;
+        }
+
+        public  void Create(string userId, string title, string contents, NotificationType type)
         {
             if (userId == null || title == null || contents == null)
                 return;
