@@ -1,0 +1,97 @@
+﻿@model Task_Managment_System.Models.ProjectTask
+
+<br />
+<br />
+<h1>@Model.Title</h1>
+<div>
+    <strong> Created: </strong>@Convert.ToDateTime(Model.DateCreated).ToString("MMMM/d/yyyy HH:mm") |
+    @*Comment: I will apply this one the tasks user has been updated to 1
+        <strong> Creator: </strong>@Html.DisplayFor(model => model.AssignedUser)*@
+    <br />
+    @Html.DisplayFor(model => model.Contents);
+    <br />
+</div>
+
+<hr />
+
+
+@if (Model.Complete == false)
+{
+    <h2 style="color:red;">URGENT</h2>
+    <table class="table">
+        @foreach (var comment in Model.Comments)
+        {
+            if (comment.Priority == 0)
+            {
+                var dateCreated = comment.DateCreated;
+                <tr>
+                    <td>
+                        @comment.Creator<br />
+                        @Convert.ToDateTime(dateCreated).ToString("ddd/MMM/d/yyy")<br />
+                        @comment.Priority<br />
+                        @comment.Title<br />
+                        @comment.Content<br />
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}
+else if (Model.Complete == true)
+{
+    <h2>Comments</h2>
+    <table class="table">
+        @foreach (var comment in Model.Comments)
+        {
+            var dateCreated = comment.DateCreated;
+            <tr>
+                <td>
+                    @comment.Creator<br />
+                    @Convert.ToDateTime(dateCreated).ToString("ddd/MMM/d/yyy")<br />
+                    @comment.Priority<br />
+                    @comment.Title<br />
+                    @comment.Content<br />
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+
+<hr />
+<h3>Add A Comment</h3>
+
+@using (Html.BeginForm("CommentOnTask", "Tasks"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(t => t.Id)
+
+    string Title = "";
+    string Content = "";
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => Content, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
