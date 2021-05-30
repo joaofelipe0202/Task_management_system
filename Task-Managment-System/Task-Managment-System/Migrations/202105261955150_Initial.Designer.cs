@@ -7,13 +7,13 @@ namespace Task_Managment_System.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddCommentClassAndRelations : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCommentClassAndRelations));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202105261833010_AddCommentClassAndRelations"; }
+            get { return "202105261955150_Initial"; }
         }
         
         string IMigrationMetadata.Source

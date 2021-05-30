@@ -32,7 +32,6 @@ namespace Task_Managment_System.Models
         public virtual DbSet<ProjectTask> Tasks { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
 
-
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

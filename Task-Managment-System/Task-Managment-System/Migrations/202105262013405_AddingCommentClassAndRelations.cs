@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddCommentClassAndRelations : DbMigration
+    public partial class AddingCommentClassAndRelations : DbMigration
     {
         public override void Up()
         {
@@ -16,6 +16,7 @@
                         CreatorId = c.String(maxLength: 128),
                         TaskId = c.Int(nullable: false),
                         DateCreated = c.DateTime(nullable: false),
+                        Priority = c.Int(nullable: false),
                         ProjectTask_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
