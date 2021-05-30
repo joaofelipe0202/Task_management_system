@@ -30,7 +30,7 @@ namespace Task_Managment_System.Models
 
         public ProjectTask()
         {
-            AssignedUser = new ApplicationUser();
+            //AssignedUser = new ApplicationUser();
             Comments = new HashSet<Comment>();
         }
 

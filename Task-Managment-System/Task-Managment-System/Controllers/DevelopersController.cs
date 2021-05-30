@@ -53,7 +53,6 @@ namespace Task_Managment_System.Controllers
             {
                 task.Complete = true;
             }
-
             db.SaveChanges();
 
             return RedirectToAction("GetAllDeveloperTasks");
