@@ -48,10 +48,41 @@ namespace Task_Managment_System.Controllers
             if (task.Complete == true)
             {
                 task.Complete = false;
+                task.PercentageCompleted = 0;
             }
             else
             {
                 task.Complete = true;
+                task.PercentageCompleted = 100;
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("GetAllDeveloperTasks");
+        }
+
+        public ActionResult UpdateTaskPercentage(int taskId, string param)
+        {
+            ProjectTask task = db.Tasks.Find(taskId);
+            if (task == null)
+                return HttpNotFound();
+            if (param == "+")
+            {
+                if (task.PercentageCompleted < 100)
+                {
+                    task.PercentageCompleted += 10;
+                    if (task.PercentageCompleted >= 100)
+                    {
+                        task.Complete = true;
+                    }
+                }    
+            }
+            else
+            {
+                if (task.PercentageCompleted > 0)
+                {
+                    task.PercentageCompleted -= 10;
+                    task.Complete = false;
+                }
             }
             db.SaveChanges();
 

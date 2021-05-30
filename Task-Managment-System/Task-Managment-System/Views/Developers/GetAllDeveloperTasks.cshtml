@@ -17,9 +17,13 @@
                 @task.Priority<br />
                 @task.Title<br />
                 @task.Contents<br />
-                @task.PercentageCompleted <br />
                 @Convert.ToDateTime(dateCreated).ToString("ddd/MMM/d/yyy") <br />
                 @Convert.ToDateTime(deadline).ToString("ddd/MMM/d/yyy")<br />
+                @Html.Label("Percentage Completed")
+                <button class="" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "-" })'">-</button>
+                <meter min="0" max="100", value="@task.PercentageCompleted"></meter> 
+                <button class="" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "+"  })'">+</button>
+                <br />
 
                 @if (task.Complete == true)
                 {
