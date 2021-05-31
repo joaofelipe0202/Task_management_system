@@ -29,6 +29,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Complete)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
         <th></th>
     </tr>
 
@@ -51,6 +54,9 @@
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Complete)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Priority)
     </td>
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

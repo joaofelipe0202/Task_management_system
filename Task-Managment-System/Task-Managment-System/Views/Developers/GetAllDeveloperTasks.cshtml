@@ -1,0 +1,47 @@
+﻿@model List<Task_Managment_System.Models.ProjectTask>
+
+<h2>Get All Developer Tasks</h2>
+
+
+@if (Model.Count > 0)
+{
+    foreach (var task in Model)
+    {
+        
+        var dateCreated = task.DateCreated;
+        var deadline = task.Deadline;
+
+        <ul>
+            <li>
+                @Html.CheckBox("check", task.Complete, new { @class = "form-check-input me-1", @disabled=true }) Task Completed<br />
+                @task.Priority<br />
+                @task.Title<br />
+                @task.Contents<br />
+                @Convert.ToDateTime(dateCreated).ToString("ddd/MMM/d/yyy") <br />
+                @Convert.ToDateTime(deadline).ToString("ddd/MMM/d/yyy")<br />
+                @Html.Label("Percentage Completed")
+                <button class="" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "-" })'">-</button>
+                <meter min="0" max="100", value="@task.PercentageCompleted"></meter> 
+                <button class="" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "+"  })'">+</button>
+                <br />
+
+                @if (task.Complete == true)
+                {
+                    <button class="" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Unmark Task as Completed</button>
+                }
+                else
+                {
+                    <button class="" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Mark Task as Completed</button>
+                }
+
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <h3>You have not been assigned any tasks.</h3>
+}
+
+
+
