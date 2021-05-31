@@ -10,7 +10,7 @@ using Task_Managment_System.Models.ViewModel;
 
 namespace Task_Managment_System.Controllers
 {
-    [Authorize(Roles = "ProjectManager")]
+    //[Authorize(Roles = "ProjectManager")]
     public class ProjectManagersController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
@@ -19,7 +19,7 @@ namespace Task_Managment_System.Controllers
         public ActionResult Index()
         {
             var projectList = db.Projects.OrderBy(p => p.Priority).ToList();
-            return View(projectList);
+            return View("Dashboard",projectList);
         }
 
         private readonly ProjectHelper ph;
@@ -179,6 +179,8 @@ namespace Task_Managment_System.Controllers
                 ViewBag.Title = "Show Tasks For " + projectName;
             }
 
+            ViewData["projectId"] = projectId;
+
             return View("showtasks", tasks);
         }
         [HttpGet]
@@ -301,6 +303,14 @@ namespace Task_Managment_System.Controllers
             db.SaveChanges();
 
             return Json(new { status = 200, task });
+        }
+
+        public ActionResult Dashboard()
+        {
+            var projectList = db.Projects.Include("Tasks").OrderBy(p => p.Priority).ToList();
+            ViewBag.TaskHelper = th;
+
+            return View( projectList);
         }
     }
 }

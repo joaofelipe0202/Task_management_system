@@ -293,6 +293,7 @@
     <Content Include="Views\ProjectManagers\AddUserToRole.cshtml" />
     <Content Include="Views\Developers\GetAllDeveloperTasks.cshtml" />
     <Content Include="Views\Developers\ShowDevelopers.cshtml" />
+    <Content Include="Views\ProjectManagers\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
