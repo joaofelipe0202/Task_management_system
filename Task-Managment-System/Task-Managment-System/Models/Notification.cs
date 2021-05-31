@@ -30,5 +30,9 @@ namespace Task_Managment_System.Models
             CreationDate = DateTime.Now;
             Type = type;
         }
+        public Notification()
+        {
+
+        }
     }
 }

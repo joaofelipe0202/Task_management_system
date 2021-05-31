@@ -14,7 +14,7 @@
                     <li class="list-group-item" project-key="@item.Id" onclick='handleToggleCompleteForProject(event,@item.Id)'>
                         @Html.CheckBox("check", item.Complete, new { @class = "form-check-input me-1" })
                         @Html.ActionLink(item.Name, "ShowTasksFor", new { projectId = item.Id }, new { @class = "btn btn-default" })
-                        <div>Creator: @item.Creator</div>
+                        <div>Creator: @item.Creator.UserName</div>
                         <div>Date Created: @item.DateCreated</div>
                         <div>DeadLine: @item.Deadline</div>
                     </li>
