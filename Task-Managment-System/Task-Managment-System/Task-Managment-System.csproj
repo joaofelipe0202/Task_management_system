@@ -203,10 +203,10 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BudgetHelper.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\HelperFilterAndOrderMethod.cs" />
     <Compile Include="Models\DeveloperViewModel.cs" />
-
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -290,7 +290,6 @@
     <Content Include="Views\ProjectManagers\AddUserToRole.cshtml" />
     <Content Include="Views\Developers\GetAllDeveloperTasks.cshtml" />
     <Content Include="Views\Developers\ShowDevelopers.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
