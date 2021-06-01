@@ -5,8 +5,13 @@
         width: 1100px;
         display: flex;
         flex-wrap:wrap;
+        justify-content:normal;
         height:840px;
         overflow-y:scroll;
+    }
+
+    .projects-container li {
+        list-style: none;
     }
 
     .projects-container::-webkit-scrollbar {
@@ -14,25 +19,21 @@
     }
 
     .project-box {
-        height:90px;
-        width:150px;
-        padding:8px;
-        margin:8px;
-        border:1px solid black;
-        border-radius:3px;
-        cursor:pointer;
-        overflow:hidden;
-        transition:all 0.8s;
+        width: 240px;
+        height: 400px;
+        padding: 8px;
+        margin: 8px;
+        border: 1px solid black;
+        border-radius: 3px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.5s;
     }
 
     .project-box h5 {
         text-align:center;
     }
 
-    .project-box-open {
-        width: 240px;
-        height: 400px;
-    }
 
     .project-box:last-child {
         background-color: white;
@@ -51,9 +52,11 @@
 
     .tasks-container li {
         border:1px dotted black;
-        list-style:none;
         padding:5px;
-        
+    }
+
+    .btn-create-project {
+        margin:8px;
     }
 </style>
 
@@ -77,10 +80,11 @@
                     levelClass = "list-group-item-info";
                     break;
             }
+            var managerName = project.Creator == null ? "" : project.Creator.UserName;
 
             <li class="project-box @levelClass" onclick="boxAnimation(event)">
                 <h5>@Html.ActionLink(project.Name, "ProjectDetails", new { projectId=project.Id})</h5>
-                <div>Manager: @project.Creator.UserName</div>
+                <div>Manager: @managerName</div>
                 <div>Priority: @project.Priority</div>
 
                 <div class="tasks-container">
@@ -102,17 +106,12 @@
             </li>
         }
 
-        <li class="project-box">
-            <button>Create new board</button>
+        <li>
+            @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class= "btn btn-primary btn-create-project" })
         </li>
     </ul>
     
 </section>
 
 <script>
-    function boxAnimation(e) {
-        const box = e.target.closest(".project-box");
-
-        box.classList.toggle("project-box-open");
-    }
 </script>
