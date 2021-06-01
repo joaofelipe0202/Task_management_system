@@ -73,7 +73,59 @@ namespace Task_Managment_System.Controllers
 
             return View(projectDetails);
         }
-
+        [HttpGet]
+        public ActionResult CreateNewProject()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateNewProject(string name, string description, double budget, DateTime deadline)
+        {
+            string creatorId = User.Identity.GetUserId();
+            ph.Add(name, description, budget, deadline, creatorId);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult DeleteProject(int? projectId)
+        {
+            if(projectId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var project = db.Projects.Find(projectId);
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
+            return View(project);
+        }
+        [HttpPost, ActionName("DeleteProject")]
+        public ActionResult DeleteProjectConfirmed(int projectId)
+        {
+            ph.Delete(projectId);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult Update(int? projectId)
+        {
+            if (projectId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var project = db.Projects.Find(projectId);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+            return View(project);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update([Bind(Include ="Id, Name, Description, Complete")]Project project)
+        {
+            ph.Update(project);
+            return View();
+        }
         //Search projects by name
         //?
         [HttpGet]
