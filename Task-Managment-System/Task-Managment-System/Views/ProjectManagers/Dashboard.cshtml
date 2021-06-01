@@ -46,7 +46,7 @@
     .tasks-container ul {
         overflow-y: scroll;
         padding: 5px;
-        height: 190px;
+        height: 98px;
     }
 
 
@@ -63,6 +63,7 @@
 <h2>Dashboard</h2>
 <div>
     @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("Projects that exceed the budget", "ShowProjectsThatExceedTheBudget", null, new { @class = "btn btn-primary btn-create-project" })
 </div>
 
 
@@ -91,7 +92,9 @@
             <div>Manager: @managerName</div>
             <div>Description: @project.Description</div>
             <div>Priority: @project.Priority</div>
-            @Html.CheckBox("check", project.Complete, new { @class = "form-check-input me-1" })
+            <div>Complete: @Html.CheckBox("check", project.Complete, new { @class = "form-check-input me-1" })</div>
+            <div>@Html.ActionLink("Delete", "DeleteProject", new { projectId = project.Id })</div>
+            
 
             <div class="tasks-container">
                 <h5>@Html.ActionLink("Tasks", "ShowTasksFor", new { projectId = project.Id })</h5>
