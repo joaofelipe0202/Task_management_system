@@ -52,9 +52,8 @@
 
             var dev3 = SeedUser(context, "Amanda@mw.com", "123456Mw.", 130, "Developer");
 
-            Project project = new Project("task management", 1300, DateTime.Now.AddDays(15), user2.Id);
+            Project project = new Project("task management","a task management web app", 1300, DateTime.Now.AddDays(15), user2.Id);
             project.DateCreated = DateTime.Now;
-            project.Description = "a task management web app";
             project.Complete = true;
             project.ActualCost = 1000;
             project.Priority = Priority.Urgent;
@@ -80,9 +79,8 @@
             context.Tasks.AddOrUpdate(t => t.Title, task);
             context.SaveChanges();
 
-            Project project1 = new Project("Some works", 1300, DateTime.Now.AddDays(20), user2.Id);
+            Project project1 = new Project("Some works", "something", 1300, DateTime.Now.AddDays(20), user2.Id);
             project1.DateCreated = DateTime.Now;
-            project1.Description = "something";
             project1.ActualCost = 2000;
             project1.Priority = Priority.Low;
 
@@ -116,7 +114,7 @@
 
             context.Tasks.AddOrUpdate(t => t.Title, task2);
 
-            Project project2 = new Project("Open a restaurant", 1300, DateTime.Now.AddDays(10), user2.Id);
+            Project project2 = new Project("Open a restaurant", "How to open a restaurant", 1300, DateTime.Now.AddDays(10), user2.Id);
             project2.DateCreated = DateTime.Now;
             project2.Description = "How to open a restaurant";
             project2.ActualCost = 1100;
@@ -125,7 +123,7 @@
             context.Projects.AddOrUpdate(p => p.Name, project2);
             context.SaveChanges();
 
-            Project project3 = new Project("Today's job", 100, DateTime.Now.AddDays(3), user2.Id);
+            Project project3 = new Project("Today's job", "What did you do today", 100, DateTime.Now.AddDays(3), user2.Id);
             project3.DateCreated = DateTime.Now;
             project3.Description = "What did you do today";
             project3.ActualCost = 2200;

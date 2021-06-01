@@ -201,6 +201,14 @@
     <Compile Include="Migrations\202105291558580_FixTyposAddProjectPriority.designer.cs">
       <DependentUpon>202105291558580_FixTyposAddProjectPriority.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106010150095_UpdateNames1.cs" />
+    <Compile Include="Migrations\202106010150095_UpdateNames1.designer.cs">
+      <DependentUpon>202106010150095_UpdateNames1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106010304219_UpdateDB.cs" />
+    <Compile Include="Migrations\202106010304219_UpdateDB.designer.cs">
+      <DependentUpon>202106010304219_UpdateDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BudgetHelper.cs" />
@@ -294,6 +302,9 @@
     <Content Include="Views\ProjectManagers\AddUserToRole.cshtml" />
     <Content Include="Views\Developers\GetAllDeveloperTasks.cshtml" />
     <Content Include="Views\Developers\ShowDevelopers.cshtml" />
+    <Content Include="Views\ProjectManagers\CreateNewProject.cshtml" />
+    <Content Include="Views\ProjectManagers\DeleteProject.cshtml" />
+    <Content Include="Views\ProjectManagers\Update.cshtml" />
     <Content Include="Views\ProjectManagers\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +341,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105291558580_FixTyposAddProjectPriority.resx">
       <DependentUpon>202105291558580_FixTyposAddProjectPriority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106010150095_UpdateNames1.resx">
+      <DependentUpon>202106010150095_UpdateNames1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106010304219_UpdateDB.resx">
+      <DependentUpon>202106010304219_UpdateDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
