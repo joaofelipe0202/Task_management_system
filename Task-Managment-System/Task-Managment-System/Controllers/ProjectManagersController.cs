@@ -10,7 +10,7 @@ using Task_Managment_System.Models.ViewModel;
 
 namespace Task_Managment_System.Controllers
 {
-    [Authorize(Roles = "ProjectManager")]
+    //[Authorize(Roles = "ProjectManager")]
     public class ProjectManagersController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
@@ -19,7 +19,7 @@ namespace Task_Managment_System.Controllers
         public ActionResult Index()
         {
             var projectList = db.Projects.OrderBy(p => p.Priority).ToList();
-            return View(projectList);
+            return View("Dashboard",projectList);
         }
 
         private readonly ProjectHelper ph;
@@ -178,7 +178,10 @@ namespace Task_Managment_System.Controllers
 
                 ViewBag.Title = "Show Tasks For " + projectName;
             }
-            return View();
+
+            ViewData["projectId"] = projectId;
+
+            return View("showtasks", tasks);
         }
         [HttpGet]
         public ActionResult CreateNewUser()
@@ -189,7 +192,7 @@ namespace Task_Managment_System.Controllers
         [HttpPost]
         public ActionResult CreateNewUser(string email, string password, double? salary)
         {
-            password = "NewUser123.";
+            //password = "NewUser123.";
             um.Create(email, salary, password);
 
             return RedirectToAction("AddUserToRole");
@@ -198,49 +201,22 @@ namespace Task_Managment_System.Controllers
         public ActionResult AddUserToRole()
         {
             //SelectList Users
-            ViewBag.userId = new SelectList(db.Users.ToList(), "Id", "Email");
+            ViewBag.UserName = new SelectList(db.Users.ToList(), "UserName", "UserName");
             //SelectList Roles
-            ViewBag.role = new SelectList(db.Roles.ToList(), "Name", "Name");
+            ViewBag.Role = new SelectList(db.Roles.ToList(), "Name", "Name");
             return View();
         }
         [HttpPost]
-        public ActionResult AddUserToRole(string userId, string role)
+        public ActionResult AddUserToRole(string userName, string role)
         {
             //SelectList Users
-            ViewBag.userId = new SelectList(db.Users.ToList(), "Id", "Email");
+            ViewBag.UserName = new SelectList(db.Users.ToList(), "UserName", "UserName");
             //SelectList Roles
-            ViewBag.role = new SelectList(db.Roles.ToList(), "Name", "Name");
+            ViewBag.Role = new SelectList(db.Roles.ToList(), "Name", "Name");
 
             //Add this user to this role using the membershipHelper
-            um.AddUserToRole(userId, role);
+            um.AddUserToRole(userName, role);
             return RedirectToAction("Index");
-        }
-        //Not idea why Put method wont work so i made it post
-        //POST @Url.Action("UpdateCompleteStatus")
-        [HttpPost]
-        [Route("api/task/{id}")]
-        public JsonResult UpdateCompleteStatusForTask(int? id, bool isChecked)
-        {
-            if (id == null)
-            {
-                return Json(new { status = 404 });
-            }
-
-            var task = db.Tasks.Find(id);
-
-            if (task == null)
-            {
-                return Json(new { status = 404 });
-            }
-
-            task.Complete = isChecked;
-
-            if (task.Complete)
-            {
-                task.PercentageCompleted = 100;
-            }
-            db.SaveChanges();
-            return Json(new { status = 200, task });
         }
         //GET @Url.Action("ShowIncompleteTasks")
         [HttpGet]
@@ -327,6 +303,14 @@ namespace Task_Managment_System.Controllers
             db.SaveChanges();
 
             return Json(new { status = 200, task });
+        }
+
+        public ActionResult Dashboard()
+        {
+            var projectList = db.Projects.Include("Tasks").OrderBy(p => p.Priority).ToList();
+            ViewBag.TaskHelper = th;
+
+            return View( projectList);
         }
     }
 }

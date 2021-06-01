@@ -1,0 +1,118 @@
+﻿@model List<Task_Managment_System.Models.Project>
+
+<style>
+    .projects-container {
+        width: 1100px;
+        display: flex;
+        flex-wrap:wrap;
+        height:840px;
+        overflow-y:scroll;
+    }
+
+    .projects-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .project-box {
+        height:90px;
+        width:150px;
+        padding:8px;
+        margin:8px;
+        border:1px solid black;
+        border-radius:3px;
+        cursor:pointer;
+        overflow:hidden;
+        transition:all 0.8s;
+    }
+
+    .project-box h5 {
+        text-align:center;
+    }
+
+    .project-box-open {
+        width: 240px;
+        height: 400px;
+    }
+
+    .project-box:last-child {
+        background-color: white;
+    }
+
+    .tasks-container {
+        margin-top:30px;
+    }
+
+    .tasks-container ul {
+        overflow-y: scroll;
+        padding: 5px;
+        height: 190px;
+    }
+
+
+    .tasks-container li {
+        border:1px dotted black;
+        list-style:none;
+        padding:5px;
+        
+    }
+</style>
+
+<h2>Dashboard</h2>
+
+<section class="box-container">
+    <ul class="projects-container">
+        @foreach (var project in Model)
+        {
+            string levelClass = null;
+
+            switch (project.Priority)
+            {
+                case Task_Managment_System.Models.Priority.Urgent:
+                    levelClass = "list-group-item-danger";
+                    break;
+                case Task_Managment_System.Models.Priority.High:
+                    levelClass = "list-group-item-warning";
+                    break;
+                case Task_Managment_System.Models.Priority.Average:
+                    levelClass = "list-group-item-info";
+                    break;
+            }
+
+            <li class="project-box @levelClass" onclick="boxAnimation(event)">
+                <h5>@Html.ActionLink(project.Name, "ProjectDetails", new { projectId=project.Id})</h5>
+                <div>Manager: @project.Creator.UserName</div>
+                <div>Priority: @project.Priority</div>
+
+                <div class="tasks-container">
+                    <h5>@Html.ActionLink("Tasks", "ShowTasksFor",new { projectId = project.Id})</h5>
+                    <ul>
+
+                        @foreach (var task in project.Tasks)
+                        {
+                            var assignedUser = task.AssignedUser == null ? "Not developers are assigned" : task.AssignedUser.UserName;
+
+                            <li>
+                                <h7>@task.Title</h7>
+                                <div>Created by: @task.Manager.UserName</div>
+                                <div>Assigned developer: @assignedUser</div>
+                            </li>
+                        }
+                    </ul>
+                </div>       
+            </li>
+        }
+
+        <li class="project-box">
+            <button>Create new board</button>
+        </li>
+    </ul>
+    
+</section>
+
+<script>
+    function boxAnimation(e) {
+        const box = e.target.closest(".project-box");
+
+        box.classList.toggle("project-box-open");
+    }
+</script>
