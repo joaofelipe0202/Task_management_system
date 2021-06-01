@@ -10,7 +10,7 @@ using Task_Managment_System.Models.ViewModel;
 
 namespace Task_Managment_System.Controllers
 {
-    //[Authorize(Roles = "ProjectManager")]
+    [Authorize(Roles = "ProjectManager")]
     public class ProjectManagersController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
