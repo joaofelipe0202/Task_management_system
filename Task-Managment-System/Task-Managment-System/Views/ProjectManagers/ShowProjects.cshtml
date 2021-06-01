@@ -9,14 +9,16 @@
 
         <ul class="list-group projects"  >
             @{
-                foreach (var item in Model)
+                foreach (var project in Model)
                 {
-                    <li class="list-group-item" project-key="@item.Id" onclick='handleToggleCompleteForProject(event,@item.Id)'>
-                        @Html.CheckBox("check", item.Complete, new { @class = "form-check-input me-1" })
-                        @Html.ActionLink(item.Name, "ShowTasksFor", new { projectId = item.Id }, new { @class = "btn btn-default" })
-                        <div>Creator: @item.Creator.UserName</div>
-                        <div>Date Created: @item.DateCreated</div>
-                        <div>DeadLine: @item.Deadline</div>
+                    var managerName = project.Creator == null ? "" : project.Creator.UserName;
+
+                    <li class="list-group-item" project-key="@project.Id" onclick='handleToggleCompleteForProject(event,@project.Id)'>
+                        @Html.CheckBox("check", project.Complete, new { @class = "form-check-input me-1" })
+                        @Html.ActionLink(project.Name, "ShowTasksFor", new { projectId = project.Id }, new { @class = "btn btn-default" })
+                        <div>Creator: @managerName</div>
+                        <div>Date Created: @project.DateCreated</div>
+                        <div>DeadLine: @project.Deadline</div>
                     </li>
                 }
             }

@@ -61,6 +61,10 @@
 </style>
 
 <h2>Dashboard</h2>
+<div>
+    @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class = "btn btn-primary btn-create-project" })
+</div>
+
 
 <section class="box-container">
     <ul class="projects-container">
@@ -82,36 +86,59 @@
             }
             var managerName = project.Creator == null ? "" : project.Creator.UserName;
 
-            <li class="project-box @levelClass" onclick="boxAnimation(event)">
-                <h5>@Html.ActionLink(project.Name, "ProjectDetails", new { projectId=project.Id})</h5>
-                <div>Manager: @managerName</div>
-                <div>Priority: @project.Priority</div>
+        <li class="project-box @levelClass" onclick="handleToggleCompleteForProject(event,@project.Id)">
+            <h5>@Html.ActionLink(project.Name, "ProjectDetails", new { projectId = project.Id })</h5>
+            <div>Manager: @managerName</div>
+            <div>Description: @project.Description</div>
+            <div>Priority: @project.Priority</div>
+            @Html.CheckBox("check", project.Complete, new { @class = "form-check-input me-1" })
 
-                <div class="tasks-container">
-                    <h5>@Html.ActionLink("Tasks", "ShowTasksFor",new { projectId = project.Id})</h5>
-                    <ul>
+            <div class="tasks-container">
+                <h5>@Html.ActionLink("Tasks", "ShowTasksFor", new { projectId = project.Id })</h5>
+                <ul>
 
-                        @foreach (var task in project.Tasks)
-                        {
-                            var assignedUser = task.AssignedUser == null ? "Not developers are assigned" : task.AssignedUser.UserName;
+                    @foreach (var task in project.Tasks)
+                    {
+                        var assignedUser = task.AssignedUser == null ? "Not developers are assigned" : task.AssignedUser.UserName;
 
-                            <li>
-                                <h7>@task.Title</h7>
-                                <div>Created by: @task.Manager.UserName</div>
-                                <div>Assigned developer: @assignedUser</div>
-                            </li>
-                        }
-                    </ul>
-                </div>       
-            </li>
+                        <li>
+                            <h7>@task.Title</h7>
+                            <div>Created by: @task.Manager.UserName</div>
+                            <div>Assigned developer: @assignedUser</div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </li>
         }
 
-        <li>
-            @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class= "btn btn-primary btn-create-project" })
-        </li>
+        
     </ul>
     
 </section>
 
 <script>
+
+    function handleToggleCompleteForProject(event, projectId) {
+        if (event.target.tagName === "INPUT") {
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: "@Url.Action("UpdateCompleteStatusForProject", "ProjectManagers")/"+projectId,
+                    data: {
+                        isChecked: event.target.checked
+                    },
+                    success: function (result) {
+                        //test
+                        console.log(result);
+                    },
+                    error: function (err) {
+                        //test
+                        alert(err.responseText);
+                    }
+
+                }
+            )
+        }
+    }
 </script>

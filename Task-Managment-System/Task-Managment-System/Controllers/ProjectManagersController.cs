@@ -315,17 +315,11 @@ namespace Task_Managment_System.Controllers
             if (project == null)
                 return Json(new { status = 404 });
 
-            if (project.Complete == true)
-
-            {
-                return Json(new { status = 404 });
-            }
-
             project.Complete = isChecked;
 
             db.SaveChanges();
 
-            return Json(new { status = 200, project });
+            return Json(new { status = 200, project=project.Name });
         }
 
         //POST @Url.Action("UpdateCompleteStatusForTask")
