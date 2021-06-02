@@ -14,31 +14,25 @@ namespace Task_Managment_System.Models
             db = database;
         }
 
-        public bool UpdateActualPriceSinceDateCreated(int projectId)
+        public bool UpdateActualPriceSinceLastBudgetUpdate(int projectId)
         {
             var project = db.Projects.Find(projectId);
             if (project == null)
                 return false;
 
+            int numDays = Convert.ToInt32((project.LastBudgetUpdate - DateTime.Now).TotalDays);
+
+            if (numDays < 1)
+                return false;
+
             double dailyCost = project.Members.Sum(m => m.DailySalary).Value;
-            int numDays = Convert.ToInt32((project.DateCreated - DateTime.Now).TotalDays);
             project.ActualCost = dailyCost * numDays;
+            project.LastBudgetUpdate = DateTime.Now;
             db.SaveChanges();
 
             return true;
         }
 
-        public double GetActualPriceSinceDateCreated(int projectId)
-        {
-            var project = db.Projects.Find(projectId);
-            if (project == null)
-                return 0;
-
-            double dailyCost = project.Members.Sum(m => m.DailySalary).Value;
-            int numDays = Convert.ToInt32((project.DateCreated - DateTime.Now).TotalDays);
-
-            return dailyCost * numDays;
-        }
 
         public bool UpdateActualPriceForDay(int projectId)
         {
@@ -48,6 +42,7 @@ namespace Task_Managment_System.Models
 
             double dailyCost = project.Members.Sum(m => m.DailySalary).Value;
             project.ActualCost += dailyCost;
+            project.LastBudgetUpdate = DateTime.Now;
             db.SaveChanges();
 
             return true;

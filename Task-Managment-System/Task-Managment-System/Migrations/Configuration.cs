@@ -58,6 +58,7 @@
             project.Complete = true;
             project.ActualCost = 1000;
             project.Priority = Priority.Urgent;
+            project.LastBudgetUpdate = DateTime.Now;
             
             context.Projects.AddOrUpdate(p => p.Name, project);
             context.SaveChanges();
@@ -85,6 +86,7 @@
             project1.Description = "something";
             project1.ActualCost = 2000;
             project1.Priority = Priority.Low;
+            project1.LastBudgetUpdate = DateTime.Now;
 
             context.Projects.AddOrUpdate(p => p.Name, project1);
 
@@ -121,6 +123,7 @@
             project2.Description = "How to open a restaurant";
             project2.ActualCost = 1100;
             project2.Priority = Priority.High;
+            project2.LastBudgetUpdate = DateTime.Now;
 
             context.Projects.AddOrUpdate(p => p.Name, project2);
             context.SaveChanges();
@@ -130,6 +133,7 @@
             project3.Description = "What did you do today";
             project3.ActualCost = 2200;
             project.Priority = Priority.Low;
+            project3.LastBudgetUpdate = DateTime.Now;
 
             context.Projects.AddOrUpdate(p => p.Name, project3);
             context.SaveChanges();

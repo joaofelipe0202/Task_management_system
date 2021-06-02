@@ -210,6 +210,10 @@
     <Compile Include="Migrations\202106011941339_RemovePrioritiesAddIsUrgentToCommentClass.designer.cs">
       <DependentUpon>202106011941339_RemovePrioritiesAddIsUrgentToCommentClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106021919035_AddLastBudgetUpdateProperty.cs" />
+    <Compile Include="Migrations\202106021919035_AddLastBudgetUpdateProperty.Designer.cs">
+      <DependentUpon>202106021919035_AddLastBudgetUpdateProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BudgetHelper.cs" />
@@ -348,6 +352,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106011941339_RemovePrioritiesAddIsUrgentToCommentClass.resx">
       <DependentUpon>202106011941339_RemovePrioritiesAddIsUrgentToCommentClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106021919035_AddLastBudgetUpdateProperty.resx">
+      <DependentUpon>202106021919035_AddLastBudgetUpdateProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

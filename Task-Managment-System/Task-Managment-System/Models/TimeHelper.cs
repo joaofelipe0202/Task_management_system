@@ -22,8 +22,7 @@ namespace Task_Managment_System.Models
         {
             foreach (var project in db.Projects)
             {
-                if(project.ActualCost < bh.GetActualPriceSinceDateCreated(project.Id))
-                    bh.UpdateActualPriceForDay(project.Id);
+                bh.UpdateActualPriceSinceLastBudgetUpdate(project.Id);
                 nh.IsDayBeforeDeadline(project.Id, false);
                 nh.IsOverbudget(project.Id);
             }
