@@ -28,6 +28,18 @@ namespace Task_Managment_System.Models
             return true;
         }
 
+        public double GetActualPriceSinceDateCreated(int projectId)
+        {
+            var project = db.Projects.Find(projectId);
+            if (project == null)
+                return 0;
+
+            double dailyCost = project.Members.Sum(m => m.DailySalary).Value;
+            int numDays = Convert.ToInt32((project.DateCreated - DateTime.Now).TotalDays);
+
+            return dailyCost * numDays;
+        }
+
         public bool UpdateActualPriceForDay(int projectId)
         {
             var project = db.Projects.Find(projectId);

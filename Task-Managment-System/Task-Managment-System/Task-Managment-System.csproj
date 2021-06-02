@@ -217,6 +217,7 @@
     <Compile Include="Models\ProjectHelper.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskHelper.cs" />
+    <Compile Include="Models\TimeHelper.cs" />
     <Compile Include="Models\UserManager.cs" />
     <Compile Include="Models\ViewModel\ProjectDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
