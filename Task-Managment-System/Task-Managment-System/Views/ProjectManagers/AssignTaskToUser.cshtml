@@ -1,0 +1,14 @@
+﻿@model Task_Managment_System.Models.ProjectTask
+
+@{
+    ViewBag.Title = "AssignTaskToUser";
+}
+
+<h2>Assign @Model.Manager.UserName<h2>
+
+@using (Html.BeginForm())
+{
+    <p>Select User @Html.DropDownList("UserId") <br /></p>
+    <br />
+    <input type="submit" value="Assigns" />
+}

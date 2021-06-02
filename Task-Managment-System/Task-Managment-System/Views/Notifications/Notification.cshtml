@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNet.Identity;
+<style>
+    #notification{
+        line-height:50px;
+    }
+</style>
+
+<div>@Html.ActionLink("Notifications", "ShowNotificationsBy", "Notifications",new { userId = ViewBag.UserId},htmlAttributes: new { id = "notification" })</div>
+
+<script>
+    getUnOpenedNotificationNumber("@ViewData["userId"]");
+
+    function getUnOpenedNotificationNumber(userId) {
+
+        fetch("@Url.Action("GetNumberOfUnOpenedNotifications", "Notifications")?userId=" + userId)
+            .then(res => res.json())
+            .then(res => $("#notification").append("&nbsp;"+res.numberUnopened))
+    }
+</script>

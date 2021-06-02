@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -151,7 +152,7 @@ namespace Task_Managment_System.Models
                 }
                 return true;
             }
-
+            
             return false;
         }
 
@@ -175,7 +176,12 @@ namespace Task_Managment_System.Models
             if (user == null)
                 return - 1;
 
-            return user.Notifications.Count(n => n.Read);
+            return user.Notifications.Count(n => !n.Read);
+        }
+
+        public IEnumerable<Notification> GetBy(string userId)
+        {
+            return db.Notifications.Where(n => n.UserId == userId);
         }
     }
 }

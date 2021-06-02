@@ -20,6 +20,8 @@ namespace Task_Managment_System.Controllers
         public ActionResult Index()
         {
             var projectList = db.Projects.OrderBy(p => p.Priority).ToList();
+            ViewBag.UserId = User.Identity.GetUserId();
+
             return View("Dashboard",projectList);
         }
 
@@ -358,9 +360,33 @@ namespace Task_Managment_System.Controllers
         public ActionResult Dashboard()
         {
             var projectList = db.Projects.Include("Tasks").OrderBy(p => p.Priority).ToList();
-            ViewBag.TaskHelper = th;
+            ViewBag.UserId = User.Identity.GetUserId();
 
             return View( projectList);
+        }
+        [HttpGet]
+        public ActionResult AssignTaskToUser(int taskId)
+        {
+            ProjectTask task = db.Tasks.Find(taskId);
+
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Email");
+
+            return View(task);
+        }
+        [HttpPost]
+        public ActionResult AssignTaskToUser(int taskId, string userId)
+        {
+            ProjectTask task = db.Tasks.Find(taskId);
+
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Email");
+
+            ApplicationUser user = db.Users.Find(userId);
+
+            task.AssignedUser = user;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Dashboard");
         }
 
     }

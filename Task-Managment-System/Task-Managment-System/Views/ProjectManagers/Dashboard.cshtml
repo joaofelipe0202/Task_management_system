@@ -45,7 +45,7 @@
     .tasks-container ul {
         overflow-y: scroll;
         padding: 5px;
-        height: 98px;
+        height: 118px;
     }
 
 
@@ -60,6 +60,7 @@
 </style>
 
 <h2>Dashboard</h2>
+@Html.Partial("~/Views/Notifications/Notification.cshtml",new ViewDataDictionary { { "userId", ViewBag.UserId } })
 <div>
     @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class = "btn btn-primary btn-create-project" })
     @Html.ActionLink("Projects that exceed the budget", "ShowProjectsThatExceedTheBudget", null, new { @class = "btn btn-primary btn-create-project" })
@@ -109,6 +110,7 @@
                             <h7>@task.Title</h7>
                             <div>Created by: @task.Manager.UserName</div>
                             <div>Assigned developer: @assignedUser</div>
+                            <div>@Html.ActionLink("AssignTask","AssignTaskToUser",new { taskId=task.Id})</div>
                         </li>
                     }
                 </ul>
