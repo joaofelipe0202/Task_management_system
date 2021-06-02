@@ -27,8 +27,8 @@ namespace Task_Managment_System.Models
 
         public Project()
         {
-
         }
+
         public Project(string name, double budget, DateTime deadline, string creatorId)
         {
             Name = name;
