@@ -13,7 +13,20 @@
 <hr />
 @foreach (var comment in Model.Comments)
 {
-    if (comment.IsUrgent == true)
+    if (Model.Complete == false && comment.IsUrgent == true)
+    {
+        <table class="table">
+            <tr>
+                <td>
+                    @comment.Creator.Email<br />
+                    @Convert.ToDateTime(comment.DateCreated).ToString("ddd/MMM/d/yyy")<br />
+                    @comment.Title<br />
+                    @comment.Content<br />
+                </td>
+            </tr>
+        </table>
+    }
+    else if (Model.Complete == true)
     {
         <table class="table">
             <tr>
@@ -28,6 +41,6 @@
     }
 }
 
-    @Html.Partial("../Shared/CommentFormPartialView", new Comment { TaskId = Model.Id })
+@Html.Partial("../Shared/CommentFormPartialView", new Comment { TaskId = Model.Id })
 
 
