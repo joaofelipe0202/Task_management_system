@@ -29,7 +29,7 @@ namespace Task_Managment_System.Models
             db.SaveChanges();
         }
 
-        public static void Delete(int id)
+        public void Delete(int id)
         {
             var notification = db.Notifications.Find(id);
             if (notification == null)

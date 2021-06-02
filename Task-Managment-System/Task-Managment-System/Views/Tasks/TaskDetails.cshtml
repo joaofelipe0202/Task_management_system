@@ -1,0 +1,33 @@
+﻿@model Task_Managment_System.Models.ProjectTask
+@using Task_Managment_System.Models
+<br />
+<br />
+<h1>@Model.Title</h1>
+<div>
+    <strong> Created: </strong>@Convert.ToDateTime(Model.DateCreated).ToString("MMMM/d/yyyy HH:mm") |
+    <strong> Creator: </strong>@Model.AssignedUser.Email
+    <br />
+    @Html.DisplayFor(model => model.Contents);
+</div>
+
+<hr />
+@foreach (var comment in Model.Comments)
+{
+    if (comment.IsUrgent == true)
+    {
+        <table class="table">
+            <tr>
+                <td>
+                    @comment.Creator.Email<br />
+                    @Convert.ToDateTime(comment.DateCreated).ToString("ddd/MMM/d/yyy")<br />
+                    @comment.Title<br />
+                    @comment.Content<br />
+                </td>
+            </tr>
+        </table>
+    }
+}
+
+    @Html.Partial("../Shared/CommentFormPartialView", new Comment { TaskId = Model.Id })
+
+
