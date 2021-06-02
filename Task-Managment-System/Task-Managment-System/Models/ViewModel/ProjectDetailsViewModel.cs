@@ -14,6 +14,7 @@ namespace Task_Managment_System.Models.ViewModel
         public double ProjectBudget { get; set; }
         public double ProjectActualCost { get; set; }
         public DateTime ProjectCreatedDate { get; set; }
+        public DateTime Deadline { get; set; }
         public bool Complete { get; set; }
         public virtual ICollection<ApplicationUser> ProjectMembers { get; set; }
         public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
@@ -25,6 +26,7 @@ namespace Task_Managment_System.Models.ViewModel
             this.ProjectDescription = project.Description;
             this.ProjectBudget = project.Budget;
             this.ProjectCreatedDate = project.DateCreated;
+            this.Deadline = project.Deadline;
             this.ProjectMembers = members;
             this.ProjectTasks = projectTasks;
         }

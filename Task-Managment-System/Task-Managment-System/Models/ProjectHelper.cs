@@ -22,9 +22,9 @@ namespace Task_Managment_System.Models
             db = database;
         }
 
-        public void Add(string name, string description, double budget, DateTime deadline, string creatorId)
+        public void Add(string name, string description, double budget, DateTime deadline, Priority priority, string creatorId)
         {
-            var newProject = new Project(name, description, budget, deadline, creatorId);
+            var newProject = new Project(name, description, budget, deadline, priority, creatorId);
             
             db.Projects.Add(newProject);
 
@@ -60,11 +60,15 @@ namespace Task_Managment_System.Models
             db.Projects.Remove(project);
             db.SaveChanges();
         }
-        public void Update(Project project)
+        public void Update(Project project, DateTime deadline, Priority priority)
         {
             //check modify
             if (project == null)
                 return;
+
+            project.DateCreated = DateTime.Now;
+            project.Deadline = deadline;
+            project.Priority = priority;
 
             db.Entry(project).State = EntityState.Modified;
             try

@@ -4,6 +4,7 @@
     ViewBag.Title = "ProjectDetails";
 }
 
+
 <h2>Project Details</h2>
 <table class="table">
     <tr>
@@ -18,6 +19,9 @@
         </th>
         <th>
             Project Actual Cost
+        </th>
+        <th>
+            Deadline
         </th>
         <th>
             Complete
@@ -36,6 +40,9 @@
         </td>
         <td>
             @Html.EditorFor(model => model.ProjectActualCost)
+        </td>
+        <td>
+            @Html.EditorFor(model => model.Deadline)
         </td>
         <td>
             @Html.DisplayFor(model => model.Complete)

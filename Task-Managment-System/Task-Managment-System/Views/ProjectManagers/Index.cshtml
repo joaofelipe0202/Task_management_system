@@ -7,7 +7,7 @@
 <h2>Welcome, @User.Identity.Name</h2><br />
 
 <p>
-    @Html.ActionLink("Create New", "CreateNewProject") | @Html.ActionLink("Create New Member", "CreateNewUser")
+    @Html.ActionLink("Create New Project", "CreateNewProject") | @Html.ActionLink("Create New Member", "CreateNewUser")
 </p>
 <table class="table">
     <tr>
@@ -61,7 +61,7 @@
     <td>
         @Html.ActionLink("Update", "Update", new { projectId = item.Id }) |
         @Html.ActionLink("Details", "ProjectDetails", new { projectId = item.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { projectId = item.Id })
+        @Html.ActionLink("Delete", "DeleteProject", new { projectId = item.Id })
     </td>
 </tr>
 }

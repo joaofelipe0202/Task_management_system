@@ -32,13 +32,14 @@ namespace Task_Managment_System.Models
         {
 
         }
-        public Project(string name, string description, double budget, DateTime deadline, string creatorId)
+        public Project(string name, string description, double budget, DateTime deadline, Priority priority, string creatorId)
         {
             Name = name;
             Description = description;
             Budget = budget;
             DateCreated = DateTime.Now;
             Deadline = deadline;
+            Priority = priority;
             CreatorId = creatorId;
 
             Members = new HashSet<ApplicationUser>();

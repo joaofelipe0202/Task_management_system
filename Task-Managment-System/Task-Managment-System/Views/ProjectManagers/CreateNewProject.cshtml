@@ -50,8 +50,8 @@
         @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="checkbox">
-                @Html.EnumDropDownListFor(model => model.Priority)
-                @Html.ValidationMessageFor(model => model.Complete, "", new { @class = "text-danger" })
+                @Html.EnumDropDownListFor(model => model.Priority, "Select a Item", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>

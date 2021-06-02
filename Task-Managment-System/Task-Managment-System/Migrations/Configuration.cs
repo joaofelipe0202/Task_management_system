@@ -40,23 +40,20 @@
             SeedUser(context, "ltl@mw.com", "123456Ltl.", 130, "ProjectManager");
 
             var user2 = SeedUser(context, "Jonny@mw.com", "123456Mw.", 130, "ProjectManager");      
-
-            var dev1 = SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
             
-            var dev2 = SeedUser(context, "Courtney@mw.com", "123456Mw.", 130, "Developer");
+            SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
             
-            var user3 = SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
-
+            SeedUser(context, "Courtney@mw.com", "123456Mw.", 130, "Developer");
 
             SeedUser(context, "Maggie@mw.com", "123456Mw.", 130, "Developer");
 
-            var dev3 = SeedUser(context, "Amanda@mw.com", "123456Mw.", 130, "Developer");
+            SeedUser(context, "Amanda@mw.com", "123456Mw.", 130, "Developer");
 
-            Project project = new Project("task management","a task management web app", 1300, DateTime.Now.AddDays(15), user2.Id);
+            Project project = new Project("task management","a task management web app", 1300, DateTime.Now.AddDays(15),Priority.Urgent, user2.Id);
             project.DateCreated = DateTime.Now;
             project.Complete = true;
             project.ActualCost = 1000;
-            project.Priority = Priority.Urgent;
+            //project.Priority = Priority.Urgent;
             
             context.Projects.AddOrUpdate(p => p.Name, project);
             context.SaveChanges();
@@ -79,10 +76,10 @@
             context.Tasks.AddOrUpdate(t => t.Title, task);
             context.SaveChanges();
 
-            Project project1 = new Project("Some works", "something", 1300, DateTime.Now.AddDays(20), user2.Id);
+            Project project1 = new Project("Some works", "something", 1300, DateTime.Now.AddDays(20), Priority.Low, user2.Id);
             project1.DateCreated = DateTime.Now;
             project1.ActualCost = 2000;
-            project1.Priority = Priority.Low;
+            //project1.Priority = Priority.Low;
 
             context.Projects.AddOrUpdate(p => p.Name, project1);
 
@@ -114,20 +111,20 @@
 
             context.Tasks.AddOrUpdate(t => t.Title, task2);
 
-            Project project2 = new Project("Open a restaurant", "How to open a restaurant", 1300, DateTime.Now.AddDays(10), user2.Id);
+            Project project2 = new Project("Open a restaurant", "How to open a restaurant", 1300, DateTime.Now.AddDays(10),Priority.High, user2.Id);
             project2.DateCreated = DateTime.Now;
             project2.Description = "How to open a restaurant";
             project2.ActualCost = 1100;
-            project2.Priority = Priority.High;
+            //project2.Priority = Priority.High;
 
             context.Projects.AddOrUpdate(p => p.Name, project2);
             context.SaveChanges();
 
-            Project project3 = new Project("Today's job", "What did you do today", 100, DateTime.Now.AddDays(3), user2.Id);
+            Project project3 = new Project("Today's job", "What did you do today", 100, DateTime.Now.AddDays(3),Priority.Low, user2.Id);
             project3.DateCreated = DateTime.Now;
             project3.Description = "What did you do today";
             project3.ActualCost = 2200;
-            project.Priority = Priority.Low;
+            //project.Priority = Priority.Low;
 
             context.Projects.AddOrUpdate(p => p.Name, project3);
             context.SaveChanges();
@@ -147,7 +144,7 @@
 
         }
 
-        private ApplicationUser SeedUser(ApplicationDbContext context, string email, string password, float salary, string role)
+        private ApplicationUser SeedUser(ApplicationDbContext context, string email, string password, double salary, string role)
         {
             //UserName and Email have to be identical for now otherwise it will not work. we can fix this problem later.
             if (!context.Users.Any(u => u.UserName == email))

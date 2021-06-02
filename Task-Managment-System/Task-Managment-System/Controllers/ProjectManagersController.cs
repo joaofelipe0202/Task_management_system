@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Task_Managment_System.Controllers
     public class ProjectManagersController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-
+        RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
         // GET: PM
         public ActionResult Index()
         {
@@ -79,10 +80,10 @@ namespace Task_Managment_System.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateNewProject(string name, string description, double budget, DateTime deadline)
+        public ActionResult CreateNewProject(string name, string description, double budget, DateTime deadline, Priority priority)
         {
             string creatorId = User.Identity.GetUserId();
-            ph.Add(name, description, budget, deadline, creatorId);
+            ph.Add(name, description, budget, deadline, priority, creatorId);
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -121,10 +122,12 @@ namespace Task_Managment_System.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update([Bind(Include ="Id, Name, Description, Complete")]Project project)
+        public ActionResult Update([Bind(Include ="Id, Name, Description, Complete")]Project project, DateTime deadline, Priority priority)
         {
-            ph.Update(project);
-            return View();
+            project.CreatorId = User.Identity.GetUserId();
+     
+            ph.Update(project, deadline, priority);
+            return RedirectToAction("Index");
         }
         //Search projects by name
         //?
@@ -239,10 +242,11 @@ namespace Task_Managment_System.Controllers
 
         }
         [HttpPost]
-        public ActionResult CreateNewUser(string email, string password, double? salary)
+        public ActionResult CreateNewUser(string email, string password, double? salary, string role)
         {
+            ViewBag.role = new SelectList(db.Roles, "Name", "Name");
             password = "NewUser123.";
-            um.Create(email, salary, password);
+            um.Create(email, salary, password, role);
 
             return RedirectToAction("AddUserToRole");
         }
@@ -258,12 +262,10 @@ namespace Task_Managment_System.Controllers
         [HttpPost]
         public ActionResult AddUserToRole(string userId, string role)
         {
-            //SelectList Users
             ViewBag.userId = new SelectList(db.Users.ToList(), "Id", "Email");
-            //SelectList Roles
+            
             ViewBag.role = new SelectList(db.Roles.ToList(), "Name", "Name");
 
-            //Add this user to this role using the membershipHelper
             um.AddUserToRole(userId, role);
             return RedirectToAction("Index");
         }
