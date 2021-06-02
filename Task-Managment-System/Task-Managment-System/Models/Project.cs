@@ -34,7 +34,7 @@ namespace Task_Managment_System.Models
             Deadline = DateTime.Now;
         }
 
-        public Project(string name, double budget, DateTime deadline, string creatorId)
+        public Project(string name,string description, double budget, DateTime deadline,Priority priority, string creatorId)
         {
             Name = name;
             Description = description;
