@@ -247,14 +247,9 @@ namespace Task_Managment_System.Controllers
         [HttpPost]
         public ActionResult CreateNewUser(string email, string password, double? salary, string role)
         {
-<<<<<<< HEAD
             ViewBag.role = new SelectList(db.Roles, "Name", "Name");
             password = "NewUser123.";
             um.Create(email, salary, password, role);
-=======
-            //password = "NewUser123.";
-            um.Create(email, salary, password);
->>>>>>> 69ce8b4dac3cac30b60a6d5883b1e07f36a2fd68
 
             return RedirectToAction("AddUserToRole");
         }
@@ -262,29 +257,21 @@ namespace Task_Managment_System.Controllers
         public ActionResult AddUserToRole()
         {
             //SelectList Users
-            ViewBag.UserName = new SelectList(db.Users.ToList(), "UserName", "UserName");
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Email");
             //SelectList Roles
             ViewBag.Role = new SelectList(db.Roles.ToList(), "Name", "Name");
             return View();
         }
         [HttpPost]
-        public ActionResult AddUserToRole(string userName, string role)
+        public ActionResult AddUserToRole(string userId, string role)
         {
-<<<<<<< HEAD
-            ViewBag.userId = new SelectList(db.Users.ToList(), "Id", "Email");
-            
-            ViewBag.role = new SelectList(db.Roles.ToList(), "Name", "Name");
 
-            um.AddUserToRole(userId, role);
-=======
-            //SelectList Users
-            ViewBag.UserName = new SelectList(db.Users.ToList(), "UserName", "UserName");
-            //SelectList Roles
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Email");
+            
             ViewBag.Role = new SelectList(db.Roles.ToList(), "Name", "Name");
 
-            //Add this user to this role using the membershipHelper
-            um.AddUserToRole(userName, role);
->>>>>>> 69ce8b4dac3cac30b60a6d5883b1e07f36a2fd68
+            um.AddUserToRole(userId, role);
+
             return RedirectToAction("Index");
         }
         //GET @Url.Action("ShowIncompleteTasks")
