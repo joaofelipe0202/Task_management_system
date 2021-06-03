@@ -18,13 +18,13 @@ namespace Task_Managment_System
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var startTimeSpan = TimeSpan.Zero;
-            var periodTimeSpan = TimeSpan.FromMinutes(1);
-            var updateHelper = new TimeHelper(); 
-            var timer = new System.Threading.Timer((e) =>
-            {
-                updateHelper.RunUpdateTick();
-            }, null, startTimeSpan, periodTimeSpan);
+            //var startTimeSpan = TimeSpan.Zero;
+            //var periodTimeSpan = TimeSpan.FromMinutes(1);
+            //var updateHelper = new TimeHelper(); 
+            //var timer = new System.Threading.Timer((e) =>
+            //{
+            //    updateHelper.RunUpdateTick();
+            //}, null, startTimeSpan, periodTimeSpan);
         }
     }
 }
