@@ -151,8 +151,52 @@
 
             context.Tasks.AddOrUpdate(t => t.Title, task3);
 
+            Comment comment1 = new Comment
+            {
+                Title = "Nice feature implemented",
+                Content = "Nice feature",
+                CreatorId = "f067a25c-685e-4747-9143-d33f680d8129",
+                TaskId = 27,
+                IsUrgent = false,
+                DateCreated = DateTime.Now
+            };
+            context.Comments.AddOrUpdate(c => c.Title, comment1);
+
+            Comment comment2 = new Comment
+            {
+                Title = "Change this ASAP",
+                Content = "Fix ASAP!!!",
+                CreatorId = "df89c449-187d-49fa-bfc6-1980ee94957d",
+                TaskId = 23,
+                IsUrgent = true,
+                DateCreated = DateTime.Now
+            };
+            context.Comments.AddOrUpdate(c => c.Title, comment2);
+
+            Comment comment3 = new Comment
+            {
+                Title = "Nice",
+                Content = "Did not understand",
+                CreatorId = "a8bcccc5-da7c-4ae2-bce0-65c111c1dd5c",
+                TaskId = 24,
+                IsUrgent = false,
+                DateCreated = DateTime.Now
+            };
+            context.Comments.AddOrUpdate(c => c.Title, comment3);
+
+            Comment comment4 = new Comment
+            {
+                Title = "Implement this",
+                Content = "DANGEROUS",
+                CreatorId = "7986eb62-55d3-4b95-841e-3a881eca1fd4",
+                TaskId = 27,
+                IsUrgent = true,
+                DateCreated = DateTime.Now
+            };
+            context.Comments.AddOrUpdate(c => c.Title, comment4);
         }
 
+        
         private ApplicationUser SeedUser(ApplicationDbContext context, string email, string password, float salary, string role)
         {
             //UserName and Email have to be identical for now otherwise it will not work. we can fix this problem later.
