@@ -39,27 +39,6 @@ namespace Task_Managment_System.Controllers
         }
 
         [HttpGet]
-        public ActionResult HideCompletedTasks(int? projectId)
-        {
-            if (projectId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var project = db.Projects.Include("Tasks").FirstOrDefault(p => p.Id == projectId);
-
-            if (project == null)
-            {
-                return HttpNotFound();
-            }
-
-            var incompleteTasks = project.Tasks.Where(pt => pt.Complete == false).ToList();
-            ViewBag.Title = "HideCompletedTasks";
-
-            return View("ShowTasks", incompleteTasks);
-        }
-        //?
-        [HttpGet]
         public ActionResult ProjectDetails(int? projectId)
         {
             if (projectId == null)
@@ -74,6 +53,7 @@ namespace Task_Managment_System.Controllers
             var members = db.Users.Where(u => u.Projects.All(p => p.Id == project.Id)).ToList();
             var tasks = db.Tasks.Where(t => t.ProjectId == project.Id).ToList();
             var projectDetails = new ProjectDetailsViewModel(project, members, tasks);
+            projectDetails.ProjectActualCost = project.ActualCost;
 
             return View(projectDetails);
         }
@@ -199,7 +179,7 @@ namespace Task_Managment_System.Controllers
         }
         public ActionResult ShowProjectsThatExceedTheBudget()
         {
-            var projectExceed = db.Projects.Where(p => p.Budget < p.ActualCost).ToList();
+            var projectExceed = db.Projects.Where(p => p.Budget < p.ActualCost& p.Complete).ToList();
 
             ViewBag.Title = "Projects That Exceed The Budget";
 
@@ -302,13 +282,14 @@ namespace Task_Managment_System.Controllers
             return Json(new { status = 200, tasks=result, projectId }, JsonRequestBehavior.AllowGet);
         }
 
-        //GET @Url.Action("ShowIncompleteProjects")
         [HttpGet]
         public ActionResult ShowIncompleteProjects()
         {
             List<Project> projects = ph.Filter(FilterMethods.incomplete);
 
-            return View("ShowProjects", projects);
+            ViewBag.UserId = User.Identity.GetUserId();
+
+            return View("Dashboard", projects);
         }
 
 

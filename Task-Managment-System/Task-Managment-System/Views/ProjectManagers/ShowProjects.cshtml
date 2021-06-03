@@ -5,8 +5,6 @@
 <main>
     <section>
 
-        @Html.ActionLink("Incomplete", "ShowIncompleteProjects", null, new { @class = "btn btn-primary" })
-
         <ul class="list-group projects">
             @{
                 foreach (var project in Model)
@@ -23,6 +21,7 @@
                 }
             }
         </ul>
+        @Html.ActionLink("Back to list","Index")
     </section>
 </main>
 

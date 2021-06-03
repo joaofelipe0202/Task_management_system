@@ -6,7 +6,7 @@
         display: flex;
         flex-wrap:wrap;
         justify-content:normal;
-        height:840px;
+        height:1040px;
         overflow-y:scroll;
     }
 
@@ -20,7 +20,7 @@
 
     .project-box {
         width: 240px;
-        height: 400px;
+        height: 500px;
         padding: 8px;
         margin: 8px;
         border: 1px solid black;
@@ -62,10 +62,12 @@
 <h2>Dashboard</h2>
 @Html.Partial("~/Views/Notifications/Notification.cshtml",new ViewDataDictionary { { "userId", ViewBag.UserId } })
 <div>
+    @Html.ActionLink("All", "Index", null, new { @class = "btn btn-primary btn-create-project" })
     @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class = "btn btn-primary btn-create-project" })
     @Html.ActionLink("Projects that exceed the budget", "ShowProjectsThatExceedTheBudget", null, new { @class = "btn btn-primary btn-create-project" })
     @*@Html.ActionLink("AddUserToRole", "AddUserToRole", null, new { @class = "btn btn-primary btn-create-project" })*@
     @Html.ActionLink("Create new user", "CreateNewUser", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("Incomplete", "ShowIncompleteProjects", null, new { @class = "btn btn-primary" })
 </div>
 
 
