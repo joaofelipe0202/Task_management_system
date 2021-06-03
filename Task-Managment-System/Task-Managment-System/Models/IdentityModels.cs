@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace Task_Managment_System.Models
         [JsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
         public DateTime DateCreated { get; set; }
+
+        [Display(Name = "Salary")]
         public double? DailySalary { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

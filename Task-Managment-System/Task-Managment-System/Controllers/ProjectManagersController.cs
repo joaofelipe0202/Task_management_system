@@ -38,26 +38,26 @@ namespace Task_Managment_System.Controllers
             um = new UserManager(db);
         }
 
-        //[HttpGet]
-        //public ActionResult HideCompletedTasks(int? projectId)
-        //{
-        //    if (projectId == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
+        [HttpGet]
+        public ActionResult HideCompletedTasks(int? projectId)
+        {
+            if (projectId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //    var project = db.Projects.Include("Tasks").FirstOrDefault(p => p.Id == projectId);
+            var project = db.Projects.Include("Tasks").FirstOrDefault(p => p.Id == projectId);
 
-        //    if (project == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
 
-        //    var incompleteTasks = project.Tasks.Where(pt => pt.Complete == false).ToList();
-        //    ViewBag.Title = "HideCompletedTasks";
+            var incompleteTasks = project.Tasks.Where(pt => pt.Complete == false).ToList();
+            ViewBag.Title = "HideCompletedTasks";
 
-        //    return View("ShowTasks", incompleteTasks);
-        //}
+            return View("ShowTasks", incompleteTasks);
+        }
         //?
         [HttpGet]
         public ActionResult ProjectDetails(int? projectId)
@@ -125,11 +125,11 @@ namespace Task_Managment_System.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update([Bind(Include ="Id, Name, Description, Complete")]Project project, DateTime deadline, Priority priority)
+        public ActionResult Update([Bind(Include ="Id, Name, Description, Complete")]Project project, DateTime deadline, double budget, Priority priority)
         {
             project.CreatorId = User.Identity.GetUserId();
      
-            ph.Update(project, deadline, priority);
+            ph.Update(project, deadline, budget, priority);
             return RedirectToAction("Index");
         }
         //Search projects by name
@@ -201,7 +201,7 @@ namespace Task_Managment_System.Controllers
         {
             var projectExceed = db.Projects.Where(p => p.Budget < p.ActualCost).ToList();
 
-            ViewBag.Title = "ShowProjectsThatExceedTheBudget";
+            ViewBag.Title = "Projects That Exceed The Budget";
 
             return View("ShowProjects", projectExceed);
         }
@@ -245,36 +245,34 @@ namespace Task_Managment_System.Controllers
         public ActionResult CreateNewUser()
         {
             return View();
-
         }
         [HttpPost]
-        public ActionResult CreateNewUser(string email, string password, double? salary, string role)
+        public ActionResult CreateNewUser(string email, string password, double? dailySalary)
         {
             ViewBag.role = new SelectList(db.Roles, "Name", "Name");
             password = "NewUser123.";
-            um.Create(email, salary, password, role);
-
+            um.Create(email, dailySalary, password);
+            
             return RedirectToAction("AddUserToRole");
         }
         [HttpGet]
         public ActionResult AddUserToRole()
         {
-            //SelectList Users
-            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Email");
-            //SelectList Roles
+            
+            ViewBag.userId = new SelectList(db.Users.ToList(), "Id", "UserName");
+            
             ViewBag.Role = new SelectList(db.Roles.ToList(), "Name", "Name");
             return View();
         }
         [HttpPost]
         public ActionResult AddUserToRole(string userId, string role)
         {
-
-            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Email");
+            
+            ViewBag.userId = new SelectList(db.Users.ToList(), "Id", "UserName");
             
             ViewBag.Role = new SelectList(db.Roles.ToList(), "Name", "Name");
 
             um.AddUserToRole(userId, role);
-
             return RedirectToAction("Index");
         }
         //GET @Url.Action("ShowIncompleteTasks")
