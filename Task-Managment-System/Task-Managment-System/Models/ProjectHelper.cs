@@ -89,6 +89,9 @@ namespace Task_Managment_System.Models
                 case FilterMethods.incomplete:
                     projects = ProjectsAreNotCompleted(projects);
                     break;
+                case FilterMethods.passedDeadLine:
+                    projects = ProjectsAreNotCompleted(projects);
+                    break;
             }
 
             return projects;
@@ -98,6 +101,17 @@ namespace Task_Managment_System.Models
         {
             var filteredProjects = projects.Where(p =>
                     p.Complete == false
+              )
+              .ToList();
+
+            return filteredProjects;
+        }
+
+        private List<Project> ProjectsPassedDeadline(List<Project> projects)
+        {
+            var filteredProjects = projects.Where(p =>
+                    p.Complete == false
+                    &&DateTime.Compare(DateTime.Now,p.Deadline)>0
               )
               .ToList();
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,11 +15,17 @@ namespace Task_Managment_System.Controllers
     {
         private readonly ApplicationDbContext db ;
         private readonly NotificationHelper nh;
+        private readonly TaskHelper th;
+        private readonly ProjectHelper ph;
+        private readonly UserManager um;
 
         public NotificationsController()
         {
             db = new ApplicationDbContext();
             nh = new NotificationHelper(db);
+            th = new TaskHelper(db);
+            ph = new ProjectHelper(db);
+            um = new UserManager(db);
         }
 
         // GET: Notifications
@@ -138,6 +145,7 @@ namespace Task_Managment_System.Controllers
         public JsonResult GetNumberOfUnOpenedNotifications(string userId)
         {
             int numberUnopened = nh.GetNumUnopened(userId);
+            CreateNotificationsForOverDue();
 
             return Json(new { status=200, numberUnopened }, JsonRequestBehavior.AllowGet);
         }
@@ -147,6 +155,18 @@ namespace Task_Managment_System.Controllers
             IEnumerable<Notification> notifications = nh.GetBy(userId).ToList();
 
             return View("Index", notifications);
+        }
+
+        private void CreateNotificationsForOverDue()
+        {
+            List<Project> overDueProjects = ph.Filter(FilterMethods.passedDeadLine);
+
+            List<ApplicationUser> projectManagers = db.Users.Where(u => um.CheckUserHasRole(u.Id, "ProjectManager")).ToList();
+            
+            foreach(var projectManager in projectManagers)
+                nh.Create(projectManager.Id, "project passed deadline", "", NotificationType.Overdue);
+
+            db.SaveChanges();
         }
 
         protected override void Dispose(bool disposing)
