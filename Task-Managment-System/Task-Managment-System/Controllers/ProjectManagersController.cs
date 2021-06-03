@@ -389,6 +389,25 @@ namespace Task_Managment_System.Controllers
 
             return RedirectToAction("Dashboard");
         }
-
+        [HttpGet]
+        public ActionResult DeleteTask(int? taskId)
+        {
+            if (taskId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var task = db.Tasks.Find(taskId);
+            if (task == null)
+            {
+                return HttpNotFound();
+            }
+            return View(task);
+        }
+        [HttpPost]
+        public ActionResult DeleteTask(int taskId)
+        {
+            th.Delete(taskId);
+            return RedirectToAction("Index");
+        }
     }
 }

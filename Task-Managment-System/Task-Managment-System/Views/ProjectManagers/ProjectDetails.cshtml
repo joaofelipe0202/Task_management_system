@@ -39,10 +39,10 @@
             @Html.DisplayFor(model => model.ProjectBudget)
         </td>
         <td>
-            @Html.EditorFor(model => model.ProjectActualCost)
+            @Html.DisplayFor(model => model.ProjectActualCost)
         </td>
         <td>
-            @Html.EditorFor(model => model.Deadline)
+            @Html.DisplayFor(model => model.Deadline)
         </td>
         <td>
             @Html.DisplayFor(model => model.Complete)
@@ -87,7 +87,7 @@
                 @Html.DisplayFor(modelItem => item.PercentageCompleted)
             </td>
             <td>
-                @Html.EditorFor(modelItem => item.Priority)
+                @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Complete)

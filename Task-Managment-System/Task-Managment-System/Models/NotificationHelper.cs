@@ -25,8 +25,12 @@ namespace Task_Managment_System.Models
             if (user == null)
                 return;
 
-            var notification = new Notification(userId, title, contents, type);
-            db.Notifications.Add(notification);
+            if(user.Notifications.FirstOrDefault(n => n.Contents == contents) == null)
+            {
+                var notification = new Notification(userId, title, contents, type);
+                db.Notifications.Add(notification);
+            }
+            
             db.SaveChanges();
         }
 

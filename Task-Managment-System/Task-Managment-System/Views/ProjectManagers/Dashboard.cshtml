@@ -45,7 +45,7 @@
     .tasks-container ul {
         overflow-y: scroll;
         padding: 5px;
-        height: 118px;
+        height: 140px;
     }
 
 
@@ -106,12 +106,13 @@
                     {
                         var assignedUser = task.AssignedUser == null ? "Not developers are assigned" : task.AssignedUser.UserName;
 
-                        <li>
-                            <h7>@task.Title</h7>
-                            <div>Created by: @task.Manager.UserName</div>
-                            <div>Assigned developer: @assignedUser</div>
-                            <div>@Html.ActionLink("AssignTask","AssignTaskToUser",new { taskId=task.Id})</div>
-                        </li>
+                    <li>
+                        <h7>@task.Title</h7>
+                        <div>Created by: @task.Manager.UserName</div>
+                        <div>Assigned developer: @assignedUser</div>
+                        <div>@Html.ActionLink("AssignTask", "AssignTaskToUser", new { taskId = task.Id })</div>
+                        <div>@Html.ActionLink("Delete", "DeleteTask", new { taskId = task.Id })</div>
+                    </li>
                     }
                 </ul>
             </div>

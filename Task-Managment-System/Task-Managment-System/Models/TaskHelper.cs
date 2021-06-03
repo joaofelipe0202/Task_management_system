@@ -31,7 +31,11 @@ namespace Task_Managment_System.Models
             var task = db.Tasks.Find(taskId);
             if (task == null)
                 return;
-
+            var taskNotifications = db.Notifications.Where(n
+                => n.Task == null ? false : n.Task.Id == taskId
+            );
+            if (taskNotifications.Count()>0)
+                db.Notifications.RemoveRange(taskNotifications);
             db.Tasks.Remove(task);
             db.SaveChanges();
         }

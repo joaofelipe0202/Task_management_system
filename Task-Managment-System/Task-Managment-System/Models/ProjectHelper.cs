@@ -56,7 +56,11 @@ namespace Task_Managment_System.Models
             var project = db.Projects.Find(projectId);
             if (project == null)
                 return;
-
+            var projectNotifications = db.Notifications.Where(n
+                => n.Project==null?false:n.Project.Id==projectId
+            );
+            if(projectNotifications.Count()>0)
+                db.Notifications.RemoveRange(projectNotifications);
             db.Projects.Remove(project);
             db.SaveChanges();
         }
