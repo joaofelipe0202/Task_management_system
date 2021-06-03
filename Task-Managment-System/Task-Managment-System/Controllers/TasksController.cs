@@ -13,6 +13,13 @@ namespace Task_Managment_System.Controllers
     public class TasksController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private NotificationHelper nh { get; set; }
+
+        public TasksController()
+        {
+            nh = new NotificationHelper(db);
+        }
+
 
         public ActionResult Index()
         {
@@ -43,8 +50,11 @@ namespace Task_Managment_System.Controllers
             if (ModelState.IsValid)
             {                
                 comment.ProjectTask = db_task;
-                comment.CreatorId = User.Identity.GetUserId();                
-                
+                comment.CreatorId = User.Identity.GetUserId();
+                if (comment.IsUrgent)
+                {
+                    nh.UrgentNote(comment.TaskId, comment.Title, comment.Content);
+                }
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("TaskDetails", new { id = db_task.Id });

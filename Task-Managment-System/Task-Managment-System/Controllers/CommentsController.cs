@@ -13,12 +13,6 @@ namespace Task_Managment_System.Controllers
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private NotificationHelper nh { get; set; }
-
-        public CommentsController()
-        {
-            nh = new NotificationHelper(db);
-        }
 
         public ActionResult Index()
         {
@@ -89,10 +83,6 @@ namespace Task_Managment_System.Controllers
             {
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
-                if(comment.IsUrgent)
-                {
-                    nh.UrgentNote(comment.TaskId, comment.Title, comment.Content);
-                }
                 return RedirectToAction("Index");
             }
             ViewBag.CreatorId = new SelectList(db.Users, "Id", "Email", comment.CreatorId);
