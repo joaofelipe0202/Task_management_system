@@ -3,7 +3,7 @@
 }
 
 <div class="grid">
-    <h2 class="grid fl1 mb24 text-uppercase">Welcome to your favorite task management!</h2>
+    <h2 class="grid fl1 mb24 text-uppercase">Welcome to your favorite task management tool!</h2>
     <br />
 </div>
 
@@ -12,6 +12,10 @@
     @Html.ActionLink("Tasks", "GetAllDeveloperTasks", "Developers", new { }, new { @class = "ws-nowrap s-btn s-btn__primary" })
     @Html.ActionLink("Notifications", "", new { }, new { @class = "ws-nowrap s-btn s-btn__primary" })
 
-    <br/>
+    <br />
+    <br />
+    @Html.ActionLink("Create Project", "", "", new { }, new { @class = "ws-nowrap s-btn s-btn__primary" })
+    @Html.ActionLink("Create Task", "", "", new { }, new { @class = "ws-nowrap s-btn s-btn__primary" })
+
 
 </div>
