@@ -60,7 +60,7 @@ namespace Task_Managment_System.Models
             db.Projects.Remove(project);
             db.SaveChanges();
         }
-        public void Update(Project project, DateTime deadline, Priority priority)
+        public void Update(Project project, DateTime deadline, double budget, Priority priority)
         {
             //check modify
             if (project == null)
@@ -68,6 +68,7 @@ namespace Task_Managment_System.Models
 
             project.DateCreated = DateTime.Now;
             project.Deadline = deadline;
+            project.Budget = budget;
             project.Priority = priority;
 
             db.Entry(project).State = EntityState.Modified;

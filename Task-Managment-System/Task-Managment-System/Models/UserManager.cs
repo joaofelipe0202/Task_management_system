@@ -38,17 +38,6 @@ namespace Task_Managment_System.Models
         [Authorize(Roles = "ProjectManager")]
         public  bool AddUserToRole(string userId, string roleName)
         {
-            //if (userName == null || roleName == null)
-            //    return false;
-
-            //var user = db.Users.First(u => u.UserName == userName);
-            //var role = roleManager.FindByName(roleName);
-
-            //if (user == null || role == null)
-            //    return false;
-
-            //userManager.AddToRole(user.Id, role.Name);
-            //return true;
             if (CheckUserHasRole(userId, roleName))
                 return false;
             else
@@ -59,30 +48,22 @@ namespace Task_Managment_System.Models
         }
 
         [Authorize]
-        public  bool CheckUserHasRole(string userId, string role)
+        public bool CheckUserHasRole(string userId, string role)
         {
-            //if (userName == null || roleName == null)
-            //    return false;
-
-            //var user = db.Users.First(u => u.UserName == userName);
-            //var role = roleManager.FindByName(roleName);
-
-            //if (user == null || role == null)
-            //    return false;
-
-            //return userManager.IsInRole(user.Id, role.Name); 
             var result = userManager.IsInRole(userId, role);
             return result;
         }
-        public  void Create(string email, double? dailySalaray, string password, string role)
+        public  void Create(string email, double? dailySalary, string password)
         {
             if(!db.Users.Any(u => u.Email == email))
             {
-                var user = new ApplicationUser(email, dailySalaray);
+                var user = new ApplicationUser(email, dailySalary);
+                user.Email = email;
+                user.DailySalary = dailySalary;
+
                 userManager.Create(user, password);
                 db.SaveChanges();  
             }
-            
         }
 
         [Authorize(Roles = "ProjectManager")]

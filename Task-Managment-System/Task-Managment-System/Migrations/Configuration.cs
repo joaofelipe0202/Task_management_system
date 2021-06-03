@@ -37,17 +37,23 @@
             }
 
             //seed user ref: https://stackoverflow.com/questions/19280527/mvc-5-seed-users-and-roles
-            SeedUser(context, "ltl@mw.com", "123456Ltl.", 130, "ProjectManager");
+            var user1 = SeedUser(context, "ltl@mw.com", "123456Ltl.", 130, "ProjectManager");
+            user1.DailySalary = 250;
 
-            var user2 = SeedUser(context, "Jonny@mw.com", "123456Mw.", 130, "ProjectManager");      
+            var user2 = SeedUser(context, "Jonny@mw.com", "123456Mw.", 130, "ProjectManager");
+            user2.DailySalary = 250;
             
-            SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
+            var dev1 = SeedUser(context, "Adam@mw.com", "123456Mw.", 130, "Developer");
+            dev1.DailySalary = 130;
             
-            SeedUser(context, "Courtney@mw.com", "123456Mw.", 130, "Developer");
+            var dev2 = SeedUser(context, "Courtney@mw.com", "123456Mw.", 130, "Developer");
+            dev2.DailySalary = 130;
 
-            SeedUser(context, "Maggie@mw.com", "123456Mw.", 130, "Developer");
+            var dev3 = SeedUser(context, "Maggie@mw.com", "123456Mw.", 130, "Developer");
+            dev3.DailySalary = 130;
 
-            SeedUser(context, "Amanda@mw.com", "123456Mw.", 130, "Developer");
+            var dev4 = SeedUser(context, "Amanda@mw.com", "123456Mw.", 130, "Developer");
+            dev4.DailySalary = 130;
 
             Project project = new Project("task management","a task management web app", 1300, DateTime.Now.AddDays(15),Priority.Urgent, user2.Id);
             project.DateCreated = DateTime.Now;
@@ -67,7 +73,7 @@
                 Deadline = DateTime.Now.AddDays(4),
                 Complete = false,
                 ProjectId = project.Id,
-                AssignedUserId = user2.Id,
+                AssignedUserId = dev1.Id,
                 PercentageCompleted = 50,
                 Priority = Priority.Average
             };
@@ -92,7 +98,8 @@
                 DateCreated = DateTime.Now,
                 Deadline = DateTime.Now.AddDays(4),
                 Complete = false,
-                ProjectId = project.Id
+                ProjectId = project.Id,
+                AssignedUserId = dev2.Id
             };
 
             context.Tasks.AddOrUpdate(t => t.Title, task1);
@@ -106,7 +113,8 @@
                 Deadline = DateTime.Now.AddDays(4),
                 Complete = false,
                 ProjectId = project.Id,
-                Priority = Priority.Low
+                Priority = Priority.Low,
+                AssignedUserId = dev2.Id
             };
 
             context.Tasks.AddOrUpdate(t => t.Title, task2);
@@ -137,11 +145,11 @@
                 DateCreated = DateTime.Now,
                 Deadline = DateTime.Now.AddHours(5),
                 Complete = false,
-                ProjectId = project3.Id
+                ProjectId = project3.Id,
+                AssignedUserId = dev4.Id
             };
 
             context.Tasks.AddOrUpdate(t => t.Title, task3);
-
         }
 
         private ApplicationUser SeedUser(ApplicationDbContext context, string email, string password, double salary, string role)

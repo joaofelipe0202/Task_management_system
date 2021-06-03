@@ -209,6 +209,10 @@
     <Compile Include="Migrations\202106010304219_UpdateDB.designer.cs">
       <DependentUpon>202106010304219_UpdateDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106031431516_UpdateDBTest.cs" />
+    <Compile Include="Migrations\202106031431516_UpdateDBTest.designer.cs">
+      <DependentUpon>202106031431516_UpdateDBTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BudgetHelper.cs" />
@@ -226,7 +230,6 @@
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskHelper.cs" />
     <Compile Include="Models\UserManager.cs" />
-    <Compile Include="Models\ViewModel\CreateUserViewModel.cs" />
     <Compile Include="Models\ViewModel\ProjectDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -348,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106010304219_UpdateDB.resx">
       <DependentUpon>202106010304219_UpdateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106031431516_UpdateDBTest.resx">
+      <DependentUpon>202106031431516_UpdateDBTest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

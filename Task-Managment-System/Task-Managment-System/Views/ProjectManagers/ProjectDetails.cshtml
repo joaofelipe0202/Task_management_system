@@ -23,9 +23,6 @@
         <th>
             Deadline
         </th>
-        <th>
-            Complete
-        </th>
         <th></th>
     </tr>
     <tr>
@@ -43,9 +40,6 @@
         </td>
         <td>
             @Html.EditorFor(model => model.Deadline)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.Complete)
         </td>
     </tr>
 </table>
@@ -68,9 +62,6 @@
         <th>
             Priority
         </th>
-        <th>
-            Complete
-        </th>
         <th></th>
     </tr>
 
@@ -90,9 +81,6 @@
                 @Html.EditorFor(modelItem => item.Priority)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Complete)
-            </td>
-            <td>
                 @Html.ActionLink("Update", "Update", new { projectId = item.Id }) |
                 @Html.ActionLink("Details", "ProjectDetails", new { projectId = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { projectId = item.Id })
@@ -102,5 +90,5 @@
 
 </table>
 <p>
-    @Html.ActionLink("Back to Main Page", "Index")
+    @Html.ActionLink("Back to Dashboard", "Index")
 </p>

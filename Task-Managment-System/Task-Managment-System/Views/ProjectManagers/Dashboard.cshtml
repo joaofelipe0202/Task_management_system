@@ -63,7 +63,7 @@
 <div>
     @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class = "btn btn-primary btn-create-project" })
     @Html.ActionLink("Projects that exceed the budget", "ShowProjectsThatExceedTheBudget", null, new { @class = "btn btn-primary btn-create-project" })
-    @Html.ActionLink("AddUserToRole", "AddUserToRole", null, new { @class = "btn btn-primary btn-create-project" })
+    @*@Html.ActionLink("AddUserToRole", "AddUserToRole", null, new { @class = "btn btn-primary btn-create-project" })*@
     @Html.ActionLink("Create new user", "CreateNewUser", null, new { @class = "btn btn-primary btn-create-project" })
 </div>
 
@@ -88,14 +88,21 @@
             }
             var managerName = project.Creator == null ? "" : project.Creator.UserName;
 
+            var totalCost = string.Empty;
+            totalCost = project.Complete == true ? project.ActualCost.ToString() : "Project Not Complete";
+            
+
         <li class="project-box @levelClass" onclick="handleToggleCompleteForProject(event,@project.Id)">
             <h5>@Html.ActionLink(project.Name, "ProjectDetails", new { projectId = project.Id })</h5>
             <div>Manager: @managerName</div>
             <div>Description: @project.Description</div>
             <div>Priority: @project.Priority</div>
             <div>Complete: @Html.CheckBox("check", project.Complete, new { @class = "form-check-input me-1" })</div>
+            <br />
+            <div>Total Cost: @totalCost</div>
+            <br />
+            <div>@Html.ActionLink("Update", "Update", new { projectId = project.Id })</div>
             <div>@Html.ActionLink("Delete", "DeleteProject", new { projectId = project.Id })</div>
-            
 
             <div class="tasks-container">
                 <h5>@Html.ActionLink("Tasks", "ShowTasksFor", new { projectId = project.Id })</h5>
@@ -113,10 +120,9 @@
                     }
                 </ul>
             </div>
+
         </li>
         }
-
-        
     </ul>
     
 </section>
