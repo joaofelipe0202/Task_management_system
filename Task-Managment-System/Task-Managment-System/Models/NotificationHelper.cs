@@ -16,7 +16,7 @@ namespace Task_Managment_System.Models
             db = database;
         }
 
-        public  void Create(string userId, string title, string contents, NotificationType type, bool saveChangesAtEnd)
+        public  void Create(string userId, string title, string contents, NotificationType type, int? taskId, int? projectId, bool saveChangesAtEnd)
         {
             if (userId == null || title == null || contents == null)
                 return;
@@ -24,7 +24,7 @@ namespace Task_Managment_System.Models
             if (user == null)
                 return;
 
-            var notification = new Notification(userId, title, contents, type);
+            var notification = new Notification(userId, title, contents, type, taskId, projectId);
             db.Notifications.Add(notification);
             if(saveChangesAtEnd == true)
                 db.SaveChanges();
@@ -60,7 +60,7 @@ namespace Task_Managment_System.Models
                 var notification = db.Notifications.FirstOrDefault(n => n.TaskId == taskId && n.Type == NotificationType.Overdue);
                 if (notification == null)
                 {
-                    Create(task.AssignedUserId, $"'{task.Title}' is Overdue", "", NotificationType.Overdue, false);
+                    Create(task.AssignedUserId, $"'{task.Title}' is Overdue", "", NotificationType.Overdue, task.Id, null, false);
                 }
                 return true;
             }
@@ -79,7 +79,7 @@ namespace Task_Managment_System.Models
                 var notification = db.Notifications.FirstOrDefault(n => n.ProjectId == projectId && n.Type == NotificationType.Overbudget);
                 if (notification == null)
                 {
-                    Create(project.CreatorId, $"'{project.Name}' is Overbudget", "", NotificationType.Overbudget, false);
+                    Create(project.CreatorId, $"'{project.Name}' is Overbudget", "", NotificationType.Overbudget, null, projectId, false);
                 }
                 return true;
             }
@@ -101,7 +101,7 @@ namespace Task_Managment_System.Models
                     var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Notice);
                     if (notification == null)
                     {
-                        Create(task.AssignedUserId, $"'{task.Title}' is due in a day", "", NotificationType.Notice, false);
+                        Create(task.AssignedUserId, $"'{task.Title}' is due in a day", "", NotificationType.Notice, id, null, false);
                     }
                     return true;
                 }
@@ -118,7 +118,7 @@ namespace Task_Managment_System.Models
                     var notification = db.Notifications.FirstOrDefault(n => n.ProjectId == id && n.Type == NotificationType.Notice);
                     if (notification == null)
                     {
-                        Create(project.CreatorId, $"'{project.Name}' is due in a day", "", NotificationType.Notice, false);
+                        Create(project.CreatorId, $"'{project.Name}' is due in a day", "", NotificationType.Notice, null, id, false);
                     }
                     return true;
                 }
@@ -140,7 +140,7 @@ namespace Task_Managment_System.Models
                 var notification = db.Notifications.FirstOrDefault(n => n.TaskId == taskId && n.Type == NotificationType.Complete);
                 if (notification == null)
                 {
-                    Create(task.ManagerId, $"'{task.Title}' is Complete", $"'{task.Title}' was completed at {DateTime.Now}", NotificationType.Complete, true);
+                    Create(task.ManagerId, $"'{task.Title}' is Complete", $"'{task.Title}' was completed at {DateTime.Now}", NotificationType.Complete, task.Id, null, true);
                 }
                 return true;
             }
@@ -154,7 +154,7 @@ namespace Task_Managment_System.Models
             if (task == null)
                 return false;
 
-            Create(task.AssignedUserId, $"URGENT '{title}'", contents, NotificationType.Urgent,true);
+            Create(task.AssignedUserId, $"URGENT '{title}'", contents, NotificationType.Urgent, task.Id, null, true);
             return true;
         }
 
