@@ -9,7 +9,7 @@ namespace Task_Managment_System.Models
 {
     public class NotificationHelper
     {
-        private  ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public NotificationHelper(ApplicationDbContext database)
         {
@@ -164,6 +164,18 @@ namespace Task_Managment_System.Models
             var notification = new Notification(task.AssignedUser.Id, $"URGENT '{title}'", contents, NotificationType.Urgent);
             db.Notifications.Add(notification);
             return true;
+        }
+
+        public int GetNumUnopened(string userId)
+        {
+            if (userId == null)
+                return -1;
+
+            var user = db.Users.Find(userId);
+            if (user == null)
+                return - 1;
+
+            return user.Notifications.Count(n => n.Read);
         }
     }
 }

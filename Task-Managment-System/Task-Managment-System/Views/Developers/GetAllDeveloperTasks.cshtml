@@ -1,6 +1,6 @@
 ﻿@model List<Task_Managment_System.Models.ProjectTask>
 
-<h2>Get All Developer Tasks</h2>
+<h2>Tasks Assigned to you</h2>
 
 
 @if (Model.Count > 0)
@@ -10,38 +10,78 @@
         
         var dateCreated = task.DateCreated;
         var deadline = task.Deadline;
+<div class="alert rounded-0">
+    <h2>@task.Title</h2>
 
-        <ul>
-            <li>
-                @Html.CheckBox("check", task.Complete, new { @class = "form-check-input me-1", @disabled=true }) Task Completed<br />
-                @task.Priority<br />
-                @task.Title<br />
-                @task.Contents<br />
-                @Convert.ToDateTime(dateCreated).ToString("ddd/MMM/d/yyy") <br />
-                @Convert.ToDateTime(deadline).ToString("ddd/MMM/d/yyy")<br />
+    <div class="question-summary">
+        <div class="statscontainer">
+            <div class="stats">
+                <div class="vote">
+                    <div class="votes">
+                        <span class="vote-count-post">
+                            <strong>@task.Priority</strong>
+                        </span>
+                        <div class="viewcount">priority</div>
+                    </div>
+                </div>
+            </div>
+            @if (task.Complete == true)
+            {
+                <div class="stats">
+                    <div class="vote">
+                        <div class="votes">
+                            <span class="vote-count-post">
+                                <svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8v-8z"></path></svg>
+                            </span>
+                            <div class="viewcount">completed</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="summary">
+            <div class="excerpt">
+                @Html.Label("Content")
+                <br />
+                @task.Contents
+            </div>
+            <div class="excerpt">
+                @Html.Label("Created Date")
+                <br />
+                @Convert.ToDateTime(dateCreated).ToString("ddd/MMM/d/yyy")
+            </div>
+            <div class="excerpt">
+                @Html.Label("Deadline")
+                <br />
+                @Convert.ToDateTime(deadline).ToString("ddd/MMM/d/yyy")
+            </div>
+            <div class="excerpt">
                 @Html.Label("Percentage Completed")
+                <br/>
                 <button class="" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "-" })'">-</button>
-                <meter min="0" max="100", value="@task.PercentageCompleted"></meter> 
+                <meter min="0" max="100" , value="@task.PercentageCompleted"></meter>
                 <button class="" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "+"  })'">+</button>
                 <br />
+            </div>
+            @if (task.Complete == true)
+            {
+                <button class="ws-nowrap s-btn s-btn__primary" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Unmark Task as Completed</button>
+            }
+            else
+            {
+                <button class="ws-nowrap s-btn s-btn__primary" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Mark Task as Completed</button>
+            }
+        </div>
+    </div>
+</div>
 
-                @if (task.Complete == true)
-                {
-                    <button class="" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Unmark Task as Completed</button>
-                }
-                else
-                {
-                    <button class="" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Mark Task as Completed</button>
-                }
-
-            </li>
-        </ul>
     }
-}
-else
-{
+    }
+    else
+    {
     <h3>You have not been assigned any tasks.</h3>
-}
+    }
 
 
 

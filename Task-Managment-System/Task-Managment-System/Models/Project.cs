@@ -18,6 +18,7 @@ namespace Task_Managment_System.Models
         public double ActualCost { get; set; }
         public string Description { get; set; }
         public Priority Priority { get; set; }
+        public DateTime LastBudgetUpdate { get; set; }
         public bool Complete { get; set; }
         [Required]
 
@@ -27,7 +28,7 @@ namespace Task_Managment_System.Models
 
         public Project()
         {           
-        }
+        {
 
         public Project(string name, double budget, DateTime deadline, string creatorId)
         {

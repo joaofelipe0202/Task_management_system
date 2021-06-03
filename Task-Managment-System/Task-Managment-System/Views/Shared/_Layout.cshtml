@@ -3,7 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>@ViewBag.Title - Task Management System</title>
+    <link href="~/Content/primary.css" rel="stylesheet" />
+    <link href="~/Content/stacks.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome.css" rel="stylesheet" />
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -29,13 +34,13 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <div class="container">
+        <div id="content">
+            @RenderBody()
+            <footer><p>&copy; @DateTime.Now.Year - Task Management</p></footer>
+        </div>
     </div>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

@@ -44,7 +44,7 @@ namespace Task_Managment_System.Controllers
                 return HttpNotFound();
 
             var userName = user.UserName;
-            var tasksList = db.Tasks.Where(t => t.AssignedUser.UserName == userName).ToList();
+            var tasksList = db.Tasks.Where(t => t.AssignedUser.UserName == userName).OrderBy(t => t.Priority).ToList();
             return View(tasksList);
         }
 

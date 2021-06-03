@@ -213,6 +213,10 @@
     <Compile Include="Migrations\202106011941339_RemovePrioritiesAddIsUrgentToCommentClass.designer.cs">
       <DependentUpon>202106011941339_RemovePrioritiesAddIsUrgentToCommentClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106021919035_AddLastBudgetUpdateProperty.cs" />
+    <Compile Include="Migrations\202106021919035_AddLastBudgetUpdateProperty.Designer.cs">
+      <DependentUpon>202106021919035_AddLastBudgetUpdateProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BudgetHelper.cs" />
@@ -229,6 +233,7 @@
     <Compile Include="Models\ProjectHelper.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskHelper.cs" />
+    <Compile Include="Models\TimeHelper.cs" />
     <Compile Include="Models\UserManager.cs" />
     <Compile Include="Models\ViewModel\ProjectDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -239,11 +244,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\fontawesome\font-awesome.css" />
-    <Content Include="Content\fontawesome\font-awesome.min.css" />
-    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\primary.css" />
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\sb-admin-2.min.css" />
+    <Content Include="Content\stacks.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -357,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106011941339_RemovePrioritiesAddIsUrgentToCommentClass.resx">
       <DependentUpon>202106011941339_RemovePrioritiesAddIsUrgentToCommentClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106021919035_AddLastBudgetUpdateProperty.resx">
+      <DependentUpon>202106021919035_AddLastBudgetUpdateProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
