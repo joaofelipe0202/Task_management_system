@@ -22,6 +22,7 @@ namespace Task_Managment_System.Controllers
             var projectList = db.Projects.OrderBy(p => p.Priority).ToList();
             ViewBag.UserId = User.Identity.GetUserId();
 
+
             return View("Dashboard",projectList);
         }
 

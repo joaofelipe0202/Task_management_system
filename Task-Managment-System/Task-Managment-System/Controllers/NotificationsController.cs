@@ -145,7 +145,7 @@ namespace Task_Managment_System.Controllers
         public JsonResult GetNumberOfUnOpenedNotifications(string userId)
         {
             int numberUnopened = nh.GetNumUnopened(userId);
-            CreateNotificationsForOverDue();
+            //CreateNotificationsForOverDue();
 
             return Json(new { status=200, numberUnopened }, JsonRequestBehavior.AllowGet);
         }
@@ -157,17 +157,17 @@ namespace Task_Managment_System.Controllers
             return View("Index", notifications);
         }
 
-        private void CreateNotificationsForOverDue()
-        {
-            List<Project> overDueProjects = ph.Filter(FilterMethods.passedDeadLine);
+        //private void CreateNotificationsForOverDue()
+        //{
+        //    List<Project> overDueProjects = ph.Filter(FilterMethods.passedDeadLine);
 
-            List<ApplicationUser> projectManagers = db.Users.Where(u => um.CheckUserHasRole(u.Id, "ProjectManager")).ToList();
+        //    List<ApplicationUser> projectManagers = db.Users.Where(u => um.CheckUserHasRole(u.Id, "ProjectManager")).ToList();
             
-            foreach(var projectManager in projectManagers)
-                nh.Create(projectManager.Id, "project passed deadline", "", NotificationType.Overdue);
+        //    foreach(var projectManager in projectManagers)
+        //        nh.Create(projectManager.Id, "project passed deadline", "", NotificationType.Overdue);
 
-            db.SaveChanges();
-        }
+        //    db.SaveChanges();
+        //}
 
         protected override void Dispose(bool disposing)
         {
