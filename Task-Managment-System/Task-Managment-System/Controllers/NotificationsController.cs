@@ -49,16 +49,16 @@ namespace Task_Managment_System.Controllers
             }
             return View(notification);
         }
-
+        [Authorize(Roles = "ProjectManager")]
         // GET: Notifications/Create
         public ActionResult Create()
         {
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "CreatorId");
-            ViewBag.TaskId = new SelectList(db.Tasks, "Id", "ManagerId");
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+            ViewBag.TaskId = new SelectList(db.Tasks, "Id", "Title");
             ViewBag.UserId = new SelectList(db.Users, "Id", "Email");
             return View();
         }
-
+        [Authorize(Roles = "ProjectManager")]
         // POST: Notifications/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -78,7 +78,7 @@ namespace Task_Managment_System.Controllers
             ViewBag.UserId = new SelectList(db.Users, "Id", "Email", notification.UserId);
             return View(notification);
         }
-
+        [Authorize(Roles = "ProjectManager")]
         // GET: Notifications/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -96,7 +96,7 @@ namespace Task_Managment_System.Controllers
             ViewBag.UserId = new SelectList(db.Users, "Id", "Email", notification.UserId);
             return View(notification);
         }
-
+        [Authorize(Roles = "ProjectManager")]
         // POST: Notifications/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

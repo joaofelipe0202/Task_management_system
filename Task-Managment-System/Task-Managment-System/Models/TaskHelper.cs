@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -18,11 +19,22 @@ namespace Task_Managment_System.Models
             db = database;
         }
 
-        public void Add(string title, string contents, DateTime deadline, bool complete, Priority priority)
+        public void Add(string title, string contents, DateTime deadline, Priority priority,int projectId,string managerId)
         {
-            var newTask = new ProjectTask(title, contents, deadline, complete, priority);
-
-            db.Tasks.Add(newTask);
+            Project project = db.Projects.Find(projectId);
+            ProjectTask task = new ProjectTask()
+            {
+                ManagerId = managerId,
+                Title = title,
+                Contents = contents,
+                DateCreated = DateTime.Now,
+                Deadline = deadline,
+                Complete = false,
+                ProjectId = projectId,
+                PercentageCompleted = 0,
+                Priority = priority
+            };
+            project.Tasks.Add(task);
             db.SaveChanges();
         }
 

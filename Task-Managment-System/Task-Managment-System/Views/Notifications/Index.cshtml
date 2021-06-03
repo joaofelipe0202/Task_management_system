@@ -11,12 +11,7 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Project.Creator.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Task.Title)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.User.Email)
         </th>
@@ -40,12 +35,7 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Project.Creator.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Task.Title)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.User.Email)
         </td>

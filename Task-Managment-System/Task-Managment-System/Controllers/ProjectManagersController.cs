@@ -334,7 +334,7 @@ namespace Task_Managment_System.Controllers
 
             db.SaveChanges();
 
-            return Json(new { status = 200, task });
+            return Json(new { status = 200, task=task.Title });
         }
 
         public ActionResult Dashboard()
@@ -386,6 +386,18 @@ namespace Task_Managment_System.Controllers
         public ActionResult DeleteTask(int taskId)
         {
             th.Delete(taskId);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult CreateNewTask(int projectId)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateNewTask(string title, string contents, DateTime deadline, Priority priority,int projectId)
+        {
+            string creatorId = User.Identity.GetUserId();
+            th.Add(title, contents, deadline, priority, projectId,creatorId);
             return RedirectToAction("Index");
         }
     }

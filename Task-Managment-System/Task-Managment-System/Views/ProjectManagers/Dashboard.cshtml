@@ -109,6 +109,7 @@
 
             <div class="tasks-container">
                 <h5>@Html.ActionLink("Tasks", "ShowTasksFor", new { projectId = project.Id })</h5>
+                <div>@Html.ActionLink("Create","CreateNewTask",new { projectId=project.Id})</div>
                 <ul>
 
                     @foreach (var task in project.Tasks)

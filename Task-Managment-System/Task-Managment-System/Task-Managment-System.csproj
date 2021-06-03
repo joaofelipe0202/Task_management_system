@@ -336,6 +336,7 @@
     <Content Include="Views\Notifications\Notification.cshtml" />
     <Content Include="Views\ProjectManagers\AssignTaskToUser.cshtml" />
     <Content Include="Views\ProjectManagers\DeleteTask.cshtml" />
+    <Content Include="Views\ProjectManagers\CreateNewTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
