@@ -16,7 +16,7 @@ namespace Task_Managment_System.Models
             db = database;
         }
 
-        public  void Create(string userId, string title, string contents, NotificationType type)
+        public  void Create(string userId, string title, string contents, NotificationType type, bool saveChangesAtEnd)
         {
             if (userId == null || title == null || contents == null)
                 return;
@@ -26,7 +26,8 @@ namespace Task_Managment_System.Models
 
             var notification = new Notification(userId, title, contents, type);
             db.Notifications.Add(notification);
-            db.SaveChanges();
+            if(saveChangesAtEnd == true)
+                db.SaveChanges();
         }
 
         public void Delete(int id)
@@ -56,12 +57,10 @@ namespace Task_Managment_System.Models
 
             if (DateTime.Now.CompareTo(task.Deadline) > 0)
             {
-                var notification = db.Notifications.FirstOrDefault(n => n.TaskId == task.Id && n.Type == NotificationType.Overdue);
+                var notification = db.Notifications.FirstOrDefault(n => n.TaskId == taskId && n.Type == NotificationType.Overdue);
                 if (notification == null)
                 {
-                    notification = new Notification(task.AssignedUser.Id, $"'{task.Title}' is Overdue", "", NotificationType.Overdue);
-                    db.Notifications.Add(notification);
-                    db.SaveChanges();
+                    Create(task.AssignedUserId, $"'{task.Title}' is Overdue", "", NotificationType.Overdue, false);
                 }
                 return true;
             }
@@ -77,12 +76,10 @@ namespace Task_Managment_System.Models
 
             if (project.ActualCost > project.Budget)
             {
-                var notification = db.Notifications.FirstOrDefault(n => n.ProjectId == project.Id && n.Type == NotificationType.Overbudget);
+                var notification = db.Notifications.FirstOrDefault(n => n.ProjectId == projectId && n.Type == NotificationType.Overbudget);
                 if (notification == null)
                 {
-                    notification = new Notification(project.Creator.Id, $"'{project.Name}' is Overbudget", "", NotificationType.Overbudget);
-                    db.Notifications.Add(notification);
-                    db.SaveChanges();
+                    Create(project.CreatorId, $"'{project.Name}' is Overbudget", "", NotificationType.Overbudget, false);
                 }
                 return true;
             }
@@ -101,12 +98,10 @@ namespace Task_Managment_System.Models
 
                 if (task.Deadline.Date.AddDays(-1) == DateTime.Now.Date)
                 {
-                    var notification = db.Notifications.FirstOrDefault(n => n.TaskId == task.Id && n.Type == NotificationType.Notice);
+                    var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Notice);
                     if (notification == null)
                     {
-                        notification = new Notification(task.AssignedUser.Id, $"'{task.Title}' is due in a day", "", NotificationType.Notice);
-                        db.Notifications.Add(notification);
-                        db.SaveChanges();
+                        Create(task.AssignedUserId, $"'{task.Title}' is due in a day", "", NotificationType.Notice, false);
                     }
                     return true;
                 }
@@ -120,12 +115,10 @@ namespace Task_Managment_System.Models
 
                 if (project.Deadline.Date.AddDays(-1) == DateTime.Now.Date)
                 {
-                    var notification = db.Notifications.FirstOrDefault(n => n.TaskId == project.Id && n.Type == NotificationType.Notice);
+                    var notification = db.Notifications.FirstOrDefault(n => n.ProjectId == id && n.Type == NotificationType.Notice);
                     if (notification == null)
                     {
-                        notification = new Notification(project.Creator.Id, $"'{project.Name}' is due in a day", "", NotificationType.Notice);
-                        db.Notifications.Add(notification);
-                        db.SaveChanges();
+                        Create(project.CreatorId, $"'{project.Name}' is due in a day", "", NotificationType.Notice, false);
                     }
                     return true;
                 }
@@ -139,15 +132,15 @@ namespace Task_Managment_System.Models
             var task = db.Tasks.Find(taskId);
             if (task == null)
                 return false;
+            if (task.AssignedUser == null)
+                return false;
 
             if (DateTime.Now.CompareTo(task.Deadline) > 0)
             {
-                var notification = db.Notifications.FirstOrDefault(n => n.TaskId == task.Id && n.Type == NotificationType.Complete);
+                var notification = db.Notifications.FirstOrDefault(n => n.TaskId == taskId && n.Type == NotificationType.Complete);
                 if (notification == null)
                 {
-                    notification = new Notification(task.AssignedUser.Id, $"'{task.Title}' is Complete", $"'{task.Title}' was completed at {DateTime.Now}", NotificationType.Complete);
-                    db.Notifications.Add(notification);
-                    db.SaveChanges();
+                    Create(task.ManagerId, $"'{task.Title}' is Complete", $"'{task.Title}' was completed at {DateTime.Now}", NotificationType.Complete, true);
                 }
                 return true;
             }
@@ -161,8 +154,7 @@ namespace Task_Managment_System.Models
             if (task == null)
                 return false;
 
-            var notification = new Notification(task.AssignedUser.Id, $"URGENT '{title}'", contents, NotificationType.Urgent);
-            db.Notifications.Add(notification);
+            Create(task.AssignedUserId, $"URGENT '{title}'", contents, NotificationType.Urgent,true);
             return true;
         }
 

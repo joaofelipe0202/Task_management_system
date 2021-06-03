@@ -21,6 +21,11 @@ namespace Task_Managment_System.Models
         public virtual ProjectTask Task { get; set; }
         public virtual Project Project { get; set; }
 
+        public Notification()
+        {
+
+        }
+
         public Notification(string userId, string title, string contents, NotificationType type)
         {
             UserId = userId;
