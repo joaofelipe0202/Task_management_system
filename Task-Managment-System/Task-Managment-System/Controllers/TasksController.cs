@@ -28,7 +28,11 @@ namespace Task_Managment_System.Controllers
 
             ProjectTask task = db.Tasks.Where(p => p.Id == id)
                                .Include(p => p.Comments)
-                               .Include(p => p.AssignedUser).First();
+                               .Include(p => p.AssignedUser).First();            
+
+
+            var project = db.Projects.FirstOrDefault(p => p.Id == task.ProjectId).Name;
+            ViewBag.ProjectName = project;
 
             if (task == null)
             {

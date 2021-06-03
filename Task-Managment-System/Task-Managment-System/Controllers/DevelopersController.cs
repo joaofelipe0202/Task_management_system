@@ -19,13 +19,21 @@ namespace Task_Managment_System.Controllers
             return View();
         }
 
-        [Authorize(Roles = "ProjectManager")]
-        public ActionResult ShowDevelopers()
-        {         
-            var developers = db.Users.Where(u => 
-                u.Roles.Any(r => r.RoleId == "8c3bf9bf-2")).ToList();           
-            return View(developers);
-        }
+        //[Authorize(Roles = "ProjectManager")]
+        //public ActionResult ShowDevelopers()
+        //{
+
+        //    //var developerRole = db.Roles.Where(r => r.Name == "Developer");
+        //    //var developerTest = db.Users.Where(u => u.Roles
+            
+        //    //var developers = db.Users.Where(u => 
+        //    //    u.Roles.Any(r => r.RoleId == "7375b74f-6")).ToList();           
+
+        //    var developer = db.Users.Where(u=>)
+
+
+        //    return View(developers);
+        //}
 
         [Authorize(Roles = "Developer, ProjectManager")]        
         public ActionResult GetAllDeveloperTasks()
