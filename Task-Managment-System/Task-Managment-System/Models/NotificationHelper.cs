@@ -23,6 +23,20 @@ namespace Task_Managment_System.Models
             var user = db.Users.Find(userId);
             if (user == null)
                 return;
+            if (taskId != null)
+            {
+                var task = db.Tasks.Find(taskId);
+                if (task == null)
+                    return;
+            }
+            if (projectId != null)
+            {
+                var project = db.Projects.Find(projectId);
+                if (project == null)
+                    return;
+            }
+
+
 
             var notification = new Notification(userId, title, contents, type, taskId, projectId);
             db.Notifications.Add(notification);
