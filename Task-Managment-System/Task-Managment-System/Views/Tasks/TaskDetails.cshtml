@@ -6,13 +6,13 @@
 <h1>@Model.Title</h1>
 
 <div class="delete-task-button">
-    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Delete", "Tasks")'">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Delete", "Tasks", new { task = Model.Id })'">
         Delete Task
     </button>
 </div>
 
 <div class="edit-task-button">
-    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Edit", "Tasks")'">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Edit", "Tasks", new { taskId = Model.Id })'">
         Edit Task
     </button>
 </div>

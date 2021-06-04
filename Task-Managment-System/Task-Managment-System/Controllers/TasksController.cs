@@ -145,8 +145,8 @@ namespace Task_Managment_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                th.Update(task.Id);
-                return RedirectToAction("Index", "Home");
+                th.Update(task);
+                return RedirectToAction("GetAllDeveloperTasks", "Developers");
             }
             return View(task);
         }

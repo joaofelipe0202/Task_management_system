@@ -57,13 +57,20 @@ namespace Task_Managment_System.Models
             db.SaveChanges();
         }
 
-        public void Update(int taskId)
+        public void Update(ProjectTask task)
         {
-            var task = db.Tasks.Find(taskId);
-            if (task == null)
+            ProjectTask newTask = db.Tasks.Find(task.Id);
+            
+            if (newTask == null)
                 return;
 
-            db.Entry(task).State = EntityState.Modified;
+            newTask.Title = task.Title;
+            newTask.Contents = task.Contents;
+            newTask.Deadline = DateTime.Parse(task.Deadline.ToString());
+            newTask.Complete = task.Complete;
+            newTask.Priority = task.Priority;
+
+            db.Entry(newTask).State = EntityState.Modified;
             db.SaveChanges();
         }
 
