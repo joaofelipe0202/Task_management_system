@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using Microsoft.AspNet.Identity;
 using System.Web;
 using System.Web.Mvc;
 using Task_Managment_System.Models;

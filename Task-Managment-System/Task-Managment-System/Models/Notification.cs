@@ -37,9 +37,5 @@ namespace Task_Managment_System.Models
             TaskId = taskId;
             ProjectId = projectId;
         }
-        public Notification()
-        {
-
-        }
     }
 }

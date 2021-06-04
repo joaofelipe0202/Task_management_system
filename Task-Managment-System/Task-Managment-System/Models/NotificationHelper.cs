@@ -66,21 +66,48 @@ namespace Task_Managment_System.Models
             db.SaveChanges();
         }
 
-        public bool IsOverdue(int taskId)
+        public bool IsOverdue(int id, bool isTask)
         {
-            var task = db.Tasks.Find(taskId);
-            if (task == null)
-                return false;
-
-            if (DateTime.Now.CompareTo(task.Deadline) > 0)
+            if(isTask)
             {
-                var notification = db.Notifications.FirstOrDefault(n => n.TaskId == taskId && n.Type == NotificationType.Overdue);
-                if (notification == null)
+                var task = db.Tasks.Find(id);
+                if (task == null)
+                    return false;
+
+                if (DateTime.Now.CompareTo(task.Deadline) > 0 && task.Complete == false)
                 {
-                    Create(task.AssignedUserId, $"'{task.Title}' is Overdue", "", NotificationType.Overdue, task.Id, null, false);
+                    var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Overdue);
+                    if (notification == null)
+                    {
+                        Create(task.AssignedUserId, $"'{task.Title}' is Overdue", "", NotificationType.Overdue, task.Id, null, false);
+                    }
+                    return true;
                 }
-                return true;
+            } else
+            {
+                var project = db.Projects.Find(id);
+                if (project == null)
+                    return false;
+
+                if (DateTime.Now.CompareTo(project.Deadline) > 0 && project.Complete == false)
+                {
+                    var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Overdue);
+                    if (notification == null)
+                    {
+                        Create(project.CreatorId, $"'{project.Name}' is Overdue", "The project is incomplete", NotificationType.Overdue, project.Id, null, false);
+                    }
+                    return true;
+                } else if(project.Tasks.Any(t => !t.Complete))
+                {
+                    var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Overdue);
+                    if (notification == null)
+                    {
+                        Create(project.CreatorId, $"'{project.Name}' is Overdue", "The project has tasks remaining", NotificationType.Overdue, project.Id, null, false);
+                    }
+                    return true;
+                }
             }
+            
 
             return false;
         }
@@ -144,23 +171,44 @@ namespace Task_Managment_System.Models
             return false;
         }
 
-        public bool IsComplete(int taskId)
+        public bool IsComplete(int id, bool isTask)
         {
-            var task = db.Tasks.Find(taskId);
-            if (task == null)
-                return false;
-            if (task.AssignedUser == null)
-                return false;
-
-            if (DateTime.Now.CompareTo(task.Deadline) > 0)
+            if(isTask)
             {
-                var notification = db.Notifications.FirstOrDefault(n => n.TaskId == taskId && n.Type == NotificationType.Complete);
-                if (notification == null)
+                var task = db.Tasks.Find(id);
+                if (task == null)
+                    return false;
+                if (task.AssignedUser == null)
+                    return false;
+
+                if (DateTime.Now.CompareTo(task.Deadline) > 0)
                 {
-                    Create(task.ManagerId, $"'{task.Title}' is Complete", $"'{task.Title}' was completed at {DateTime.Now}", NotificationType.Complete, task.Id, null, true);
+                    var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Complete);
+                    if (notification == null)
+                    {
+                        Create(task.ManagerId, $"'{task.Title}' is Complete", $"'{task.Title}' was completed at {DateTime.Now}", NotificationType.Complete, task.Id, null, true);
+                    }
+                    return true;
                 }
-                return true;
+            } else
+            {
+                var project = db.Projects.Find(id);
+                if (project == null)
+                    return false;
+                if (project.Creator == null)
+                    return false;
+
+                if (DateTime.Now.CompareTo(project.Deadline) > 0)
+                {
+                    var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Complete);
+                    if (notification == null)
+                    {
+                        Create(project.CreatorId, $"'{project.Name}' is Complete", $"'{project.Name}' was completed at {DateTime.Now}", NotificationType.Complete, project.Id, null, true);
+                    }
+                    return true;
+                }
             }
+            
             
             return false;
         }

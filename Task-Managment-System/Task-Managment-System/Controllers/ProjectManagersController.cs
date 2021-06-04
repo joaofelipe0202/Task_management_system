@@ -30,12 +30,14 @@ namespace Task_Managment_System.Controllers
 
         private readonly TaskHelper th;
         private readonly UserManager um;
+        private readonly NotificationHelper nh;
 
         public ProjectManagersController()
         {
             ph = new ProjectHelper(db);
             th = new TaskHelper(db);
             um = new UserManager(db);
+            nh = new NotificationHelper(db);
         }
 
         [HttpGet]
@@ -302,6 +304,7 @@ namespace Task_Managment_System.Controllers
                 return Json(new { status = 404 });
 
             project.Complete = isChecked;
+            nh.IsComplete(project.Id, false);
 
             db.SaveChanges();
 
@@ -320,6 +323,7 @@ namespace Task_Managment_System.Controllers
             }
 
             task.Complete = isChecked;
+            nh.IsComplete(task.Id, true);
 
             db.SaveChanges();
 

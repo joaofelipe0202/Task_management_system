@@ -28,9 +28,13 @@ namespace Task_Managment_System.Models
         public virtual ApplicationUser Creator { get; set; }
         public virtual ICollection<ApplicationUser> Members { get; set; }
         public virtual ICollection<ProjectTask> Tasks { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
 
         public Project()
         {
+            Notifications = new HashSet<Notification>();
+            Members = new HashSet<ApplicationUser>();
+            Tasks = new HashSet<ProjectTask>();
         }
 
         public Project(string name,string description, double budget, DateTime deadline,Priority priority, string creatorId)
@@ -43,6 +47,7 @@ namespace Task_Managment_System.Models
             Priority = priority;
             CreatorId = creatorId;
 
+            Notifications = new HashSet<Notification>();
             Members = new HashSet<ApplicationUser>();
             Tasks = new HashSet<ProjectTask>();
         }

@@ -160,7 +160,7 @@
                 Deadline = DateTime.Now.AddHours(10),
                 Complete = false,
                 ProjectId = project2.Id,
-                AssignedUserId = "df89c449-187d-49fa-bfc6-1980ee94957d"
+                AssignedUserId = dev1.Id
             };
             context.Tasks.AddOrUpdate(t => t.Title, task4);
 
@@ -173,7 +173,7 @@
                 Deadline = DateTime.Now.AddHours(2),
                 Complete = false,
                 ProjectId = project1.Id,
-                AssignedUserId = "7986eb62-55d3-4b95-841e-3a881eca1fd4"
+                AssignedUserId = dev2.Id
             };
             context.Tasks.AddOrUpdate(t => t.Title, task5);
 
@@ -186,14 +186,14 @@
                 Deadline = DateTime.Now.AddHours(5),
                 Complete = false,
                 ProjectId = project3.Id,
-                AssignedUserId = "a8bcccc5-da7c-4ae2-bce0-65c111c1dd5c"
+                AssignedUserId = dev3.Id
             };
             context.Tasks.AddOrUpdate(t => t.Title, task6);
             Comment comment1 = new Comment
             {
                 Title = "Nice feature implemented",
                 Content = "Nice feature",
-                CreatorId = "f067a25c-685e-4747-9143-d33f680d8129",
+                CreatorId = user1.Id,
                 TaskId = 27,
                 IsUrgent = false,
                 DateCreated = DateTime.Now
@@ -204,7 +204,7 @@
             {
                 Title = "Change this ASAP",
                 Content = "Fix ASAP!!!",
-                CreatorId = "df89c449-187d-49fa-bfc6-1980ee94957d",
+                CreatorId = user2.Id,
                 TaskId = 23,
                 IsUrgent = true,
                 DateCreated = DateTime.Now
@@ -215,7 +215,7 @@
             {
                 Title = "Nice",
                 Content = "Did not understand",
-                CreatorId = "a8bcccc5-da7c-4ae2-bce0-65c111c1dd5c",
+                CreatorId = dev1.Id,
                 TaskId = 24,
                 IsUrgent = false,
                 DateCreated = DateTime.Now
@@ -226,7 +226,7 @@
             {
                 Title = "Implement this",
                 Content = "DANGEROUS",
-                CreatorId = "7986eb62-55d3-4b95-841e-3a881eca1fd4",
+                CreatorId = dev2.Id,
                 TaskId = 27,
                 IsUrgent = true,
                 DateCreated = DateTime.Now

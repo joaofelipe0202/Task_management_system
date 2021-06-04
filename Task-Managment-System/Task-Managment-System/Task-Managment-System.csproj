@@ -240,6 +240,10 @@
     <Compile Include="Migrations\202106040012401_UpdateDB3.Designer.cs">
       <DependentUpon>202106040012401_UpdateDB3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106041400451_NewChanges.cs" />
+    <Compile Include="Migrations\202106041400451_NewChanges.Designer.cs">
+      <DependentUpon>202106041400451_NewChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BudgetHelper.cs" />
@@ -419,6 +423,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106040012401_UpdateDB3.resx">
       <DependentUpon>202106040012401_UpdateDB3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106041400451_NewChanges.resx">
+      <DependentUpon>202106041400451_NewChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

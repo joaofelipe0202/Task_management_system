@@ -25,13 +25,14 @@ namespace Task_Managment_System.Models
                 bh.UpdateActualPriceSinceLastBudgetUpdate(project.Id);
                 nh.IsDayBeforeDeadline(project.Id, false);
                 nh.IsOverbudget(project.Id);
+                nh.IsOverdue(project.Id, false);
             }
             db.SaveChanges();
 
             foreach (var task in db.Projects)
             {
                 nh.IsDayBeforeDeadline(task.Id, true);
-                nh.IsOverdue(task.Id);
+                nh.IsOverdue(task.Id, true);
             }
             db.SaveChanges();
         }

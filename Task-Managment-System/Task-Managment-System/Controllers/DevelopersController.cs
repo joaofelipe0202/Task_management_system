@@ -87,7 +87,7 @@ namespace Task_Managment_System.Controllers
                     if (task.PercentageCompleted >= 100)
                     {
                         task.Complete = true;
-                        nh.IsComplete(task.Id);
+                        nh.IsComplete(task.Id, true);
                     }
                 }    
             }

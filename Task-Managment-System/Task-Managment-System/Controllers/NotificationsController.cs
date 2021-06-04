@@ -145,7 +145,6 @@ namespace Task_Managment_System.Controllers
         public JsonResult GetNumberOfUnOpenedNotifications(string userId)
         {
             int numberUnopened = nh.GetNumUnopened(userId);
-            CreateNotificationsForOverDue();
 
             return Json(new { status=200, numberUnopened }, JsonRequestBehavior.AllowGet);
         }
@@ -157,15 +156,6 @@ namespace Task_Managment_System.Controllers
             return View("Index", notifications);
         }
 
-        private void CreateNotificationsForOverDue()
-        {
-            List<Project> overDueProjects = ph.Filter(FilterMethods.passedDeadLine);
-            
-            foreach(var project in overDueProjects)
-                nh.Create(User.Identity.GetUserId(), "project passed deadline", project.Name, NotificationType.Overdue);
-
-            db.SaveChanges();
-        }
 
         protected override void Dispose(bool disposing)
         {
