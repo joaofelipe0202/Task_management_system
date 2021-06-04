@@ -348,7 +348,7 @@ namespace Task_Managment_System.Controllers
 
             return View( projectList);
         }
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult AssignTaskToUser(int taskId)
         {
             ProjectTask task = db.Tasks.Find(taskId);
@@ -403,6 +403,6 @@ namespace Task_Managment_System.Controllers
             string creatorId = User.Identity.GetUserId();
             th.Add(title, contents, deadline, priority, projectId,creatorId);
             return RedirectToAction("Index");
-        }
+        }*/
     }
 }

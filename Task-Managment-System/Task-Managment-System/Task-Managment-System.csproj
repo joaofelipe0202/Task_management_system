@@ -263,6 +263,7 @@
     <Compile Include="Models\TimeHelper.cs" />
     <Compile Include="Models\UserManager.cs" />
     <Compile Include="Models\ViewModel\ProjectDetailsViewModel.cs" />
+    <Compile Include="Models\ViewModel\TaskViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

@@ -1531,23 +1531,11 @@ a.s-tag__moderator:hover, a.s-tag__moderator:focus, a.s-tag__moderator:active {
             color: #fff;
             background-color: var(--black-700)
         }
-
+/*Design from Get All Developers Task*/
 .create-new-task-button {
     position: absolute;
     top: 50px;
-    right: 530px;
-}
-
-.delete-task-button {
-    position: absolute;
-    top: 50px;
     right: 270px;
-}
-
-.edit-task-button {
-    position: absolute;
-    top: 50px;
-    right: 410px;
 }
 
 .home-button {
@@ -1566,6 +1554,25 @@ a.s-tag__moderator:hover, a.s-tag__moderator:focus, a.s-tag__moderator:active {
     text-decoration: none;
     display: inline-block;
     margin: 4px 2px;
+}
+
+/*Design taskDetails*/
+.back-button {
+    position: absolute;
+    top: 50px;
+    right: 122px;
+}
+
+.delete-task-button {
+    position: absolute;
+    top: 50px;
+    right: 270px;
+}
+
+.edit-task-button {
+    position: absolute;
+    top: 50px;
+    right: 400px;
 }
 
 .meter-percent {
