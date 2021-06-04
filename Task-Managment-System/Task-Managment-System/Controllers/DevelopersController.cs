@@ -42,9 +42,10 @@ namespace Task_Managment_System.Controllers
             var user = db.Users.Find(userId);
             if (user == null)
                 return HttpNotFound();
-
+            
             var userName = user.UserName;
             var tasksList = db.Tasks.Where(t => t.AssignedUser.UserName == userName).OrderBy(t => t.Priority).ToList();
+            ViewBag.UserName = userName;
             return View(tasksList);
         }
 

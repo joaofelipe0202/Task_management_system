@@ -1,8 +1,15 @@
 ﻿@model Task_Managment_System.Models.ProjectTask
 @using Task_Managment_System.Models
-<br />
-<br />
+
+
+
 <h1>@Model.Title</h1>
+<div class="back-button">
+    <button class="btn btn-lg btn-primary text-muted"  type="button" onclick="location.href='@Url.Action("GetAllDeveloperTasks", "Developers")'">
+        Back to Tasks
+    </button>
+</div>
+
 <div>   
     <div>        
         <br />
@@ -29,10 +36,12 @@
             <span style="color:white;
                     background-color:red;
                     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                    font-size: 12px;
+                    font-size: 14px;
                     padding:4px;">
-                URGENT
-            </span>
+                    <svg aria-hidden="true" width="14" height="14" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                    </svg> URGENT
+            </span>            
         </td>
     </tr>
     <tr>
@@ -75,3 +84,11 @@
 @Html.Partial("../Shared/CommentFormPartialView", new Comment { TaskId = Model.Id })
 
 
+<style>
+    .back-button {
+        position: absolute;
+        top: 50px;
+        right: 190px;
+    }
+
+</style>

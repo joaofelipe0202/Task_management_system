@@ -1,87 +1,195 @@
 ﻿@model List<Task_Managment_System.Models.ProjectTask>
 
-<h2>Tasks Assigned to you</h2>
+
+
+<div class="create-new-task-button">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("#", "#")'">
+        New Task
+    </button>
+</div>
+
+<div class="home-button">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Index", "Home")'">
+        Back to Main
+    </button>
+</div>
+
 
 
 @if (Model.Count > 0)
 {
+
+    var completedTasks = @Model.Where(t => t.Complete == true).Count();
+    var uncompletedTasks = @Model.Where(t => t.Complete == false).Count();
+    var TasksPastDeadline = Model.Where(t => t.Deadline > DateTime.Now).Count();
+
+
+
+    <div>
+
+        <h2>@ViewBag.UserName's Tasks</h2>
+        <br />
+        <h4>
+            Outstanding Tasks: @uncompletedTasks |
+            Completed Tasks: @completedTasks
+        </h4>
+    </div>
+
+
     foreach (var task in Model)
     {
-        
+
         var dateCreated = task.DateCreated;
         var deadline = task.Deadline;
-<div class="alert rounded-0">
-    <h2>@task.Title</h2>
 
-    <div class="question-summary">
-        <div class="statscontainer">
-            <div class="stats">
-                <div class="vote">
-                    <div class="votes">
-                        <span class="vote-count-post">
-                            <strong>@task.Priority</strong>
-                        </span>
-                        <div class="viewcount">priority</div>
-                    </div>
-                </div>
-            </div>
-            @if (task.Complete == true)
-            {
-                <div class="stats">
-                    <div class="vote">
-                        <div class="votes">
-                            <span class="vote-count-post">
-                                <svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8v-8z"></path></svg>
-                            </span>
-                            <div class="viewcount">completed</div>
+        <div class="alert rounded-0" style="border:2px solid #90ccf4;">
+            @Html.ActionLink(task.Title, "TaskDetails", "Tasks", new { id = task.Id }, new { style = "text-decoration:none; font-size: 30px;" })
+
+            <div class="question-summary">
+                <div class="statscontainer">
+
+                    @if (task.Priority == Task_Managment_System.Models.Priority.Urgent)
+                    {
+                        <div class="stats" style="width:90px; height:60px; background-color:#f00000; color:white;">
+                            <div class="vote">
+                                <div class="votes">
+                                    <span class="vote-count-post" style="margin-top: 5px;">
+                                        <strong style="color:white;">@task.Priority</strong>
+                                    </span>
+                                    <div class="viewcount">priority</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else if (task.Priority == Task_Managment_System.Models.Priority.High)
+                    {
+                        <div class="stats" style="width:90px; height:60px; background-color:#f0a400; color:white;">
+                            <div class="vote">
+                                <div class="votes">
+                                    <span class="vote-count-post" style="margin-top: 5px;">
+                                        <strong style="color:white;">@task.Priority</strong>
+                                    </span>
+                                    <div class="viewcount">priority</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (task.Priority == Task_Managment_System.Models.Priority.Average)
+                    {
+                        <div class="stats" style="width:90px; height:60px; background-color:#eee40c; color:white;">
+                            <div class="vote">
+                                <div class="votes">
+                                    <span class="vote-count-post" style="margin-top: 5px;">
+                                        <strong style="color:white;">@task.Priority</strong>
+                                    </span>
+                                    <div class="viewcount">priority</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (task.Priority == Task_Managment_System.Models.Priority.Low)
+                    {
+                        <div class="stats" style="width:90px; height:60px; background-color:#389ace; color:white;">
+                            <div class="vote">
+                                <div class="votes">
+                                    <span class="vote-count-post" style="margin-top: 5px;">
+                                        <strong style="color:white;">@task.Priority</strong>
+                                    </span>
+                                    <div class="viewcount">priority</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (task.Complete == true)
+                    {
+                        <div class="stats" style="background-color: #04AA6D; color:white; width:90px; height:60px;">
+                            <div class="vote">
+                                <div class="votes">
+                                    <span class="vote-count-post">
+                                        <svg aria-hidden="true" class="svg-icon iconCheckmarkLg" style="color:white;" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8v-8z"></path></svg>
+                                    </span>
+                                    <div class="viewcount">completed</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
-            }
+
+                <div class="summary">
+                    <div class="excerpt">
+                        @Html.Label("Created Date")
+                        <br />
+                        @Convert.ToDateTime(dateCreated).ToString("ddd/MMM/d/yyy")
+                    </div>
+                    <div class="excerpt">
+                        @Html.Label("Deadline")
+                        <br />
+                        @Convert.ToDateTime(deadline).ToString("ddd/MMM/d/yyy")
+                    </div>
+
+                    <div class="excerpt">
+                        Completed: @task.PercentageCompleted%
+                        <br />
+                        <button class="percentage-button" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "-" })'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                            </svg>
+                        </button>
+                        <meter class="meter-percent" min="0" max="100" , value="@task.PercentageCompleted"></meter>
+                        <button class="percentage-button" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "+"  })'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                        </button>
+                        <br />
+                    </div>
+                    @if (task.Complete == true)
+                    {
+                        <button class="ws-nowrap s-btn s-btn__primary" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Unmark as Completed</button>
+                    }
+                    else
+                    {
+                        <button class="ws-nowrap s-btn s-btn__primary" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Mark as Completed</button>
+                    }
+                </div>
+            </div>
         </div>
 
-        <div class="summary">
-            <div class="excerpt">
-                @Html.Label("Content")
-                <br />
-                @task.Contents
-            </div>
-            <div class="excerpt">
-                @Html.Label("Created Date")
-                <br />
-                @Convert.ToDateTime(dateCreated).ToString("ddd/MMM/d/yyy")
-            </div>
-            <div class="excerpt">
-                @Html.Label("Deadline")
-                <br />
-                @Convert.ToDateTime(deadline).ToString("ddd/MMM/d/yyy")
-            </div>
-            <div class="excerpt">
-                @Html.Label("Percentage Completed")
-                <br/>
-                <button class="" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "-" })'">-</button>
-                <meter min="0" max="100" , value="@task.PercentageCompleted"></meter>
-                <button class="" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "+"  })'">+</button>
-                <br />
-            </div>
-            @if (task.Complete == true)
-            {
-                <button class="ws-nowrap s-btn s-btn__primary" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Unmark Task as Completed</button>
-            }
-            else
-            {
-                <button class="ws-nowrap s-btn s-btn__primary" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Mark Task as Completed</button>
-            }
-        </div>
-    </div>
-</div>
-
     }
-    }
-    else
-    {
+}
+else
+{
     <h3>You have not been assigned any tasks.</h3>
+}
+
+<style>
+    .create-new-task-button {
+        position: absolute;
+        top: 50px;
+        right: 270px;
     }
 
+    .home-button {
+        position: absolute;
+        top: 50px;
+        right: 122px;
+    }
 
+    .percentage-button {
+        background-color: #04AA6D;
+        border-radius: 60%;
+        border: none;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+    }
 
+    .meter-percent {
+        height: 25px;
+        width: 200px;
+        padding-top: 10px;
+    }
+</style>
