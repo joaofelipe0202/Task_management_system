@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Microsoft.AspNet.Identity;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,11 +17,9 @@ namespace Task_Managment_System.Models
             db = database;
         }
 
-        public void Add(string title, string contents, DateTime deadline, bool complete, Priority priority)
+        public void Add(ProjectTask task)
         {
-            var newTask = new ProjectTask(title, contents, deadline, complete, priority);
-
-            db.Tasks.Add(newTask);
+            db.Tasks.Add(task);
             db.SaveChanges();
         }
 
