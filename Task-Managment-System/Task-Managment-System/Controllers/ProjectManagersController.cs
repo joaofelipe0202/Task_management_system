@@ -326,6 +326,7 @@ namespace Task_Managment_System.Controllers
             if (task.Complete)
             {
                 task.PercentageCompleted = 100;
+
             }
             else
             {

@@ -25,7 +25,7 @@ namespace Task_Managment_System.Models
             if (user == null)
                 return;
 
-            if(user.Notifications.FirstOrDefault(n => n.Contents == contents) == null)
+            if(user.Notifications.FirstOrDefault(n => n.Contents == contents && n.Type == type) == null)
             {
                 var notification = new Notification(userId, title, contents, type);
                 db.Notifications.Add(notification);
