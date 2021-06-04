@@ -62,12 +62,14 @@
 <h2>Dashboard</h2>
 @Html.Partial("~/Views/Notifications/Notification.cshtml",new ViewDataDictionary { { "userId", ViewBag.UserId } })
 <div>
-    @Html.ActionLink("All", "Index", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("AllProjects", "Index", null, new { @class = "btn btn-primary btn-create-project" })
     @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class = "btn btn-primary btn-create-project" })
-    @Html.ActionLink("Projects that exceed the budget", "ShowProjectsThatExceedTheBudget", null, new { @class = "btn btn-primary btn-create-project" })
-    @*@Html.ActionLink("AddUserToRole", "AddUserToRole", null, new { @class = "btn btn-primary btn-create-project" })*@
     @Html.ActionLink("Create new user", "CreateNewUser", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("Task passed deadline", "ShowTasksThatPassedDeadLine", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("Projects that exceed the budget", "ShowProjectsThatExceedTheBudget", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("AddUserToRole", "AddUserToRole", null, new { @class = "btn btn-primary btn-create-project" })
     @Html.ActionLink("Incomplete", "ShowIncompleteProjects", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to main", "Index", "Home", null, new { @class = "btn btn-primary" })
 </div>
 
 
@@ -93,42 +95,43 @@
 
             var totalCost = string.Empty;
             totalCost = project.Complete == true ? project.ActualCost.ToString() : "Project Not Complete";
-            
 
-        <li class="project-box @levelClass" onclick="handleToggleCompleteForProject(event,@project.Id)">
-            <h5>@Html.ActionLink(project.Name, "ProjectDetails", new { projectId = project.Id })</h5>
-            <div>Manager: @managerName</div>
-            <div>Description: @project.Description</div>
-            <div>Priority: @project.Priority</div>
-            <div>Complete: @Html.CheckBox("check", project.Complete, new { @class = "form-check-input me-1" })</div>
-            <br />
-            <div>Total Cost: @totalCost</div>
-            <br />
-            <div>@Html.ActionLink("Update", "Update", new { projectId = project.Id })</div>
-            <div>@Html.ActionLink("Delete", "DeleteProject", new { projectId = project.Id })</div>
 
-            <div class="tasks-container">
-                <h5>@Html.ActionLink("Tasks", "ShowTasksFor", new { projectId = project.Id })</h5>
-                <div>@Html.ActionLink("Create","CreateNewTask",new { projectId=project.Id})</div>
-                <ul>
+            <li class="project-box @levelClass" onclick="handleToggleCompleteForProject(event,@project.Id)">
+                <h5>@Html.ActionLink(project.Name, "ProjectDetails", new { projectId = project.Id })</h5>
+                <div>Manager: @managerName</div>
+                <div>Description: @project.Description</div>
+                <div>Priority: @project.Priority</div>
+                <div>Complete: @Html.CheckBox("check", project.Complete, new { @class = "form-check-input me-1" })</div>
+                <br />
+                <div>Total Cost: @totalCost</div>
+                <br />
+                <div>@Html.ActionLink("Update", "Update", new { projectId = project.Id })</div>
+                <div>@Html.ActionLink("Delete", "DeleteProject", new { projectId = project.Id })</div>
 
-                    @foreach (var task in project.Tasks)
-                    {
-                        var assignedUser = task.AssignedUser == null ? "Not developers are assigned" : task.AssignedUser.UserName;
+                <div class="tasks-container">
+                    <h5>@Html.ActionLink("Tasks", "ShowTasksFor", new { projectId = project.Id })</h5>
+                    <div>@Html.ActionLink("Create", "CreateNewTask", new { projectId = project.Id })</div>
+                    <ul>
 
-                    <li>
-                        <h7>@task.Title</h7>
-                        <div>Created by: @task.Manager.UserName</div>
-                        <div>Assigned developer: @assignedUser</div>
-                        <div>@Html.ActionLink("AssignTask", "AssignTaskToUser", new { taskId = task.Id })</div>
-                        <div>@Html.ActionLink("Delete", "DeleteTask", new { taskId = task.Id })</div>
-                    </li>
-                    }
-                </ul>
-            </div>
+                        @foreach (var task in project.Tasks)
+                        {
+                            var assignedUser = task.AssignedUser == null ? "Not developers are assigned" : task.AssignedUser.UserName;
 
-        </li>
+                            <li>
+                                <h7>@task.Title</h7>
+                                <div>Created by: @task.Manager.UserName</div>
+                                <div>Assigned developer: @assignedUser</div>
+                                <div>@Html.ActionLink("AssignTask", "AssignTaskToUser", new { taskId = task.Id })</div>
+                                <div>@Html.ActionLink("Delete", "DeleteTask", new { taskId = task.Id })</div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </li>
         }
+
     </ul>
     
 </section>
