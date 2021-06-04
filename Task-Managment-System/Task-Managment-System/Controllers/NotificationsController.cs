@@ -156,7 +156,6 @@ namespace Task_Managment_System.Controllers
             return View("Index", notifications);
         }
 
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
