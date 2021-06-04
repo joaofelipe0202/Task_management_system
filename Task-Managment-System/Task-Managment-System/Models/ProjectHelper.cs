@@ -25,7 +25,8 @@ namespace Task_Managment_System.Models
         public void Add(string name, string description, double budget, DateTime deadline, Priority priority, string creatorId)
         {
             var newProject = new Project(name, description, budget, deadline, priority, creatorId);
-            
+            newProject.DateCreated = DateTime.Now;
+            newProject.LastBudgetUpdate = DateTime.Now;
             db.Projects.Add(newProject);
 
             try
@@ -64,7 +65,7 @@ namespace Task_Managment_System.Models
             db.Projects.Remove(project);
             db.SaveChanges();
         }
-        public void Update(Project project, DateTime deadline, double budget, Priority priority)
+        public void Update(Project project, DateTime deadline, double budget, Priority priority, double actualCost)
         {
             //check modify
             if (project == null)
@@ -74,6 +75,7 @@ namespace Task_Managment_System.Models
             project.Deadline = deadline;
             project.Budget = budget;
             project.Priority = priority;
+            project.ActualCost = actualCost;
 
             db.Entry(project).State = EntityState.Modified;
             try

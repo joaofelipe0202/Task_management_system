@@ -338,9 +338,7 @@
     <Content Include="Views\ProjectManagers\ShowProjects.cshtml" />
     <Content Include="Views\ProjectManagers\ShowTasks.cshtml" />
     <Content Include="Views\ProjectManagers\Index.cshtml" />
-    <Content Include="Views\ProjectManagers\HideCompletedTasks.cshtml" />
     <Content Include="Views\ProjectManagers\ProjectDetails.cshtml" />
-    <Content Include="Views\ProjectManagers\ShowProjectsThatExceedTheBudget.cshtml" />
     <Content Include="Views\ProjectManagers\ShowTotalCostCompletedProjects.cshtml" />
     <Content Include="Views\ProjectManagers\CreateNewUser.cshtml" />
     <Content Include="Views\ProjectManagers\AddUserToRole.cshtml" />
@@ -349,7 +347,6 @@
     <Content Include="Views\ProjectManagers\CreateNewProject.cshtml" />
     <Content Include="Views\ProjectManagers\DeleteProject.cshtml" />
     <Content Include="Views\ProjectManagers\Update.cshtml" />
-    <Content Include="Views\ProjectManagers\Dashboard.cshtml" />
     <Content Include="Views\Tasks\TaskDetails.cshtml" />
     <Content Include="Views\Shared\CommentFormPartialView.cshtml" />
     <Content Include="Views\Notifications\Create.cshtml" />

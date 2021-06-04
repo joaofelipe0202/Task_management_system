@@ -34,7 +34,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr onclick="handleToggleReadForNotification(event,@item.Id)">
 
         <td>
             @Html.DisplayFor(modelItem => item.User.Email)
@@ -46,7 +46,7 @@
             @Html.DisplayFor(modelItem => item.Contents)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Read)
+            @Html.CheckBoxFor(modelItem => item.Read)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CreationDate)
@@ -63,3 +63,33 @@
 }
 
 </table>
+<div><a onclick="goBack()">Go Back</a></div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function handleToggleReadForNotification(event, notificationId) {
+    if (event.target.tagName === "INPUT") {
+        $.ajax(
+            {
+                type: 'POST',
+                url: "@Url.Action("UpdateRead", "Notifications")/"+notificationId,
+                data: {
+                    ifRead: event.target.checked
+                },
+                success: function (result) {
+                    //test
+                    console.log(result.status);
+                },
+                error: function (err) {
+                    //test
+                    alert(err.responseText);
+                }
+
+            }
+        )
+        }
+    }
+</script>
