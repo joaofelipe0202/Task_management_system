@@ -181,15 +181,12 @@ namespace Task_Managment_System.Models
                 if (task.AssignedUser == null)
                     return false;
 
-                if (DateTime.Now.CompareTo(task.Deadline) > 0)
+                var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Complete);
+                if (notification == null)
                 {
-                    var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Complete);
-                    if (notification == null)
-                    {
-                        Create(task.ManagerId, $"'{task.Title}' is Complete", $"'{task.Title}' was completed at {DateTime.Now}", NotificationType.Complete, task.Id, null, true);
-                    }
-                    return true;
+                    Create(task.ManagerId, $"'{task.Title}' is Complete", $"'{task.Title}' was completed at {DateTime.Now}", NotificationType.Complete, task.Id, null, true);
                 }
+                return true;
             } else
             {
                 var project = db.Projects.Find(id);
@@ -198,19 +195,13 @@ namespace Task_Managment_System.Models
                 if (project.Creator == null)
                     return false;
 
-                if (DateTime.Now.CompareTo(project.Deadline) > 0)
+                var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Complete);
+                if (notification == null)
                 {
-                    var notification = db.Notifications.FirstOrDefault(n => n.TaskId == id && n.Type == NotificationType.Complete);
-                    if (notification == null)
-                    {
-                        Create(project.CreatorId, $"'{project.Name}' is Complete", $"'{project.Name}' was completed at {DateTime.Now}", NotificationType.Complete, project.Id, null, true);
-                    }
-                    return true;
+                    Create(project.CreatorId, $"'{project.Name}' is Complete", $"'{project.Name}' was completed at {DateTime.Now}", NotificationType.Complete, project.Id, null, true);
                 }
+                return true;
             }
-            
-            
-            return false;
         }
 
         public bool UrgentNote(int taskId, string title, string contents)

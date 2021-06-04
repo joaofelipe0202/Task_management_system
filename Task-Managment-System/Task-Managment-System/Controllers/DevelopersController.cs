@@ -68,6 +68,7 @@ namespace Task_Managment_System.Controllers
             {
                 task.Complete = true;
                 task.PercentageCompleted = 100;
+                nh.IsComplete(task.Id, true);
             }
             db.SaveChanges();
 
