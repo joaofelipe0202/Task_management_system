@@ -323,7 +323,15 @@ namespace Task_Managment_System.Controllers
             return Json(new { status = 200, task=task.Title });
         }
 
-        [HttpGet]
+        public ActionResult Dashboard()
+        {
+            var projectList = db.Projects.Include("Tasks").OrderBy(p => p.Priority).ToList();
+            ViewBag.UserId = User.Identity.GetUserId();
+
+            return View( projectList);
+        }
+
+        /*
         public ActionResult AssignTaskToUser(int taskId)
         {
             ProjectTask task = db.Tasks.Find(taskId);
@@ -378,6 +386,6 @@ namespace Task_Managment_System.Controllers
             string creatorId = User.Identity.GetUserId();
             th.Add(projectTask.Title, projectTask.Contents, projectTask.Deadline, projectTask.Priority, projectId, creatorId);
             return RedirectToAction("Index");
-        }
+        }*/
     }
 }

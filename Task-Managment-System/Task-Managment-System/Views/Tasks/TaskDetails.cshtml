@@ -4,14 +4,27 @@
 
 
 <h1>@Model.Title</h1>
+
+<div class="delete-task-button">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Delete", "Tasks", new { task = Model.Id })'">
+        Delete Task
+    </button>
+</div>
+
+<div class="edit-task-button">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Edit", "Tasks", new { taskId = Model.Id })'">
+        Edit Task
+    </button>
+</div>
+
 <div class="back-button">
-    <button class="btn btn-lg btn-primary text-muted"  type="button" onclick="location.href='@Url.Action("GetAllDeveloperTasks", "Developers")'">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("GetAllDeveloperTasks", "Developers")'">
         Back to Tasks
     </button>
 </div>
 
-<div>   
-    <div>        
+<div>
+    <div>
         <br />
         <strong style="font-size:20px;">Task Details:</strong> <br />
         <span style="font-size: 20px;">@Model.Contents</span><br />
@@ -29,33 +42,33 @@
 {
     if (Model.Complete == false && comment.IsUrgent == true)
     {
-<table class="table table-bordered table-responsive-sm">
-    <tr>
-        <td style="font-size:20px; border-style:none;">
-            @comment.Title
-            <span style="color:white;
+        <table class="table table-bordered table-responsive-sm">
+            <tr>
+                <td style="font-size:20px; border-style:none;">
+                    @comment.Title
+                    <span style="color:white;
                     background-color:red;
                     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
                     font-size: 14px;
                     padding:4px;">
-                    <svg aria-hidden="true" width="14" height="14" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                    </svg> URGENT
-            </span>            
-        </td>
-    </tr>
-    <tr>
-        <td style="border-style:none;">
-            @comment.Content
-        </td>
-    </tr>
-    <tr>
-        <td style="border-style: none;">
-            @comment.Creator.Email |
-            @Convert.ToDateTime(comment.DateCreated).ToString("ddd/MMM/d/yyy")<br />
-        </td>
-    </tr>
-</table>
+                        <svg aria-hidden="true" width="14" height="14" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                        </svg> URGENT
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-style:none;">
+                    @comment.Content
+                </td>
+            </tr>
+            <tr>
+                <td style="border-style: none;">
+                    @comment.Creator.Email |
+                    @Convert.ToDateTime(comment.DateCreated).ToString("ddd/MMM/d/yyy")<br />
+                </td>
+            </tr>
+        </table>
     }
     else if (Model.Complete == true)
     {
@@ -84,11 +97,3 @@
 @Html.Partial("../Shared/CommentFormPartialView", new Comment { TaskId = Model.Id })
 
 
-<style>
-    .back-button {
-        position: absolute;
-        top: 50px;
-        right: 190px;
-    }
-
-</style>
