@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Welcome, @User.Identity.Name</h2><br />
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Project", "CreateNewProject") | @Html.ActionLink("Create New Member", "CreateNewUser")
 </p>
 <table class="table">
     <tr>
@@ -59,9 +59,9 @@
         @Html.DisplayFor(modelItem => item.Priority)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        @Html.ActionLink("Update", "Update", new { projectId = item.Id }) |
+        @Html.ActionLink("Details", "ProjectDetails", new { projectId = item.Id }) |
+        @Html.ActionLink("Delete", "DeleteProject", new { projectId = item.Id })
     </td>
 </tr>
 }

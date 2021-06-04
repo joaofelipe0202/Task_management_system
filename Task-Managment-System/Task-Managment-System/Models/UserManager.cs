@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Task_Managment_System.Models.ViewModel;
 
 namespace Task_Managment_System.Models
 {
@@ -35,46 +36,34 @@ namespace Task_Managment_System.Models
         }
 
         [Authorize(Roles = "ProjectManager")]
-        public  bool AddUserToRole(string userName, string roleName)
+        public  bool AddUserToRole(string userId, string roleName)
         {
-            if (userName == null || roleName == null)
+            if (CheckUserHasRole(userId, roleName))
                 return false;
-
-            var user = db.Users.First(u => u.UserName == userName);
-            var role = roleManager.FindByName(roleName);
-
-            if (user == null || role == null)
-                return false;
-
-            userManager.AddToRole(user.Id, role.Name);
-            return true;
+            else
+            {
+                userManager.AddToRole(userId, roleName);
+                return true;
+            }
         }
 
         [Authorize]
-        public  bool CheckUserHasRole(string userName, string roleName)
+        public bool CheckUserHasRole(string userId, string role)
         {
-            if (userName == null || roleName == null)
-                return false;
-
-            var user = db.Users.First(u => u.UserName == userName);
-            var role = roleManager.FindByName(roleName);
-
-            if (user == null || role == null)
-                return false;
-
-            return userManager.IsInRole(user.Id, role.Name); ;
+            var result = userManager.IsInRole(userId, role);
+            return result;
         }
-
-        [Authorize(Roles="ProjectManager")]
-        public  void Create(string email, double? dailySalaray, string password )
+        public  void Create(string email, double? dailySalary, string password)
         {
             if(!db.Users.Any(u => u.Email == email))
             {
-                var user = new ApplicationUser(email, dailySalaray);
+                var user = new ApplicationUser(email, dailySalary);
+                user.Email = email;
+                user.DailySalary = dailySalary;
+
                 userManager.Create(user, password);
-                db.SaveChanges();
+                db.SaveChanges();  
             }
-            
         }
 
         [Authorize(Roles = "ProjectManager")]
