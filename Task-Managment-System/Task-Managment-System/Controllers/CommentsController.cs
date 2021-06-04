@@ -20,20 +20,6 @@ namespace Task_Managment_System.Controllers
             return View(comments.ToList());
         }
 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(comment);
-        }
-
         public ActionResult Create()
         {
             ViewBag.CreatorId = new SelectList(db.Users, "Id", "Email");
@@ -58,60 +44,7 @@ namespace Task_Managment_System.Controllers
             ViewBag.CreatorId = new SelectList(db.Users, "Id", "Email", comment.CreatorId);
             ViewBag.ProjectTaskId = new SelectList(db.Tasks, "Id");
             return View(comment);
-        }
-
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CreatorId = new SelectList(db.Users, "Id", "Email", comment.CreatorId);
-            return View(comment);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Content,CreatorId,TaskId,Priority")] Comment comment)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(comment).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CreatorId = new SelectList(db.Users, "Id", "Email", comment.CreatorId);
-            return View(comment);
-        }
-
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(comment);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Comment comment = db.Comments.Find(id);
-            db.Comments.Remove(comment);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        }        
 
         protected override void Dispose(bool disposing)
         {

@@ -31,7 +31,7 @@ namespace Task_Managment_System.Models
         public ProjectTask()
         {
             //AssignedUser = new ApplicationUser();
-            Comments = new HashSet<Comment>();
+            Comments = new HashSet<Comment>();            
         }
 
         public ProjectTask(string title, string contents, DateTime deadline, bool complete, Priority priority)

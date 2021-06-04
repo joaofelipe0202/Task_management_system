@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Microsoft.AspNet.Identity;
 using System.Web;
 using System.Web.Mvc;
 
@@ -35,6 +36,11 @@ namespace Task_Managment_System.Models
                 Priority = priority
             };
             project.Tasks.Add(task);
+        }
+        
+        public void Add(ProjectTask task)
+        {
+            db.Tasks.Add(task);
             db.SaveChanges();
         }
 

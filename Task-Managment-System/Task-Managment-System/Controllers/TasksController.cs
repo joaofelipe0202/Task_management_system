@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using Microsoft.AspNet.Identity;
 using System.Web;
 using System.Web.Mvc;
 using Task_Managment_System.Models;
@@ -13,13 +14,14 @@ namespace Task_Managment_System.Controllers
     public class TasksController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly TaskHelper th;
         private NotificationHelper nh { get; set; }
 
         public TasksController()
         {
+            th = new TaskHelper(db);
             nh = new NotificationHelper(db);
         }
-
 
         public ActionResult Index()
         {
@@ -35,7 +37,11 @@ namespace Task_Managment_System.Controllers
 
             ProjectTask task = db.Tasks.Where(p => p.Id == id)
                                .Include(p => p.Comments)
-                               .Include(p => p.AssignedUser).First();
+                               .Include(p => p.AssignedUser).First();            
+
+
+            var project = db.Projects.FirstOrDefault(p => p.Id == task.ProjectId).Name;
+            ViewBag.ProjectName = project;
 
             if (task == null)
             {
@@ -60,6 +66,67 @@ namespace Task_Managment_System.Controllers
                 return RedirectToAction("TaskDetails", new { id = db_task.Id });
             }
             return RedirectToAction("TaskDetails", new { id = db_task.Id });
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "ProjectManager")]
+        public ActionResult Create(ProjectTask task)
+        {
+            if (ModelState.IsValid)
+            {
+                Project project = db.Projects.Find(1); //Project is returning 0
+
+                task.Manager.Id = User.Identity.GetUserId();
+                task.Complete = false;
+                task.DateCreated = DateTime.Now;
+                task.Deadline = DateTime.Parse(task.Deadline.ToString());
+                task.PercentageCompleted = 0;
+                task.Project = project;
+                task.ProjectId = project.Id;
+                //add to the db
+                th.Add(task);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(task);
+        }
+
+        [Authorize(Roles = "ProjectManager")]
+        public ActionResult Delete(int task)
+        {
+            if (ModelState.IsValid)
+            {
+                th.Delete(task);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(task);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int taskId)
+        {
+            ProjectTask task = db.Tasks.Find(taskId);
+            return View(task);
+        }
+
+       [HttpPost]
+        public ActionResult Edit([Bind(Include = "Id, Title, Contents, Deadline, Complete, Priority")] ProjectTask task)
+        {
+            if (ModelState.IsValid)
+            {
+                th.Update(task.Id);
+                return RedirectToAction("Index", "Home");
+            }
+            return View(task);
         }
     }
 }
