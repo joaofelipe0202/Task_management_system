@@ -4,58 +4,128 @@
 
 
 <h1>@Model.Title</h1>
+<div>
+    <span style="font-size: 15px;">
+        Status:
+        @if (Model.Complete)
+        {
+            <strong style="color:#04AA6D;">Completed</strong>
+        }
+        else
+        {
+            <strong style="color:#ff0000;">Outstanding</strong>
+        }
+
+    </span>
+
+</div>
+
+
 <div class="back-button">
-    <button class="btn btn-lg btn-primary text-muted"  type="button" onclick="location.href='@Url.Action("GetAllDeveloperTasks", "Developers")'">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("GetAllDeveloperTasks", "Developers")'">
         Back to Tasks
     </button>
 </div>
+<div class="edit-button">
+    @if (!Model.Complete)
+    {
+        <button class="btn btn-lg btn-outline-dark" onclick="location.href='@Url.Action("Edit", "Tasks", new {taskId = Model.Id })'">
+            Edit
+        </button>
+    }
+    else
+    {
+        <button class="btn btn-lg btn-outline-dark disabled">Edit</button>
+    }
+</div>
 
-<div>   
-    <div>        
+<div class="delete-button">
+    <button class="btn btn-lg btn-danger text-muted" onclick="location.href='@Url.Action("Delete", "Tasks", new {taskId = Model.Id })'">
+        Delete
+    </button>
+</div>
+
+
+<div>
+    <div>
+        <br />
+        <br />
         <br />
         <strong style="font-size:20px;">Task Details:</strong> <br />
+        <br />
         <span style="font-size: 20px;">@Model.Contents</span><br />
+        <br />
+        <br />
+        <br />
         <br />
         <strong> Created: </strong>@Convert.ToDateTime(Model.DateCreated).ToString("MMMM/d/yyyy HH:mm") |
         <strong> Assigned Developer: </strong>@Model.AssignedUser.Email |
         <strong> Project: </strong> @ViewBag.ProjectName
         <br />
+        @if (!Model.Complete)
+        {
+            <div class="excerpt">
+                Completed: @Model.PercentageCompleted%
+                <br />
+                <button class="percentage-button" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Tasks", new {taskId = Model.Id, param = "-" })'">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                    </svg>
+                </button>
+                <meter class="meter-percent" min="0" max="100" , value="@Model.PercentageCompleted"></meter>
+                <button class="percentage-button" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Tasks", new {taskId = Model.Id, param = "+"  })'">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                    </svg>
+                </button>
+            </div>
+            <button class="btn btn-sm btn-success text-muted" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Tasks", new {taskId = Model.Id })'">Mark as Completed</button>
+        }
+        else
+        {
+            <button class="btn btn-sm btn-success text-muted disabled">Completed</button>
+
+        }
+
+
     </div>
 </div>
 <br />
+<hr />
 <br />
 
+<h3>Comments</h3>
 @foreach (var comment in Model.Comments)
 {
     if (Model.Complete == false && comment.IsUrgent == true)
     {
-<table class="table table-bordered table-responsive-sm">
-    <tr>
-        <td style="font-size:20px; border-style:none;">
-            @comment.Title
-            <span style="color:white;
+        <table class="table table-bordered table-responsive-sm">
+            <tr>
+                <td style="font-size:20px; border-style:none;">
+                    @comment.Title
+                    <span style="color:white;
                     background-color:red;
                     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
                     font-size: 14px;
                     padding:4px;">
-                    <svg aria-hidden="true" width="14" height="14" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                    </svg> URGENT
-            </span>            
-        </td>
-    </tr>
-    <tr>
-        <td style="border-style:none;">
-            @comment.Content
-        </td>
-    </tr>
-    <tr>
-        <td style="border-style: none;">
-            @comment.Creator.Email |
-            @Convert.ToDateTime(comment.DateCreated).ToString("ddd/MMM/d/yyy")<br />
-        </td>
-    </tr>
-</table>
+                        <svg aria-hidden="true" width="14" height="14" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                        </svg> URGENT
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-style:none;">
+                    @comment.Content
+                </td>
+            </tr>
+            <tr>
+                <td style="border-style: none;">
+                    @comment.Creator.Email |
+                    @Convert.ToDateTime(comment.DateCreated).ToString("ddd/MMM/d/yyy")<br />
+                </td>
+            </tr>
+        </table>
     }
     else if (Model.Complete == true)
     {
@@ -80,15 +150,49 @@
         </table>
     }
 }
-
-@Html.Partial("../Shared/CommentFormPartialView", new Comment { TaskId = Model.Id })
-
+<br />
+<br />
+<br />
+    @Html.Partial("../Shared/CommentFormPartialView", new Comment { TaskId = Model.Id })
 
 <style>
+
+    .edit-button {
+        position: absolute;
+        top: 50px;
+        right: 380px;
+    }
+
+    .delete-button {
+        position: absolute;
+        top: 50px;
+        right: 275px;
+    }
+
     .back-button {
         position: absolute;
         top: 50px;
-        right: 190px;
+        right: 120px;
     }
 
+    .percentage-button {
+        background-color: white;
+        border: none;
+        color: black;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+    }
+
+    .percentage-button:focus {
+        outline: none;
+    }
+
+    .meter-percent {
+        height: 25px;
+        width: 200px;
+        padding-top: 10px;
+    }
 </style>

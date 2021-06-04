@@ -6,7 +6,7 @@
     @Html.HiddenFor(c => c.CreatorId, User.Identity.Name)
     @Html.HiddenFor(c => c.TaskId)
     <div class="form-horizontal">
-        <h3>Comment</h3>
+        <h3>Add a Comment</h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
