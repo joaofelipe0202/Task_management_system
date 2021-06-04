@@ -1532,6 +1532,47 @@ a.s-tag__moderator:hover, a.s-tag__moderator:focus, a.s-tag__moderator:active {
             background-color: var(--black-700)
         }
 
+.create-new-task-button {
+    position: absolute;
+    top: 50px;
+    right: 530px;
+}
+
+.delete-task-button {
+    position: absolute;
+    top: 50px;
+    right: 270px;
+}
+
+.edit-task-button {
+    position: absolute;
+    top: 50px;
+    right: 410px;
+}
+
+.home-button {
+    position: absolute;
+    top: 50px;
+    right: 122px;
+}
+
+.percentage-button {
+    background-color: #04AA6D;
+    border-radius: 60%;
+    border: none;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+}
+
+.meter-percent {
+    height: 25px;
+    width: 200px;
+    padding-top: 10px;
+}
 a.s-tag__muted:hover, a.s-tag__muted:focus, a.s-tag__muted:active {
     border-color: transparent;
     background-color: var(--black-100);
@@ -17355,3 +17396,5 @@ body {
 body.theme-dark .subcommunity-audiobubble.s-avatar, .theme-dark__forced .subcommunity-audiobubble.s-avatar {
     background-image: url('Img/subcommunities/audiobubble-dark.svg?v=879efc1e2c3b')
 }
+
+

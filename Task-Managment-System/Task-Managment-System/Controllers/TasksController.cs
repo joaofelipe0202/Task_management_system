@@ -68,8 +68,10 @@ namespace Task_Managment_System.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "ProjectManager")]
         public ActionResult Create()
         {
+            //Ask to include AssignedUser
             return View();
         }
 
@@ -79,9 +81,9 @@ namespace Task_Managment_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                Project project = db.Projects.Find(1); //Project is returning 0
+                Project project = db.Projects.Find(1); //Project is returning 0. We need to connect Tasks to Project
 
-                task.Manager.Id = User.Identity.GetUserId();
+                task.ManagerId = User.Identity.GetUserId();
                 task.Complete = false;
                 task.DateCreated = DateTime.Now;
                 task.Deadline = DateTime.Parse(task.Deadline.ToString());
@@ -91,7 +93,7 @@ namespace Task_Managment_System.Controllers
                 //add to the db
                 th.Add(task);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("GetAllDeveloperTasks", "Developers");
             }
 
             return View(task);

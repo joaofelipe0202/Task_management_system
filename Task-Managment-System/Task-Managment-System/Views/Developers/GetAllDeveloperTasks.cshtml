@@ -3,8 +3,20 @@
 
 
 <div class="create-new-task-button">
-    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("#", "#")'">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Create", "Tasks")'">
         New Task
+    </button>
+</div>
+
+<div class="delete-task-button">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Delete", "Tasks")'">
+        Delete Task
+    </button>
+</div>
+
+<div class="edit-task-button">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Edit", "Tasks")'">
+        Edit Task
     </button>
 </div>
 
@@ -162,34 +174,3 @@ else
     <h3>You have not been assigned any tasks.</h3>
 }
 
-<style>
-    .create-new-task-button {
-        position: absolute;
-        top: 50px;
-        right: 270px;
-    }
-
-    .home-button {
-        position: absolute;
-        top: 50px;
-        right: 122px;
-    }
-
-    .percentage-button {
-        background-color: #04AA6D;
-        border-radius: 60%;
-        border: none;
-        color: white;
-        padding: 15px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 4px 2px;
-    }
-
-    .meter-percent {
-        height: 25px;
-        width: 200px;
-        padding-top: 10px;
-    }
-</style>
