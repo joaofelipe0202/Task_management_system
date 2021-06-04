@@ -11,21 +11,34 @@ namespace Task_Managment_System.Controllers
 {
     public class DevelopersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();  
-        
+        private ApplicationDbContext db = new ApplicationDbContext();
+        private NotificationHelper nh { get; set; }
+
+        public DevelopersController()
+        {
+            nh = new NotificationHelper(db);
+        }
 
         public ActionResult Index()
         {            
             return View();
         }
 
-        [Authorize(Roles = "ProjectManager")]
-        public ActionResult ShowDevelopers()
-        {         
-            var developers = db.Users.Where(u => 
-                u.Roles.Any(r => r.RoleId == "8c3bf9bf-2")).ToList();           
-            return View(developers);
-        }
+        //[Authorize(Roles = "ProjectManager")]
+        //public ActionResult ShowDevelopers()
+        //{
+
+        //    //var developerRole = db.Roles.Where(r => r.Name == "Developer");
+        //    //var developerTest = db.Users.Where(u => u.Roles
+            
+        //    //var developers = db.Users.Where(u => 
+        //    //    u.Roles.Any(r => r.RoleId == "7375b74f-6")).ToList();           
+
+        //    var developer = db.Users.Where(u=>)
+
+
+        //    return View(developers);
+        //}
 
         [Authorize(Roles = "Developer, ProjectManager")]        
         public ActionResult GetAllDeveloperTasks()
@@ -34,9 +47,10 @@ namespace Task_Managment_System.Controllers
             var user = db.Users.Find(userId);
             if (user == null)
                 return HttpNotFound();
-
+            
             var userName = user.UserName;
-            var tasksList = db.Tasks.Where(t => t.AssignedUser.UserName == userName).ToList();
+            var tasksList = db.Tasks.Where(t => t.AssignedUser.UserName == userName).OrderBy(t => t.Priority).ToList();
+            ViewBag.UserName = userName;
             return View(tasksList);
         }
 
@@ -73,6 +87,7 @@ namespace Task_Managment_System.Controllers
                     if (task.PercentageCompleted >= 100)
                     {
                         task.Complete = true;
+                        nh.IsComplete(task.Id, true);
                     }
                 }    
             }

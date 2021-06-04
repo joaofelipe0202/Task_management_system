@@ -21,7 +21,12 @@ namespace Task_Managment_System.Models
         public virtual ProjectTask Task { get; set; }
         public virtual Project Project { get; set; }
 
-        public Notification(string userId, string title, string contents, NotificationType type)
+        public Notification()
+        {
+
+        }
+
+        public Notification(string userId, string title, string contents, NotificationType type, int? taskId, int? projectId)
         {
             UserId = userId;
             Title = title;
@@ -29,10 +34,8 @@ namespace Task_Managment_System.Models
             Read = false;
             CreationDate = DateTime.Now;
             Type = type;
-        }
-        public Notification()
-        {
-
+            TaskId = taskId;
+            ProjectId = projectId;
         }
     }
 }

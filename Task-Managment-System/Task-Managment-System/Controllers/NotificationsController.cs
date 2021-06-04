@@ -156,6 +156,34 @@ namespace Task_Managment_System.Controllers
             return View("Index", notifications);
         }
 
+
+        {
+            List<Project> overDueProjects = ph.Filter(FilterMethods.passedDeadLine);
+            
+            foreach(var project in overDueProjects)
+                nh.Create(User.Identity.GetUserId(), "project passed deadline", project.Name, NotificationType.Overdue);
+
+            db.SaveChanges();
+        }
+
+        {
+            List<Project> overDueProjects = ph.Filter(FilterMethods.passedDeadLine);
+            
+            foreach(var project in overDueProjects)
+                nh.Create(User.Identity.GetUserId(), "project passed deadline", project.Name, NotificationType.Overdue);
+
+            db.SaveChanges();
+        }
+
+        {
+            List<Project> overDueProjects = ph.Filter(FilterMethods.passedDeadLine);
+            
+            foreach(var project in overDueProjects)
+                nh.Create(User.Identity.GetUserId(), "project passed deadline", project.Name, NotificationType.Overdue);
+
+            db.SaveChanges();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

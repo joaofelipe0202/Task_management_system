@@ -21,17 +21,20 @@ namespace Task_Managment_System.Models
         public double ActualCost { get; set; }
         public string Description { get; set; }
         public Priority Priority { get; set; }
+        public DateTime LastBudgetUpdate { get; set; }
         public bool Complete { get; set; }
      
 
         public virtual ApplicationUser Creator { get; set; }
         public virtual ICollection<ApplicationUser> Members { get; set; }
         public virtual ICollection<ProjectTask> Tasks { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
 
         public Project()
         {
-            DateCreated = DateTime.Now;
-            Deadline = DateTime.Now;
+            Notifications = new HashSet<Notification>();
+            Members = new HashSet<ApplicationUser>();
+            Tasks = new HashSet<ProjectTask>();
         }
 
         public Project(string name,string description, double budget, DateTime deadline,Priority priority, string creatorId)
@@ -44,6 +47,7 @@ namespace Task_Managment_System.Models
             Priority = priority;
             CreatorId = creatorId;
 
+            Notifications = new HashSet<Notification>();
             Members = new HashSet<ApplicationUser>();
             Tasks = new HashSet<ProjectTask>();
         }

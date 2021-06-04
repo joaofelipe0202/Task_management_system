@@ -35,6 +35,11 @@ namespace Task_Managment_System.Models
                 Priority = priority
             };
             project.Tasks.Add(task);
+        }
+        
+        public void Add(ProjectTask task)
+        {
+            db.Tasks.Add(task);
             db.SaveChanges();
         }
 

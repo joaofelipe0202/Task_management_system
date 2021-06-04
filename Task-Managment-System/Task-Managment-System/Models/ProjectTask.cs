@@ -27,13 +27,14 @@ namespace Task_Managment_System.Models
         public virtual ApplicationUser AssignedUser { get; set; }
         [JsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Notification> Notifications { get; set; }
 
         public ProjectTask()
         {
             //AssignedUser = new ApplicationUser();
-            Comments = new HashSet<Comment>();
-            DateCreated = DateTime.Now;
-            Deadline = DateTime.Now;
+            Notifications = new HashSet<Notification>();
+            Comments = new HashSet<Comment>();            
         }
 
         public ProjectTask(string title, string contents, DateTime deadline, bool complete, Priority priority)
