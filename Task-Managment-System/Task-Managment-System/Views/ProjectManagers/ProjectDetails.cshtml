@@ -9,19 +9,22 @@
 <table class="table">
     <tr>
         <th>
-            Project Name
+            <b>Project Name</b>
         </th>
         <th>
-            Project Description
+            <b>Project Description</b>
         </th>
         <th>
-            Project Budget
+            <b>Project Budget</b>
         </th>
         <th>
-            Project Actual Cost
+            <b>Project Actual Cost</b>
         </th>
         <th>
-            Deadline
+            <b>Percentage Completed</b>
+        </th>
+        <th>
+            <b>Project Deadline</b>
         </th>
         <th></th>
     </tr>
@@ -39,6 +42,9 @@
             @Html.DisplayFor(model => model.ProjectActualCost)
         </td>
         <td>
+            @Html.DisplayFor(model => model.ProjectPercentage)%
+        </td>
+        <td>
             @Html.DisplayFor(model => model.Deadline)
         </td>
     </tr>
@@ -51,16 +57,16 @@
 <table class="table">
     <tr>
         <th>
-            Task Title
+            <b>Task Title</b>
         </th>
         <th>
-            Assigned Developer
+            <b>Assigned Developer</b>
         </th>
         <th>
-            Percentage
+            <b>Percentage</b>
         </th>
         <th>
-            Priority
+            <b>Priority</b>
         </th>
         <th></th>
     </tr>
@@ -75,15 +81,10 @@
                 @Html.DisplayFor(modelItem => item.AssignedUser.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PercentageCompleted)
+                @Html.DisplayFor(modelItem => item.PercentageCompleted)%
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Priority)
-            </td>
-            <td>
-                @Html.ActionLink("Update", "Update", new { projectId = item.Id }) |
-                @Html.ActionLink("Details", "ProjectDetails", new { projectId = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { projectId = item.Id })
             </td>
         </tr>
     }

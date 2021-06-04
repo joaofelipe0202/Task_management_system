@@ -93,8 +93,8 @@
                 ManagerId = user2.Id,
                 Title = "Readme",
                 Contents = "lalal",
-                DateCreated = DateTime.Now,
-                Deadline = DateTime.Now.AddDays(4),
+                DateCreated = DateTime.Now.AddDays(-4),
+                Deadline = DateTime.Now.AddDays(-1),
                 Complete = false,
                 ProjectId = project.Id,
                 AssignedUserId = dev2.Id
@@ -107,8 +107,8 @@
                 ManagerId = user2.Id,
                 Title = "Readme1",
                 Contents = "lalal",
-                DateCreated = DateTime.Now,
-                Deadline = DateTime.Now.AddDays(4),
+                DateCreated = DateTime.Now.AddDays(-10),
+                Deadline = DateTime.Now.AddDays(-2),
                 Complete = false,
                 ProjectId = project.Id,
                 Priority = Priority.Low,
@@ -182,13 +182,27 @@
                 ManagerId = user1.Id,
                 Title = "Testing Task Helper",
                 Contents = "asddadadasdsadsadadsad",
-                DateCreated = DateTime.Now,
-                Deadline = DateTime.Now.AddHours(5),
+                DateCreated = DateTime.Now.AddDays(-12),
+                Deadline = DateTime.Now.AddDays(-3),
                 Complete = false,
                 ProjectId = project3.Id,
                 AssignedUserId = dev3.Id
             };
             context.Tasks.AddOrUpdate(t => t.Title, task6);
+
+            ProjectTask task7 = new ProjectTask
+            {
+                ManagerId = user2.Id,
+                Title = "Testing Task Helper",
+                Contents = "asddadadasdsadsadadsad",
+                DateCreated = DateTime.Now.AddDays(-12),
+                Deadline = DateTime.Now.AddDays(-3),
+                Complete = false,
+                ProjectId = project1.Id,
+                AssignedUserId = dev1.Id
+            };
+            context.Tasks.AddOrUpdate(t => t.Title, task7);
+
             Comment comment1 = new Comment
             {
                 Title = "Nice feature implemented",

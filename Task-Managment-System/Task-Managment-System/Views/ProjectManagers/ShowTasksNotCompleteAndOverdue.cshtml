@@ -1,0 +1,55 @@
+﻿@model Task_Managment_System.Models.ViewModel.ProjectDetailsViewModel
+
+@{
+    ViewBag.Title = "ShowTasksNotCompleteAndOverdue";
+}
+
+<h2>Tasks Not Complete and Overdue</h2>
+
+<br /><br />
+<table class="table">
+    <tr>
+        <th>
+            <b>Task Title</b>
+        </th>
+        <th>
+            <b>Assigned Developer</b>
+        </th>
+        <th>
+            <b>Percentage</b>
+        </th>
+        <th>
+            <b>Priority</b>
+        </th>
+        <th>
+            <b>Deadline</b>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ProjectTasks)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AssignedUser.UserName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PercentageCompleted)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Priority)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Deadline)
+    </td>
+</tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back to Dashboard", "Dashboard")
+</p>
+

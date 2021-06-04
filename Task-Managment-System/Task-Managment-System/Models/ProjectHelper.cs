@@ -64,18 +64,45 @@ namespace Task_Managment_System.Models
             db.Projects.Remove(project);
             db.SaveChanges();
         }
-        public void Update(Project project, DateTime deadline, double budget, Priority priority)
+        public void Update(Project project, DateTime deadline, double budget, Priority priority, int percentage)
         {
             //check modify
-            if (project == null)
+            var projectToBeUpdated = db.Projects.FirstOrDefault(p => p.Id == project.Id);
+            if (projectToBeUpdated == null)
                 return;
 
-            project.DateCreated = DateTime.Now;
-            project.Deadline = deadline;
-            project.Budget = budget;
-            project.Priority = priority;
+            projectToBeUpdated.Deadline = deadline;
+            projectToBeUpdated.Budget = budget;
+            projectToBeUpdated.ActualCost = project.ActualCost;
+            projectToBeUpdated.Priority = priority;
+            projectToBeUpdated.Percentage = percentage;
+            
+            //if(budget == 0)
+            //{
+            //    projectToBeUpdated.Budget = project.Budget;
+            //}
+            //else
+            //{
+            //    projectToBeUpdated.Budget = budget;
+            //}
+            //if(priority == 0)
+            //{
+            //    projectToBeUpdated.Priority = project.Priority;
+            //}
+            //else
+            //{
+            //    projectToBeUpdated.Priority = priority;
+            //}
+            //if (percentage == 0)
+            //    projectToBeUpdated.Percentage = project.Percentage;
+            //else
+            //    projectToBeUpdated.Percentage = percentage;
+            //project.DateCreated = DateTime.Now;
+            //project.Deadline = deadline;
+            //project.Budget = budget;
+            //project.Priority = priority;
 
-            db.Entry(project).State = EntityState.Modified;
+            db.Entry(projectToBeUpdated).State = EntityState.Modified;
             try
             {
                 db.SaveChanges();
@@ -111,7 +138,17 @@ namespace Task_Managment_System.Models
 
             return filteredProjects;
         }
+        public ProjectDetailsViewModel Details(int projectId)
+        {
+            var project = db.Projects.Find(projectId);
 
+            if(project == null)
+                return null;
+            var tasks = db.Tasks.Where(t => t.ProjectId == project.Id).ToList();
+
+            var projectDetails = new ProjectDetailsViewModel(project, tasks);
+            return projectDetails;
+        }
         private List<Project> ProjectsPassedDeadline(List<Project> projects)
         {
             var filteredProjects = projects.Where(p =>
@@ -141,6 +178,19 @@ namespace Task_Managment_System.Models
 
             string message = builder.ToString();
             return new Exception(message, dbu);
+        }
+        public ProjectDetailsViewModel ShowTasksNotCompleteAndOverdue(int projectId)
+        {
+            var project = db.Projects.Find(projectId);
+            if (project == null)
+                return null;
+
+            var projectTasks = project.Tasks.ToList();
+
+            var tasks = projectTasks.Where(t => t.Complete == false && DateTime.Now.CompareTo(t.Deadline) > 0).ToList();
+            var projectDetails = new ProjectDetailsViewModel(project, tasks);
+
+            return projectDetails;
         }
     }
 }

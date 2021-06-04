@@ -41,22 +41,9 @@ namespace Task_Managment_System.Controllers
         }
 
         [HttpGet]
-        public ActionResult ProjectDetails(int? projectId)
+        public ActionResult ProjectDetails(int projectId)
         {
-            if (projectId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var project = db.Projects.Find(projectId);
-            if (project == null)
-            {
-                return HttpNotFound();
-            }
-            var members = db.Users.Where(u => u.Projects.All(p => p.Id == project.Id)).ToList();
-            var tasks = db.Tasks.Where(t => t.ProjectId == project.Id).ToList();
-            var projectDetails = new ProjectDetailsViewModel(project, members, tasks);
-            projectDetails.ProjectActualCost = project.ActualCost;
-
+            var projectDetails = ph.Details(projectId);
             return View(projectDetails);
         }
         [HttpGet]
@@ -107,11 +94,11 @@ namespace Task_Managment_System.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update([Bind(Include ="Id, Name, Description, Complete")]Project project, DateTime deadline, double budget, Priority priority)
+        public ActionResult Update([Bind(Include ="Id, Name, Description, Complete")]Project project, DateTime deadline, double budget, Priority priority, int percentage)
         {
             project.CreatorId = User.Identity.GetUserId();
-     
-            ph.Update(project, deadline, budget, priority);
+
+            ph.Update(project, deadline, budget, priority, percentage);
             return RedirectToAction("Index");
         }
         //Search projects by name
@@ -403,6 +390,12 @@ namespace Task_Managment_System.Controllers
             string creatorId = User.Identity.GetUserId();
             th.Add(title, contents, deadline, priority, projectId,creatorId);
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult ShowTasksNotCompleteAndOverdue(int projectId)
+        {
+            var projectDetails = ph.ShowTasksNotCompleteAndOverdue(projectId);
+            return View(projectDetails);
         }
     }
 }
