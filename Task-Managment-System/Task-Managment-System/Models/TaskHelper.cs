@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Task_Managment_System.Models.ViewModel;
 
 namespace Task_Managment_System.Models
 {
@@ -197,7 +198,5 @@ namespace Task_Managment_System.Models
 
             return assignedDevelopers;
         }
-        
-
     }
 }

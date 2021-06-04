@@ -45,7 +45,7 @@
             var project3 = SeedProject(context, "restaurant management system", "writing a management syetem to trak customers in a restaurant", 50000, DateTime.Now.AddDays(14), Priority.Average, user1.Id);
             var project3Task1 = SeedTask(context, user2.Id, "create table in ssms", "create the tables", DateTime.Now.AddHours(3), project2.Id, dev1.Id);
             var project3Task2 = SeedTask(context, user2.Id, "readme", "write readme", DateTime.Now.AddMinutes(30), project2.Id, dev2.Id);
-
+            var project3Task3 = SeedTask(context, user2.Id, "something", "something", DateTime.Now.AddMinutes(-30), project2.Id, dev2.Id);
 
             SeedComment(context, "Nice feature implemented", "Nice feature", dev1.Id, project1Task1.Id, false);
             SeedComment(context, "Change this ASAP", "Fix ASAP!!!", dev1.Id, project1Task1.Id, true);

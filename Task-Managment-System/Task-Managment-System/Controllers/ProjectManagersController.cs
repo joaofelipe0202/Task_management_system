@@ -43,19 +43,7 @@ namespace Task_Managment_System.Controllers
         [HttpGet]
         public ActionResult ProjectDetails(int? projectId)
         {
-            if (projectId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var project = db.Projects.Find(projectId);
-            if (project == null)
-            {
-                return HttpNotFound();
-            }
-            var members = db.Users.Where(u => u.Projects.All(p => p.Id == project.Id)).ToList();
-            var tasks = db.Tasks.Where(t => t.ProjectId == project.Id).ToList();
-            var projectDetails = new ProjectDetailsViewModel(project, members, tasks);
-            projectDetails.ProjectActualCost = project.ActualCost;
+            var projectDetails = ph.Details((int)projectId);
 
             return View(projectDetails);
         }

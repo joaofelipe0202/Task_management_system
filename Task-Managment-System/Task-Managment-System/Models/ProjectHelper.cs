@@ -144,5 +144,17 @@ namespace Task_Managment_System.Models
             string message = builder.ToString();
             return new Exception(message, dbu);
         }
+
+        public ProjectDetailsViewModel Details(int projectId)
+        {
+            var project = db.Projects.Find(projectId);
+
+            if (project == null)
+                return null;
+            var tasks = db.Tasks.Where(t => t.ProjectId == project.Id).ToList();
+
+            var projectDetails = new ProjectDetailsViewModel(project, tasks);
+            return projectDetails;
+        }
     }
 }
