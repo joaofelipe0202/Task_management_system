@@ -23,7 +23,7 @@ namespace Task_Managment_System.Controllers
             ViewBag.UserId = User.Identity.GetUserId();
 
 
-            return View("Dashboard",projectList);
+            return View(projectList);
         }
 
         private readonly ProjectHelper ph;
@@ -107,22 +107,14 @@ namespace Task_Managment_System.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update([Bind(Include ="Id, Name, Description, Complete")]Project project, DateTime deadline, double budget, Priority priority)
+        public ActionResult Update(int? projectId, DateTime deadline, double budget, Priority priority,double actualCost)
         {
-            project.CreatorId = User.Identity.GetUserId();
-     
-            ph.Update(project, deadline, budget, priority);
+            var project = ph.By((int)projectId);
+
+            ph.Update(project, deadline, budget, priority,actualCost);
             return RedirectToAction("Index");
         }
-        //Search projects by name
-        //?
-        [HttpGet]
-        public ActionResult ShowProjectByName(string name)
-        {
-            var projects = db.Projects.Where(p => p.Name.ToLower().Contains(name.ToLower())).ToList();
 
-            return View("ShowProjects", projects);
-        }
         public ActionResult ShowTotalCostCompletedProjects(int? projectId)
         {
             if (projectId == null)
@@ -156,12 +148,13 @@ namespace Task_Managment_System.Controllers
 
             if (projectId != null)
             {
-                tasks = th.Filter(FilterMethods.passedDeadLine);
+                tasks = th.Filter(FilterMethods.passedDeadLine,(int)projectId);
             }
+            tasks = th.Filter(FilterMethods.passedDeadLine);
 
             return View("ShowTasks", tasks);
         }
-
+        
         public ActionResult ShowAllProjects()
         {
             var projects = db.Projects.ToList();
@@ -291,7 +284,7 @@ namespace Task_Managment_System.Controllers
 
             ViewBag.UserId = User.Identity.GetUserId();
 
-            return View("Dashboard", projects);
+            return View("Index", projects);
         }
 
 
@@ -342,13 +335,6 @@ namespace Task_Managment_System.Controllers
             return Json(new { status = 200, task=task.Title });
         }
 
-        public ActionResult Dashboard()
-        {
-            var projectList = db.Projects.Include("Tasks").OrderBy(p => p.Priority).ToList();
-            ViewBag.UserId = User.Identity.GetUserId();
-
-            return View( projectList);
-        }
         [HttpGet]
         public ActionResult AssignTaskToUser(int taskId)
         {
@@ -371,7 +357,7 @@ namespace Task_Managment_System.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("Dashboard");
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult DeleteTask(int? taskId)
@@ -399,10 +385,10 @@ namespace Task_Managment_System.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateNewTask(string title, string contents, DateTime deadline, Priority priority,int projectId)
+        public ActionResult CreateNewTask(int projectId, ProjectTask projectTask, DateTime deadline)
         {
             string creatorId = User.Identity.GetUserId();
-            th.Add(title, contents, deadline, priority, projectId,creatorId);
+            th.Add(projectTask.Title, projectTask.Contents, projectTask.Deadline, projectTask.Priority, projectId, creatorId);
             return RedirectToAction("Index");
         }
     }

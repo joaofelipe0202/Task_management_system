@@ -80,11 +80,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Priority)
             </td>
-            <td>
-                @Html.ActionLink("Update", "Update", new { projectId = item.Id }) |
-                @Html.ActionLink("Details", "ProjectDetails", new { projectId = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { projectId = item.Id })
-            </td>
         </tr>
     }
 

@@ -155,6 +155,17 @@ namespace Task_Managment_System.Controllers
 
             return View("Index", notifications);
         }
+        [HttpPost]
+        public ActionResult UpdateRead(int id, bool ifRead)
+        {
+            var notification = db.Notifications.Find(id);
+
+            if (notification != null)
+                notification.Read = ifRead;
+            db.SaveChanges();
+
+            return Json(new { status = 200 });
+        }
 
         protected override void Dispose(bool disposing)
         {

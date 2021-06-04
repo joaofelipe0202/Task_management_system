@@ -35,6 +35,7 @@ namespace Task_Managment_System.Models
                 Priority = priority
             };
             project.Tasks.Add(task);
+            db.SaveChanges();
         }
         
         public void Add(ProjectTask task)
@@ -110,8 +111,8 @@ namespace Task_Managment_System.Models
         private List<ProjectTask> tasksPassedDeadLine(List<ProjectTask> tasks)
         {
             var filteredTasks = tasks.Where(t => 
-                    t.Complete == false
-                    && DateTime.Compare(t.Deadline, DateTime.Now) > 0
+                    !t.Complete
+                    && DateTime.Compare(t.Deadline, DateTime.Now) < 0
                 )
                 .ToList();
 
