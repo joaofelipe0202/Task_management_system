@@ -320,6 +320,9 @@
     <Content Include="Views\Developers\ShowDevelopers.cshtml" />
     <Content Include="Views\Tasks\TaskDetails.cshtml" />
     <Content Include="Views\Shared\CommentFormPartialView.cshtml" />
+    <Content Include="Views\Tasks\Create.cshtml" />
+    <Content Include="Views\Tasks\Delete.cshtml" />
+    <Content Include="Views\Tasks\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
