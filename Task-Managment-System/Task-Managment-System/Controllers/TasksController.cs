@@ -164,6 +164,7 @@ namespace Task_Managment_System.Controllers
                     if (task.PercentageCompleted >= 100)
                     {
                         task.Complete = true;
+                        nh.IsComplete(taskId, true);
                     }
                 }
             }
@@ -195,6 +196,7 @@ namespace Task_Managment_System.Controllers
             {
                 task.Complete = true;
                 task.PercentageCompleted = 100;
+                nh.IsComplete(taskId, true);
             }
             db.SaveChanges();
 
