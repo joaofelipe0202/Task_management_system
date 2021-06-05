@@ -1,27 +1,129 @@
 ﻿@model List<Task_Managment_System.Models.Project>
 
+
+
+<style>
+    .project {
+        width: 1020px;
+        height: 320px;
+        border: 2px solid #90ccf4;
+    }
+
+    .project .title {
+        font-size: 30px;
+        color: #337ab7;
+    }
+
+    .project .title-container {
+        line-height:32px;
+    }
+
+    .project .info-container {
+        display:flex;
+    }
+
+    .project .info-container .info {
+        margin-left:20px;
+    }
+
+    .project .info-container .info div:nth-child(odd){
+        font-weight:700;
+        margin-bottom:5px;
+    }
+
+</style>
+
+
+
 <h2>@ViewBag.Title</h2>
 
 <main>
     <section>
-
-        @Html.ActionLink("Incomplete", "ShowIncompleteProjects", null, new { @class= "btn btn-primary" })
-
-        <ul class="list-group projects"  >
+        <div class="button-group project-btns">@Html.ActionLink("Back to main", "Index", "Home", null, new { @class = "btn btn-primary" })</div>
+        <h4>
+            Completed projects: @Model.Where(p => p.Complete).ToList().Count()
+        </h4>
+        <ul class="list-group projects">
             @{
-                foreach (var item in Model)
+                foreach (var project in Model)
                 {
-                    <li class="list-group-item" project-key="@item.Id" onclick='handleToggleCompleteForProject(event,@item.Id)'>
-                        @Html.CheckBox("check", item.Complete, new { @class = "form-check-input me-1" })
-                        @Html.ActionLink(item.Name, "ShowTasksFor", new { projectId = item.Id }, new { @class = "btn btn-default" })
-                        <div>Creator: @item.Creator</div>
-                        <div>Date Created: @item.DateCreated</div>
-                        <div>DeadLine: @item.Deadline</div>
+                    var managerName = project.Creator == null ? "" : project.Creator.UserName;
+
+                    string levelClass = null;
+
+                    switch (project.Priority)
+                    {
+                        case Task_Managment_System.Models.Priority.Urgent:
+                            levelClass = " list-group-item-danger";
+                            break;
+                        case Task_Managment_System.Models.Priority.High:
+                            levelClass = " list-group-item-waring";
+                            break;
+                        case Task_Managment_System.Models.Priority.Average:
+                            levelClass = " list-group-item-info";
+                            break;
+                    }
+
+                    <li class="list-group-item project" project-key="@project.Id" onclick='handleToggleCompleteForProject(event,@project.Id)'>
+                        <div class="title-container">
+                            @Html.ActionLink(project.Name, "ProjectDetails", new { projectId = project.Id }, new { @class = "title" })
+                            @Html.CheckBox("check", project.Complete, new { @class = "form-check-input me-1 project-check" })
+                        </div>
+
+                        <div class="info-container">
+                            <div class="status">
+                                <div class="stats" style="width:90px; height:60px; background-color:#f00000; color:white;">
+                                    <div class="vote">
+                                        <div class="votes">
+                                            <span class="vote-count-post" style="margin-top: 5px;">
+                                                <strong style="color:white;">@project.Priority</strong>
+                                            </span>
+                                            <div class="viewcount">priority</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="complete">
+                                    @if (project.Complete)
+                                    {
+                                        <div class="stats" style="background-color: #04AA6D; color:white; width:90px; height:60px;">
+                                            <div class="vote">
+                                                <div class="votes">
+                                                    <span class="vote-count-post">
+                                                        <svg aria-hidden="true" class="svg-icon iconCheckmarkLg" style="color:white;" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8v-8z"></path></svg>
+                                                    </span>
+                                                    <div class="viewcount">completed</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="info">
+                                <div>Creator: </div>
+                                <div>@managerName</div>
+                                <div>Date Created: </div>
+                                <div>@project.DateCreated</div>
+                                <div>DeadLine: </div>
+                                <div>@Convert.ToDateTime(project.Deadline).ToString("ddd/MMM/d/yyy")</div>
+                                <div>Budget: </div>
+                                <div>@project.Budget</div>
+                                <div>ActualCost: </div>
+                                <div>@project.ActualCost</div>
+                            </div>
+
+                        </div>
+
                     </li>
                 }
             }
         </ul>
-
+        @Html.ActionLink("Back to list", "Index")
     </section>
 </main>
 
@@ -48,6 +150,30 @@
                 }
             )
         }
+    }
+
+    document.querySelector(".projects").addEventListener("click", (event) => {
+        if(event.target.classList.contains("project-check"))
+            handleAddCompletBox(event)
+    });
+
+    function handleAddCompletBox(event) {
+        if (event.target.checked) {
+            event.target.parentNode.parentNode.querySelector(".complete").insertAdjacentHTML("beforeend",
+                `<div class="stats" style="background-color: #04AA6D; color:white; width:90px; height:60px;">
+                    <div class="vote">
+                        <div class="votes">
+                            <span class="vote-count-post">
+                                <svg aria-hidden="true" class="svg-icon iconCheckmarkLg" style="color:white;" width="36" height="36" viewBox="0 0 36 36"><path d="M6 14l8 8L30 6v8L14 30l-8-8v-8z"></path></svg>
+                            </span>
+                            <div class="viewcount">completed</div>
+                        </div>
+                    </div>
+                </div>`)
+        } else {
+            event.target.parentNode.parentNode.querySelector(".complete").innerHTML = "";
+        }
+        
     }
 
 

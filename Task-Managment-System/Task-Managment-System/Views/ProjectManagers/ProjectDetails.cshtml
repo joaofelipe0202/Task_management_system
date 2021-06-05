@@ -4,26 +4,86 @@
     ViewBag.Title = "ProjectDetails";
 }
 
-<h2>ProjectDetails</h2>
 
-<div>@Model.ProjectName</div>
-<div>@Model.ProjectDescription</div>
-<div>@Model.ProjectBudget</div>
-<div>@Model.ProjectCreatedDate</div>
-<ul>
-    @foreach(var item in Model.ProjectMembers)
-            {
-                <li>
-                    @item.Email 
-                </li>
-            }
-</ul>
-<div>
-    Tasks:
-    <ul>
-        @foreach(var item in Model.ProjectTasks)
-            {
-                <li>@item.Title</li>
-            }
-    </ul>
-</div>
+<h2>Project Details</h2>
+<table class="table">
+    <tr>
+        <th>
+            Project Name
+        </th>
+        <th>
+            Project Description
+        </th>
+        <th>
+            Project Budget
+        </th>
+        <th>
+            Project Actual Cost
+        </th>
+        <th>
+            Deadline
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.ProjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ProjectDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ProjectBudget)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ProjectActualCost)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Deadline)
+        </td>
+    </tr>
+</table>
+<hr />
+<br />
+<br />
+
+<h2>Project's Tasks</h2>
+<table class="table">
+    <tr>
+        <th>
+            Task Title
+        </th>
+        <th>
+            Assigned Developer
+        </th>
+        <th>
+            Percentage
+        </th>
+        <th>
+            Priority
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ProjectTasks)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedUser.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PercentageCompleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back to Dashboard", "Index")
+</p>

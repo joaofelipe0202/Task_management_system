@@ -14,10 +14,12 @@ namespace Task_Managment_System.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private readonly TaskHelper th;
+        private NotificationHelper nh { get; set; }
 
         public TasksController()
         {
             th = new TaskHelper(db);
+            nh = new NotificationHelper(db);
         }
 
         public ActionResult Index()
@@ -34,7 +36,7 @@ namespace Task_Managment_System.Controllers
 
             ProjectTask task = db.Tasks.Where(p => p.Id == id)
                                .Include(p => p.Comments)
-                               .Include(p => p.AssignedUser).First();            
+                               .Include(p => p.AssignedUser).First();
 
 
             var project = db.Projects.FirstOrDefault(p => p.Id == task.ProjectId).Name;
@@ -51,10 +53,13 @@ namespace Task_Managment_System.Controllers
         {
             ProjectTask db_task = db.Tasks.Where(t => t.Id == comment.TaskId).First();
             if (ModelState.IsValid)
-            {                
+            {
                 comment.ProjectTask = db_task;
-                comment.CreatorId = User.Identity.GetUserId();                
-                
+                comment.CreatorId = User.Identity.GetUserId();
+                if (comment.IsUrgent)
+                {
+                    nh.UrgentNote(comment.TaskId, comment.Title, comment.Content);
+                }
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("TaskDetails", new { id = db_task.Id });
@@ -65,41 +70,64 @@ namespace Task_Managment_System.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            ProjectTask newTask = new ProjectTask();
+            var dbValues = db.Projects.ToList();
+            var dbDevelopers = db.Users.ToList();
+
+            var projectsDropdownList = new SelectList(dbValues.Select(item => new SelectListItem
+            {
+                Text = item.Name,
+                Value = item.Id.ToString()
+            }).ToList(), "Value", "Text");
+
+            var developersDropDownList = new SelectList(dbDevelopers.Select(item => new SelectListItem
+            {
+                Text = item.UserName,
+                Value = item.Id.ToString()
+            }).ToList(), "Value", "Text");
+
+            var taskViewModel = new Models.ViewModel.TaskViewModel()
+            {
+                ProjectTask = newTask,
+                ProjectList = projectsDropdownList,
+                DevelopersList = developersDropDownList
+            };
+            return View(taskViewModel);
         }
 
         [HttpPost]
-        [Authorize(Roles = "ProjectManager")]
-        public ActionResult Create(ProjectTask task)
+        public ActionResult Create(Models.ViewModel.TaskViewModel task)
         {
             if (ModelState.IsValid)
             {
-                Project project = db.Projects.Find(1); //Project is returning 0
+                Project project = db.Projects.Find(task.ProjectId);
+                ApplicationUser developer = db.Users.Find(task.DeveloperId);
 
-                task.Manager.Id = User.Identity.GetUserId();
-                task.Complete = false;
-                task.DateCreated = DateTime.Now;
-                task.Deadline = DateTime.Parse(task.Deadline.ToString());
-                task.PercentageCompleted = 0;
-                task.Project = project;
-                task.ProjectId = project.Id;
+                task.ProjectTask.ManagerId = User.Identity.GetUserId();
+                task.ProjectTask.Complete = false;
+                task.ProjectTask.DateCreated = DateTime.Now;
+                task.ProjectTask.Deadline = DateTime.Parse(task.ProjectTask.Deadline.ToString());
+                task.ProjectTask.PercentageCompleted = 0;
+                task.ProjectTask.Project = project;
+                task.ProjectTask.ProjectId = project.Id;
+                task.ProjectTask.AssignedUser = developer;
+                task.ProjectTask.AssignedUserId = developer.Id;
                 //add to the db
-                th.Add(task);
+                th.Add(task.ProjectTask);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("GetAllDeveloperTasks", "Developers");
             }
 
             return View(task);
         }
 
-        [Authorize(Roles = "ProjectManager")]
         public ActionResult Delete(int task)
         {
             if (ModelState.IsValid)
             {
                 th.Delete(task);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("GetAllDeveloperTasks", "Developers");
             }
 
             return View(task);
@@ -117,8 +145,8 @@ namespace Task_Managment_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                th.Update(task.Id);
-                return RedirectToAction("Index", "Home");
+                th.Update(task);
+                return RedirectToAction("GetAllDeveloperTasks", "Developers");
             }
             return View(task);
         }

@@ -11,8 +11,13 @@ namespace Task_Managment_System.Controllers
 {
     public class DevelopersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();  
-        
+        private ApplicationDbContext db = new ApplicationDbContext();
+        private NotificationHelper nh { get; set; }
+
+        public DevelopersController()
+        {
+            nh = new NotificationHelper(db);
+        }
 
         public ActionResult Index()
         {            
@@ -47,6 +52,7 @@ namespace Task_Managment_System.Controllers
             {
                 task.Complete = true;
                 task.PercentageCompleted = 100;
+                nh.IsComplete(task.Id, true);
             }
             db.SaveChanges();
 
@@ -66,6 +72,7 @@ namespace Task_Managment_System.Controllers
                     if (task.PercentageCompleted >= 100)
                     {
                         task.Complete = true;
+                        nh.IsComplete(task.Id, true);
                     }
                 }    
             }

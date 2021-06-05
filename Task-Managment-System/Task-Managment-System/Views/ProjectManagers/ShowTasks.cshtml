@@ -40,12 +40,13 @@
                             <div>Manager: @item.Manager.UserName</div>
                             <div>Percentage: @item.PercentageCompleted%</div>
                             <div>Priority: @item.Priority</div>
+                            <div>AssignedUser: @item.AssignedUser</div>
                         </li>
                     }
                 }
             }
         </ul>
-
+        @Html.ActionLink("Back to list", "Index")
     </section>
 </main>
 

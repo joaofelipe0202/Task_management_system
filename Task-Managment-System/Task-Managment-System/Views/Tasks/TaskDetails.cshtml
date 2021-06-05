@@ -4,6 +4,7 @@
 
 
 <h1>@Model.Title</h1>
+
 <div>
     <span style="font-size: 15px;">
         Status:
@@ -15,11 +16,20 @@
         {
             <strong style="color:#ff0000;">Outstanding</strong>
         }
-
     </span>
-
 </div>
 
+<div class="delete-task-button">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Delete", "Tasks", new { task = Model.Id })'">
+        Delete Task
+    </button>
+</div>
+
+<div class="edit-task-button">
+    <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("Edit", "Tasks", new { taskId = Model.Id })'">
+        Edit Task
+    </button>
+</div>
 
 <div class="back-button">
     <button class="btn btn-lg btn-primary text-muted" type="button" onclick="location.href='@Url.Action("GetAllDeveloperTasks", "Developers")'">
@@ -50,6 +60,7 @@
     <div>
         <br />
         <br />
+
         <br />
         <strong style="font-size:20px;">Task Details:</strong> <br />
         <br />

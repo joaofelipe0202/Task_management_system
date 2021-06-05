@@ -27,10 +27,13 @@ namespace Task_Managment_System.Models
         public virtual ApplicationUser AssignedUser { get; set; }
         [JsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Notification> Notifications { get; set; }
 
         public ProjectTask()
         {
             //AssignedUser = new ApplicationUser();
+            Notifications = new HashSet<Notification>();
             Comments = new HashSet<Comment>();            
         }
 

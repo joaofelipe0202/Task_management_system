@@ -1,69 +1,163 @@
-﻿@model IEnumerable<Task_Managment_System.Models.Project>
+﻿@model List<Task_Managment_System.Models.Project>
 
-@{
-    ViewBag.Title = "Index";
-}
+<style>
+    .projects-container {
+        width: 1100px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: normal;
+        height: 1040px;
+        overflow-y: scroll;
+    }
 
-<h2>Index</h2>
+        .projects-container li {
+            list-style: none;
+        }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Creator.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Percentage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Complete)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Priority)
-        </th>
-        <th></th>
-    </tr>
+        .projects-container::-webkit-scrollbar {
+            display: none;
+        }
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Creator.UserName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.EditorFor(modelItem => item.DateCreated)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Percentage)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Complete)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Priority)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-    </td>
-</tr>
-}
+    .project-box {
+        width: 240px;
+        height: 500px;
+        padding: 8px;
+        margin: 8px;
+        border: 1px solid black;
+        border-radius: 3px;
+        overflow: hidden;
+        transition: all 0.5s;
+    }
 
-</table>
+        .project-box h5 {
+            text-align: center;
+        }
+
+
+        .project-box:last-child {
+            background-color: white;
+        }
+
+    .tasks-container {
+        margin-top: 30px;
+    }
+
+        .tasks-container ul {
+            overflow-y: scroll;
+            padding: 5px;
+            height: 140px;
+        }
+
+
+        .tasks-container li {
+            border: 1px dotted black;
+            padding: 5px;
+        }
+
+    .btn-create-project {
+        margin: 8px;
+    }
+</style>
+
+<h2>Dashboard</h2>
+@Html.Partial("~/Views/Notifications/Notification.cshtml", new ViewDataDictionary { { "userId", ViewBag.UserId } })
+<div>
+    @Html.ActionLink("AllProjects", "Index", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("Create new project", "CreateNewProject", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("Create new user", "CreateNewUser", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("Task passed deadline", "ShowTasksThatPassedDeadLine", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("Projects that exceed the budget", "ShowProjectsThatExceedTheBudget", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("AddUserToRole", "AddUserToRole", null, new { @class = "btn btn-primary btn-create-project" })
+    @Html.ActionLink("Incomplete", "ShowIncompleteProjects", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to main", "Index", "Home", null, new { @class = "btn btn-primary" })
+</div>
+
+
+<section class="box-container">
+    <ul class="projects-container">
+        @foreach (var project in Model)
+        {
+            string levelClass = null;
+
+            switch (project.Priority)
+            {
+                case Task_Managment_System.Models.Priority.Urgent:
+                    levelClass = "list-group-item-danger";
+                    break;
+                case Task_Managment_System.Models.Priority.High:
+                    levelClass = "list-group-item-warning";
+                    break;
+                case Task_Managment_System.Models.Priority.Average:
+                    levelClass = "list-group-item-info";
+                    break;
+            }
+            var managerName = project.Creator == null ? "" : project.Creator.UserName;
+
+            var totalCost = string.Empty;
+            totalCost = project.Complete == true ? project.ActualCost.ToString() : "Project Not Complete";
+
+
+            <li class="project-box @levelClass" onclick="handleToggleCompleteForProject(event,@project.Id)">
+                <h5>@Html.ActionLink(project.Name, "ProjectDetails", new { projectId = project.Id })</h5>
+                <div>Manager: @managerName</div>
+                <div>Description: @project.Description</div>
+                <div>Priority: @project.Priority</div>
+                <div>Complete: @Html.CheckBox("check", project.Complete, new { @class = "form-check-input me-1" })</div>
+                <br />
+                <div>Total Cost: @totalCost</div>
+                <br />
+                <div>@Html.ActionLink("Update", "Update", new { projectId = project.Id })</div>
+                <div>@Html.ActionLink("Delete", "DeleteProject", new { projectId = project.Id })</div>
+
+                <div class="tasks-container">
+                    <h5>@Html.ActionLink("Tasks", "ShowTasksFor", new { projectId = project.Id })</h5>
+                    <div>@Html.ActionLink("Create", "CreateNewTask", new { projectId = project.Id })</div>
+                    <ul>
+
+                        @foreach (var task in project.Tasks)
+                        {
+                            var assignedUser = task.AssignedUser == null ? "Not developers are assigned" : task.AssignedUser.UserName;
+
+                            <li>
+                                <h7>@task.Title</h7>
+                                <div>Created by: @task.Manager.UserName</div>
+                                <div>Assigned developer: @assignedUser</div>
+                                <div>@Html.ActionLink("AssignTask", "AssignTaskToUser", new { taskId = task.Id })</div>
+                                <div>@Html.ActionLink("Delete", "DeleteTask", new { taskId = task.Id })</div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </li>
+        }
+
+    </ul>
+
+</section>
+
+<script>
+
+    function handleToggleCompleteForProject(event, projectId) {
+        if (event.target.tagName === "INPUT") {
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: "@Url.Action("UpdateCompleteStatusForProject", "ProjectManagers")/"+projectId,
+                    data: {
+                        isChecked: event.target.checked
+                    },
+                    success: function (result) {
+                        //test
+                        console.log(result);
+                    },
+                    error: function (err) {
+                        //test
+                        alert(err.responseText);
+                    }
+
+                }
+            )
+        }
+    }
+</script>
