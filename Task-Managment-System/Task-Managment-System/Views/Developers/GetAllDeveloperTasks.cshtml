@@ -42,8 +42,9 @@
         var dateCreated = task.DateCreated;
         var deadline = task.Deadline;
 
-        <div class="alert rounded-0" style="border:2px solid #90ccf4;">
+        <div class="alert rounded-0" style="border:1px solid #e9e9e9; box-shadow: 5px 10px 18px #dedede;">
             @Html.ActionLink(task.Title, "TaskDetails", "Tasks", new { id = task.Id }, new { style = "text-decoration:none; font-size: 30px;" })
+            
 
             <div class="question-summary">
                 <div class="statscontainer">
@@ -76,7 +77,7 @@
                     }
                     else if (task.Priority == Task_Managment_System.Models.Priority.Average)
                     {
-                        <div class="stats" style="width:90px; height:60px; background-color:#eee40c; color:white;">
+                        <div class="stats" style="width:90px; height:60px; background-color:#FFDA00; color:white;">
                             <div class="vote">
                                 <div class="votes">
                                     <span class="vote-count-post" style="margin-top: 5px;">
@@ -126,31 +127,31 @@
                         <br />
                         @Convert.ToDateTime(deadline).ToString("ddd/MMM/d/yyy")
                     </div>
-
-                    <div class="excerpt">
-                        Completed: @task.PercentageCompleted%
-                        <br />
-                        <button class="percentage-button" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "-" })'">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
-                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                            </svg>
-                        </button>
-                        <meter class="meter-percent" min="0" max="100" , value="@task.PercentageCompleted"></meter>
-                        <button class="percentage-button" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "+"  })'">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
-                            </svg>
-                        </button>
-                        <br />
-                    </div>
                     @if (task.Complete == true)
                     {
-                        <button class="ws-nowrap s-btn s-btn__primary" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Unmark as Completed</button>
+                        <button class="btn btn-sm btn-primary text-muted" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Unmark as Completed</button>
                     }
                     else
                     {
-                        <button class="ws-nowrap s-btn s-btn__primary" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Mark as Completed</button>
+                        <div class="excerpt">
+                            Completed: @task.PercentageCompleted%
+                            <br />
+                            <button class="percentage-button" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "-" })'">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                                </svg>
+                            </button>
+                            <meter class="meter-percent" min="0" max="100" , value="@task.PercentageCompleted"></meter>
+                            <button class="percentage-button" onclick="location.href='@Url.Action("UpdateTaskPercentage", "Developers", new {taskId = task.Id, param = "+"  })'">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                    <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                                </svg>
+                            </button>
+                            <br />
+                        </div>
+                        <button class="btn btn-sm btn-success text-muted" onclick="location.href='@Url.Action("ChangeStatusOfTask", "Developers", new {taskId = task.Id })'">Mark as Completed</button>
                     }
+
                 </div>
             </div>
         </div>
@@ -162,3 +163,37 @@ else
     <h3>You have not been assigned any tasks.</h3>
 }
 
+<style>
+    .create-new-task-button {
+        position: absolute;
+        top: 50px;
+        right: 270px;
+    }
+
+    .home-button {
+        position: absolute;
+        top: 50px;
+        right: 122px;
+    }
+
+    .percentage-button {
+        background-color: white;
+        border: none;
+        color: black;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+    }
+
+    .percentage-button:focus{
+        outline: none;
+    }
+
+    .meter-percent {
+        height: 25px;
+        width: 200px;
+        padding-top: 10px;
+    }
+</style>
