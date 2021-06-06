@@ -11,6 +11,7 @@ using Task_Managment_System.Models;
 
 namespace Task_Managment_System.Controllers
 {
+    [Authorize]
     public class NotificationsController : Controller
     {
         private readonly ApplicationDbContext db ;

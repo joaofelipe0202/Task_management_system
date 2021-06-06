@@ -40,7 +40,8 @@
                             <div>Manager: @item.Manager.UserName</div>
                             <div>Percentage: @item.PercentageCompleted%</div>
                             <div>Priority: @item.Priority</div>
-                            <div>AssignedUser: @item.AssignedUser</div>
+                            <div>AssignedUser: @item.AssignedUser.UserName</div>
+                            <div>Deadline: @Convert.ToDateTime(item.Deadline).ToString("ddd/MMM/d/yyy")</div>
                         </li>
                     }
                 }
